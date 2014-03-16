@@ -1,49 +1,91 @@
-#include "Arduino.h"
+/**
+ * Written by Christopher Meyer, July 2011
+ * Version 1.0
+ * 
+ * Simple example for MMA7361 library.
+ * 
+ * Program will output a comma delimited reading of all three accelerometer
+ * axis on the MMA7361.
+ * 
+ */
+
 #include "MMA7361.h"
 
-#define SIZE 10
-#define FILTER1 1000
-#define FILTER2 100
+/**
+ * Pin defines. Library was developed on a Modern Device MMA7361 Module. The
+ * G and Vin pins are attached to A1 and A2 respectively. Those pins output
+ * a low and a high respectively. The 3 axes are attached to the next 3 pins,
+ * A3, A4, A5.
+ * 
+ */
+// #define GND_PIN A0
+// #define VCC_PIN A5
 
-MMA7361 * sensor = new MMA7361();
+#define X_PIN A2
+#define Y_PIN A3
+#define Z_PIN A4
+#define AVERAGING_POINTS 256
 
-int flag = 0;
-int flag2 = 0;
-int count = 0;
-int new_val;
-int array[SIZE];
+MMA7361 accelo;
 
-void setup (void) {
-	sensor->init(2,3,4,DEFAULT,VREF_50,GS_15,10);
-	Serial.begin(9600);
-	// digitalWrite(A2, LOW);
-	// pinMode(A2, INPUT);
+void setup()
+{
+    delay(250); //Allow the chip to stop shaking from the reset press
+    
+    Serial.begin(115200);
+    // pinMode(VCC_PIN, OUTPUT);
+    // pinMode(GND_PIN, OUTPUT);
+    
+    // digitalWrite(VCC_PIN, HIGH);
+    // digitalWrite(GND_PIN, LOW);
+    
+    accelo = MMA7361();
 
-	// for(int i=0; i<SIZE; i++) {
-	// 	array[i] = 0;
-	// }
+    accelo.init(X_PIN, Y_PIN, Z_PIN,
+        EXTERNAL, VREF_33, GS_15, AVERAGING_POINTS);
+
+    //Print offsets to illustrate that offsets can be accessed
+    Serial.print(accelo.offset[X_AXIS]);
+    Serial.print(' ');
+    Serial.print(accelo.offset[Y_AXIS]);
+    Serial.print(' ');
+    Serial.println(accelo.offset[Z_AXIS]);
 }
 
-void loop (void) {
-	if (flag++ > FILTER1) {
-		flag = 0;
-		if (flag2++ > FILTER2) {
-			flag2 = 0;
-		
-			unsigned int out = sensor->getRaw(X_AXIS);
-			Serial.println(out);
-			// if (count++ < SIZE) {
-			// 	array[count] = analogRead(A2);
-			// } else {
-			// 	count = 0;
-			// 	int sum = 0;
-			// 	for(int i=0; i<SIZE; i++) {
-			// 		sum += array[i];
-			// 		array[i] = 0;
-			// 	}
-			// 	int out = sum/SIZE;
-			// 	Serial.println(out);
-			// }
-		}
-	} 
+/**
+ * Print the value from each axis all on a single, comma delimited line
+ * 
+ */
+void loop()
+{
+    float val;
+    char otherChar;
+    short int i;
+    
+    for (i = 0; i < 3; i++) {
+        otherChar = ',';
+        switch(i) {
+            case 0:
+                //val = accelo.getGs(X_AXIS);
+                val = accelo.getRaw(X_AXIS);
+                //val = accelo.getOffsetRaw(X_AXIS);
+                break;
+            
+            case 1:
+                //val = accelo.getGs(Y_AXIS);
+                val = accelo.getRaw(Y_AXIS);
+                //val = accelo.getOffsetRaw(Y_AXIS);
+                break;
+            
+            case 2:
+                //val = accelo.getGs(Z_AXIS);
+                val = accelo.getRaw(Z_AXIS);
+                //val = accelo.getOffsetRaw(Z_AXIS);
+                otherChar = '\n';
+                break;
+        }
+        Serial.print(val);
+        Serial.print(otherChar);
+    }
+    delay(250);
 }
