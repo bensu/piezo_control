@@ -9,7 +9,7 @@
  * 
  */
 
-#include "MMA7361.h"
+#include "Accelerometer.h"
 
 /**
  * Pin defines. Library was developed on a Modern Device MMA7361 Module. The
@@ -21,71 +21,55 @@
 // #define GND_PIN A0
 // #define VCC_PIN A5
 
-#define X_PIN A2
-#define Y_PIN A3
-#define Z_PIN A4
+#define X_PIN A0
+#define Y_PIN A1
+#define Z_PIN A2
 #define AVERAGING_POINTS 256
 
-MMA7361 accelo;
+#define GND_PIN 22
 
-void setup()
-{
+#define FILTER 50000
+
+long int counter;
+int i;
+
+Accelerometer acc = Accelerometer(X_PIN, Y_PIN, Z_PIN);
+
+void setup(void) {
     delay(250); //Allow the chip to stop shaking from the reset press
     
-    Serial.begin(115200);
-    // pinMode(VCC_PIN, OUTPUT);
-    // pinMode(GND_PIN, OUTPUT);
-    
-    // digitalWrite(VCC_PIN, HIGH);
-    // digitalWrite(GND_PIN, LOW);
-    
-    accelo = MMA7361();
-
-    accelo.init(X_PIN, Y_PIN, Z_PIN,
-        EXTERNAL, VREF_33, GS_15, AVERAGING_POINTS);
-
-    //Print offsets to illustrate that offsets can be accessed
-    Serial.print(accelo.offset[X_AXIS]);
-    Serial.print(' ');
-    Serial.print(accelo.offset[Y_AXIS]);
-    Serial.print(' ');
-    Serial.println(accelo.offset[Z_AXIS]);
+    Serial.begin(9600);
+    Serial.println("Start");
+    counter = 0;
+    i = 0;
 }
 
 /**
  * Print the value from each axis all on a single, comma delimited line
  * 
  */
-void loop()
-{
-    float val;
+void loop(void) {
     char otherChar;
     short int i;
-    
-    for (i = 0; i < 3; i++) {
-        otherChar = ',';
-        switch(i) {
+    i = 0;
+    if (++counter > FILTER) {
+        counter = 0;
+        int value;
+        
+        switch (i) {
             case 0:
-                //val = accelo.getGs(X_AXIS);
-                val = accelo.getRaw(X_AXIS);
-                //val = accelo.getOffsetRaw(X_AXIS);
-                break;
-            
+              value = analogRead(A0);
+              break;
             case 1:
-                //val = accelo.getGs(Y_AXIS);
-                val = accelo.getRaw(Y_AXIS);
-                //val = accelo.getOffsetRaw(Y_AXIS);
-                break;
-            
+              value = analogRead(A1);
+              break;
             case 2:
-                //val = accelo.getGs(Z_AXIS);
-                val = accelo.getRaw(Z_AXIS);
-                //val = accelo.getOffsetRaw(Z_AXIS);
-                otherChar = '\n';
-                break;
+              value = analogRead(A2);
+              break;
         }
-        Serial.print(val);
+        otherChar = (i==2) ? '\n' : ',';
+        // i = (i + 1) % 3;
+        Serial.print(value);
         Serial.print(otherChar);
     }
-    delay(250);
 }

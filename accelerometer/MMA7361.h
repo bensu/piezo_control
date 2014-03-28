@@ -60,9 +60,8 @@
 
 #include "Arduino.h"
 
-class MMA7361
-{
-public :
+class MMA7361 {
+public:
     signed long offset[3];
     MMA7361();
     void init(int xPin, int yPin, int zPin, int refType, 
