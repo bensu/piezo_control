@@ -1,0 +1,2239 @@
+Model {
+  Name			  "blinkchallenge"
+  Version		  7.4
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.3"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "windows-1252"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  MaxMDLFileLineLength	  120
+  UserBdParams		  "PhysicalModelingChecksum;PhysicalModelingParameterChecksum;PhysicalModelingProducts"
+  PhysicalModelingChecksum "2522771407"
+  PhysicalModelingParameterChecksum "1043675343"
+  PhysicalModelingProducts "SimElectronics|Simscape"
+  Created		  "Fri Sep 18 12:44:52 2009"
+  Creator		  "gcampa"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "gcampa"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Sat Sep 19 21:45:48 2009"
+  RTWModifiedTimeStamp	  175297462
+  ModelVersionFormat	  "1.%<AutoIncrement:3>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  SampleTimeAnnotations	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.6.0"
+      Array {
+	Type			"Handle"
+	Dimension		10
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.6.0"
+	  StartTime		  "0.0"
+	  StopTime		  "10.0"
+	  AbsTol		  "auto"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ZcThreshold		  "auto"
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  Solver		  "ode45"
+	  SolverName		  "ode45"
+	  ShapePreserveControl	  "DisableAll"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  ZeroCrossAlgorithm	  "Nonadaptive"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  InsertRTBMode		  "Whenever possible"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.6.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveCompleteFinalSimState off
+	  SaveFormat		  "Array"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  ReturnWorkspaceOutputs  off
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  ReturnWorkspaceOutputsName "out"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Version		  "1.6.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    7
+	    Cell		    "BooleansAsBitfields"
+	    Cell		    "PassReuseOutputArgsAs"
+	    Cell		    "PassReuseOutputArgsThreshold"
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    PropName		    "DisabledProps"
+	  }
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  UseIntDivNetSlope	  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnhancedBackFolding	  off
+	  StrengthReduction	  off
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  BooleansAsBitfields	  off
+	  EnableMemcpy		  on
+	  MemcpyThreshold	  64
+	  PassReuseOutputArgsAs	  "Structure reference"
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  off
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  EfficientMapNaN2IntZero on
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.6.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"warning"
+	  CheckSSInitialOutputMsg on
+	  UnderspecifiedInitializationDetection	"Classic"
+	  MergeDetectMultiDrivingBlocksExec "none"
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "error"
+	  MultiTaskCondExecSysMsg "error"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  FixptConstUnderflowMsg  "none"
+	  FixptConstOverflowMsg	  "none"
+	  FixptConstPrecisionLossMsg "none"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  SimStateInterfaceChecksumMismatchMsg "warning"
+	  StrictBusMsg		  "Warning"
+	  LoggingUnavailableSignals "error"
+	  BlockIODiagnostic	  "none"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.6.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.6.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.SFSimCC {
+	  $ObjectID		  8
+	  Version		  "1.6.0"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
+	  SFSimEcho		  on
+	  SimBlas		  on
+	  SimCtrlC		  on
+	  SimExtrinsic		  on
+	  SimIntegrity		  on
+	  SimUseLocalCustomCode	  off
+	  SimBuildMode		  "sf_incremental_build"
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  9
+	  Version		  "1.6.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    6
+	    Cell		    "IncludeHyperlinkInReport"
+	    Cell		    "GenerateTraceInfo"
+	    Cell		    "GenerateTraceReport"
+	    Cell		    "GenerateTraceReportSl"
+	    Cell		    "GenerateTraceReportSf"
+	    Cell		    "GenerateTraceReportEml"
+	    PropName		    "DisabledProps"
+	  }
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  RTWUseLocalCustomCode	  off
+	  RTWUseSimCustomCode	  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
+	  GenerateTraceInfo	  off
+	  GenerateTraceReport	  off
+	  GenerateTraceReportSl	  off
+	  GenerateTraceReportSf	  off
+	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
+	  RTWCompilerOptimization "Off"
+	  CheckMdlBeforeBuild	  "Off"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      10
+	      Version		      "1.6.0"
+	      Array {
+		Type			"Cell"
+		Dimension		19
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"IgnoreTestpoints"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrFcnArg"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		Cell			"ReqsInCode"
+		PropName		"DisabledProps"
+	      }
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrFcnArg   "rt$I$N$M"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	      UseSimReservedNames     off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      11
+	      Version		      "1.6.0"
+	      Array {
+		Type			"Cell"
+		Dimension		17
+		Cell			"GeneratePreprocessorConditionals"
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"CPPClassGenCompliant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportNonFinite"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		Cell			"PortableWordSizes"
+		PropName		"DisabledProps"
+	      }
+	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      TargetFunctionLibrary   "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      ERTMultiwordTypeDef     "System defined"
+	      ERTMultiwordLength      256
+	      MultiwordLength	      2048
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      ParMdlRefBuildCompliant on
+	      CompOptLevelCompliant   on
+	      IncludeMdlTerminateFcn  on
+	      GeneratePreprocessorConditionals "Disable all"
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      CPPClassGenCompliant    off
+	      AutosarCompliant	      off
+	      UseMalloc		      off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	hdlcoderui.hdlcc {
+	  $ObjectID		  12
+	  Version		  "1.6.0"
+	  Description		  "HDL Coder custom configuration component"
+	  Name			  "HDL Coder"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    ""
+	    PropName		    "HDLConfigFile"
+	  }
+	  HDLCActiveTab		  "0"
+	}
+	SSC.SimscapeCC {
+	  $ObjectID		  13
+	  Version		  "1.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "Name"
+	    PropName		    "DisabledProps"
+	  }
+	  Name			  "Simscape"
+	  EditingMode		  "Full"
+	  ExplicitSolverDiagnosticOptions "warning"
+	  InputDerivativeDiagnosticOptions "warning"
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Solver"
+      ConfigPrmDlgPosition    " [ 400, 210, 1280, 840 ] "
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+    BlockRotation	    0
+    BlockMirror		    off
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      PMIOPort
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+  }
+  System {
+    Name		    "blinkchallenge"
+    Location		    [261, 264, 1401, 690]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    61
+    Block {
+      BlockType		      SubSystem
+      Name		      "\n\nPotentiometer"
+      SID		      59
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [875, 245, 915, 305]
+      BlockRotation	      90
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDisplay	      "\nplot([45.5890141893179;79.6036154497415;90.9418158698828;113.618216710165;136.294617550448;"
+      "158.97101839073;181.647419231013;204.323820071295;227.000220911577;249.67662175186;261.014822172001;295.02942343"
+      "2425], 28.10+[85.2727156598121;85.2727156598121;107.949116500095;62.5963148195297;107.949116500095;62.5963148195"
+      "297;107.949116500095;62.5963148195297;107.949116500095;62.5963148195297;85.2727156598121;85.2727156598121])\nplo"
+      "t([0.236212508752999;45.5890141893179;45.5890141893179], 28.10+[85.2727156598121;85.2727156598121;85.27271565981"
+      "21])\nplot([295.029423432425;295.029423432425;340.38222511299], 28.10+[85.2727156598121;85.2727156598121;85.2727"
+      "156598121])\nplot([109.280016290024;109.280016290024;124.956417130306;232.669321121648], 28.10+[210.309218810871"
+      ";170.309218810871;141.963717760518;20.0780632440001])\nplot([209.992920281366;232.669321121648;232.669321121648]"
+      ", 28.10+[20.0780632440001;20.0780632440001;42.7544640842825])\npatch([5.6843418860808e-14;340.618437621743;340.6"
+      "18437621743;0;5.6843418860808e-14;0.472425017505941;0.472425017505941;340.146012604237;340.146012604237;0.472425"
+      "017505941;5.6843418860808e-14], [227.23643342033;227.23643342033;0;0;227.23643342033;226.764008402824;0.47242501"
+      "7505884;0.472425017505884;226.764008402824;226.764008402824;227.23643342033], [1;1;1]);\n"
+      MaskIconFrame	      off
+      MaskIconOpaque	      on
+      MaskIconRotate	      "port"
+      MaskPortRotate	      "physical"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"\n\nPotentiometer"
+	Location		[414, 844, 506, 1014]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Reference
+	  Name			  "Capacitor"
+	  SID			  58
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [25, 65, 65, 105]
+	  BlockRotation		  90
+	  BlockMirror		  on
+	  LibraryVersion	  "1.1"
+	  DialogController	  "NetworkEngine.DynNeDlgSource"
+	  SourceBlock		  "fl_lib/Electrical/Electrical Elements/Capacitor"
+	  SourceType		  "Capacitor"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  ClassName		  "capacitor"
+	  SchemaVersion		  "1"
+	  c			  "1e-06"
+	  c_unit		  "F"
+	  v0			  "0"
+	  v0_unit		  "V"
+	  r			  "1e-06"
+	  r_unit		  "Ohm"
+	  g			  "0"
+	  g_unit		  "1/Ohm"
+	  i_Log			  "off"
+	  v_Log			  "off"
+	  vc_Log		  "off"
+	  LocalVarNames		  "|i|v|vc"
+	  LocalVarDescs		  "|i|v|Internal variable for voltage across capacitor term"
+	  LocalVarLogging	  "[0 0 0]"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Conn1"
+	  SID			  60
+	  Position		  [30, 25, 60, 40]
+	  BlockRotation		  270
+	  BlockMirror		  on
+	  Port			  "1"
+	  Side			  "Right"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Conn2"
+	  SID			  61
+	  Position		  [30, 130, 60, 145]
+	  BlockRotation		  270
+	  Port			  "2"
+	  Side			  "Left"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Conn1"
+	  SrcPort		  RConn1
+	  DstBlock		  "Capacitor"
+	  DstPort		  RConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Conn2"
+	  SrcPort		  RConn1
+	  DstBlock		  "Capacitor"
+	  DstPort		  LConn1
+	}
+      }
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "+5V"
+      SID		      13
+      Ports		      [0, 0, 0, 0, 0, 0, 1]
+      Position		      [195, 35, 235, 75]
+      BlockRotation	      270
+      BlockMirror	      on
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Sources/Positive Supply Rail"
+      SourceType	      "Positive Supply Rail"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "rail_positive"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      current_Log	      "off"
+      voltage_Log	      "off"
+      power_Log		      "off"
+      LocalVarNames	      "|current|voltage|power"
+      LocalVarDescs	      "|Current (A)|Voltage (V)|Power (W)"
+      LocalVarLogging	      "[0 0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "+5V1"
+      SID		      30
+      Ports		      [0, 0, 0, 0, 0, 0, 1]
+      Position		      [875, 35, 915, 75]
+      BlockRotation	      270
+      BlockMirror	      on
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Sources/Positive Supply Rail"
+      SourceType	      "Positive Supply Rail"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "rail_positive"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      current_Log	      "off"
+      voltage_Log	      "off"
+      power_Log		      "off"
+      LocalVarNames	      "|current|voltage|power"
+      LocalVarDescs	      "|Current (A)|Voltage (V)|Power (W)"
+      LocalVarLogging	      "[0 0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "10 KOhms"
+      SID		      1
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [201, 125, 229, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms"
+      SID		      16
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [316, 125, 344, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms\n        "
+      SID		      2
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [150, 186, 190, 214]
+      BlockRotation	      180
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms "
+      SID		      18
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [431, 125, 459, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms  "
+      SID		      21
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [536, 125, 564, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms   "
+      SID		      24
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [646, 125, 674, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms    "
+      SID		      27
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [761, 125, 789, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "100 Ohms          "
+      SID		      31
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [881, 125, 909, 165]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Passive Devices/Resistor"
+      SourceType	      "Resistor"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "res"
+      SchemaVersion	      "1"
+      SCALE		      "1"
+      SCALE_unit	      "1"
+      R_param		      "1"
+      R_param_unit	      "1"
+      R			      "0"
+      R_unit		      "Ohm"
+      RSH		      "0"
+      RSH_unit		      "Ohm"
+      LENGTH		      "1e-06"
+      LENGTH_unit	      "m"
+      WIDTH		      "1e-06"
+      WIDTH_unit	      "m"
+      NARROW		      "0"
+      NARROW_unit	      "m"
+      T_param		      "1"
+      T_param_unit	      "1"
+      TC1		      "0"
+      TC1_unit		      "1/K"
+      TC2		      "0"
+      TC2_unit		      "1/K^2"
+      TOFFSET		      "0"
+      TOFFSET_unit	      "K"
+      TFIXED		      "300.15"
+      TFIXED_unit	      "K"
+      TMEAS		      "300.15"
+      TMEAS_unit	      "K"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source"
+      SID		      3
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [50, 196, 55, 204]
+      BlockRotation	      180
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source1"
+      SID		      17
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [326, 60, 334, 65]
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source2"
+      SID		      19
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [441, 60, 449, 65]
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source3"
+      SID		      22
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [546, 60, 554, 65]
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source4"
+      SID		      25
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [656, 60, 664, 65]
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source5"
+      SID		      28
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [771, 60, 779, 65]
+      BlockRotation	      270
+      BlockMirror	      on
+      NamePlacement	      "alternate"
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source6"
+      SID		      41
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [915, 261, 920, 269]
+      BlockRotation	      180
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "DC Voltage Source7"
+      SID		      42
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [1040, 262, 1045, 268]
+      BlockRotation	      180
+      ShowName		      off
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Sources/DC Voltage Source"
+      SourceType	      "DC Voltage Source"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "dc_voltage"
+      SchemaVersion	      "1"
+      v0		      "1"
+      v0_unit		      "V"
+      i_Log		      "off"
+      v_Log		      "off"
+      LocalVarNames	      "|i|v"
+      LocalVarDescs	      "|i|v"
+      LocalVarLogging	      "[0 0]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "GND"
+      SID		      5
+      Ports		      [0, 0, 0, 0, 0, 1]
+      Position		      [530, 355, 570, 395]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "fl_lib/Electrical/Electrical Elements/Electrical Reference"
+      SourceType	      "Electrical Reference"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "reference"
+      SchemaVersion	      "1"
+      i_Log		      "off"
+      LocalVarNames	      "|i"
+      LocalVarDescs	      "|i"
+      LocalVarLogging	      "0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "LED 1"
+      SID		      15
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [316, 245, 344, 285]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Semiconductor\nDevices/Diode"
+      SourceType	      "Diode"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "diode"
+      SchemaVersion	      "1"
+      ModelType		      "1"
+      ModelType_unit	      "1"
+      Vf		      "0.6"
+      Vf_unit		      "V"
+      Ron		      "0.3"
+      Ron_unit		      "Ohm"
+      Goff		      "1e-08"
+      Goff_unit		      "S"
+      Rz		      "0.3"
+      Rz_unit		      "Ohm"
+      Vz		      "50"
+      Vz_unit		      "V"
+      C_PWL		      "5"
+      C_PWL_unit	      "pF"
+      prmExp		      "1"
+      prmExp_unit	      "1"
+      I12		      "[  0.07 1.5 ]"
+      I12_unit		      "A"
+      V12		      "[  0.7 0.8 ]"
+      V12_unit		      "V"
+      RS		      "0.01"
+      RS_unit		      "Ohm"
+      IS		      "1e-14"
+      IS_unit		      "A"
+      Tmeas		      "25"
+      Tmeas_unit	      "C"
+      ec		      "1"
+      ec_unit		      "1"
+      BV		      "Inf"
+      BV_unit		      "V"
+      C_param		      "1"
+      C_param_unit	      "1"
+      CJ0		      "5"
+      CJ0_unit		      "pF"
+      VJ		      "1"
+      VJ_unit		      "V"
+      Mgrad		      "0.5"
+      Mgrad_unit	      "1"
+      Vvec		      "[  0.1 10 100 ]"
+      Vvec_unit		      "V"
+      Cvec		      "[  3.5 1 0.4 ]"
+      Cvec_unit		      "pF"
+      FC		      "0.5"
+      FC_unit		      "1"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "LED 2"
+      SID		      20
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [431, 245, 459, 285]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Semiconductor\nDevices/Diode"
+      SourceType	      "Diode"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "diode"
+      SchemaVersion	      "1"
+      ModelType		      "1"
+      ModelType_unit	      "1"
+      Vf		      "0.6"
+      Vf_unit		      "V"
+      Ron		      "0.3"
+      Ron_unit		      "Ohm"
+      Goff		      "1e-08"
+      Goff_unit		      "S"
+      Rz		      "0.3"
+      Rz_unit		      "Ohm"
+      Vz		      "50"
+      Vz_unit		      "V"
+      C_PWL		      "5"
+      C_PWL_unit	      "pF"
+      prmExp		      "1"
+      prmExp_unit	      "1"
+      I12		      "[  0.07 1.5 ]"
+      I12_unit		      "A"
+      V12		      "[  0.7 0.8 ]"
+      V12_unit		      "V"
+      RS		      "0.01"
+      RS_unit		      "Ohm"
+      IS		      "1e-14"
+      IS_unit		      "A"
+      Tmeas		      "25"
+      Tmeas_unit	      "C"
+      ec		      "1"
+      ec_unit		      "1"
+      BV		      "Inf"
+      BV_unit		      "V"
+      C_param		      "1"
+      C_param_unit	      "1"
+      CJ0		      "5"
+      CJ0_unit		      "pF"
+      VJ		      "1"
+      VJ_unit		      "V"
+      Mgrad		      "0.5"
+      Mgrad_unit	      "1"
+      Vvec		      "[  0.1 10 100 ]"
+      Vvec_unit		      "V"
+      Cvec		      "[  3.5 1 0.4 ]"
+      Cvec_unit		      "pF"
+      FC		      "0.5"
+      FC_unit		      "1"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "LED 3"
+      SID		      23
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [536, 245, 564, 285]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Semiconductor\nDevices/Diode"
+      SourceType	      "Diode"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "diode"
+      SchemaVersion	      "1"
+      ModelType		      "1"
+      ModelType_unit	      "1"
+      Vf		      "0.6"
+      Vf_unit		      "V"
+      Ron		      "0.3"
+      Ron_unit		      "Ohm"
+      Goff		      "1e-08"
+      Goff_unit		      "S"
+      Rz		      "0.3"
+      Rz_unit		      "Ohm"
+      Vz		      "50"
+      Vz_unit		      "V"
+      C_PWL		      "5"
+      C_PWL_unit	      "pF"
+      prmExp		      "1"
+      prmExp_unit	      "1"
+      I12		      "[  0.07 1.5 ]"
+      I12_unit		      "A"
+      V12		      "[  0.7 0.8 ]"
+      V12_unit		      "V"
+      RS		      "0.01"
+      RS_unit		      "Ohm"
+      IS		      "1e-14"
+      IS_unit		      "A"
+      Tmeas		      "25"
+      Tmeas_unit	      "C"
+      ec		      "1"
+      ec_unit		      "1"
+      BV		      "Inf"
+      BV_unit		      "V"
+      C_param		      "1"
+      C_param_unit	      "1"
+      CJ0		      "5"
+      CJ0_unit		      "pF"
+      VJ		      "1"
+      VJ_unit		      "V"
+      Mgrad		      "0.5"
+      Mgrad_unit	      "1"
+      Vvec		      "[  0.1 10 100 ]"
+      Vvec_unit		      "V"
+      Cvec		      "[  3.5 1 0.4 ]"
+      Cvec_unit		      "pF"
+      FC		      "0.5"
+      FC_unit		      "1"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "LED 4"
+      SID		      26
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [646, 245, 674, 285]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Semiconductor\nDevices/Diode"
+      SourceType	      "Diode"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "diode"
+      SchemaVersion	      "1"
+      ModelType		      "1"
+      ModelType_unit	      "1"
+      Vf		      "0.6"
+      Vf_unit		      "V"
+      Ron		      "0.3"
+      Ron_unit		      "Ohm"
+      Goff		      "1e-08"
+      Goff_unit		      "S"
+      Rz		      "0.3"
+      Rz_unit		      "Ohm"
+      Vz		      "50"
+      Vz_unit		      "V"
+      C_PWL		      "5"
+      C_PWL_unit	      "pF"
+      prmExp		      "1"
+      prmExp_unit	      "1"
+      I12		      "[  0.07 1.5 ]"
+      I12_unit		      "A"
+      V12		      "[  0.7 0.8 ]"
+      V12_unit		      "V"
+      RS		      "0.01"
+      RS_unit		      "Ohm"
+      IS		      "1e-14"
+      IS_unit		      "A"
+      Tmeas		      "25"
+      Tmeas_unit	      "C"
+      ec		      "1"
+      ec_unit		      "1"
+      BV		      "Inf"
+      BV_unit		      "V"
+      C_param		      "1"
+      C_param_unit	      "1"
+      CJ0		      "5"
+      CJ0_unit		      "pF"
+      VJ		      "1"
+      VJ_unit		      "V"
+      Mgrad		      "0.5"
+      Mgrad_unit	      "1"
+      Vvec		      "[  0.1 10 100 ]"
+      Vvec_unit		      "V"
+      Cvec		      "[  3.5 1 0.4 ]"
+      Cvec_unit		      "pF"
+      FC		      "0.5"
+      FC_unit		      "1"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "LED 5"
+      SID		      29
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [761, 245, 789, 285]
+      BlockRotation	      90
+      LibraryVersion	      "1.1"
+      DialogController	      "NetworkEngine.DynNeDlgSource"
+      SourceBlock	      "elec_lib/Semiconductor\nDevices/Diode"
+      SourceType	      "Diode"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      ClassName		      "diode"
+      SchemaVersion	      "1"
+      ModelType		      "1"
+      ModelType_unit	      "1"
+      Vf		      "0.6"
+      Vf_unit		      "V"
+      Ron		      "0.3"
+      Ron_unit		      "Ohm"
+      Goff		      "1e-08"
+      Goff_unit		      "S"
+      Rz		      "0.3"
+      Rz_unit		      "Ohm"
+      Vz		      "50"
+      Vz_unit		      "V"
+      C_PWL		      "5"
+      C_PWL_unit	      "pF"
+      prmExp		      "1"
+      prmExp_unit	      "1"
+      I12		      "[  0.07 1.5 ]"
+      I12_unit		      "A"
+      V12		      "[  0.7 0.8 ]"
+      V12_unit		      "V"
+      RS		      "0.01"
+      RS_unit		      "Ohm"
+      IS		      "1e-14"
+      IS_unit		      "A"
+      Tmeas		      "25"
+      Tmeas_unit	      "C"
+      ec		      "1"
+      ec_unit		      "1"
+      BV		      "Inf"
+      BV_unit		      "V"
+      C_param		      "1"
+      C_param_unit	      "1"
+      CJ0		      "5"
+      CJ0_unit		      "pF"
+      VJ		      "1"
+      VJ_unit		      "V"
+      Mgrad		      "0.5"
+      Mgrad_unit	      "1"
+      Vvec		      "[  0.1 10 100 ]"
+      Vvec_unit		      "V"
+      Cvec		      "[  3.5 1 0.4 ]"
+      Cvec_unit		      "pF"
+      FC		      "0.5"
+      FC_unit		      "1"
+      LocalVarLogging	      "[]"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Switch"
+      SID		      50
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [197, 245, 233, 290]
+      BlockRotation	      270
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDisplay	      "patch([178.308949107304;178.270428219378;178.155236532808;177.964483406507;177.700005897356;1"
+      "77.364351068347;176.960751458971;176.493093954097;175.965882351142;175.384193986049;174.753630835755;174.0802655"
+      "68098;173.370583058705;172.631417938094;171.869888770445;171.093329497935;170.309218810871;169.525108123807;168."
+      "748548851298;167.987019683648;167.247854563037;166.538172053645;165.864806785988;165.234243635694;164.6525552706"
+      ";164.125343667646;163.657686162771;163.254086553395;162.918431724386;162.653954215236;162.463201088934;162.34800"
+      "9402364;162.309488514438;162.348009402364;162.463201088934;162.653954215236;162.918431724386;163.254086553395;16"
+      "3.657686162771;164.125343667646;164.6525552706;165.234243635694;165.864806785988;166.538172053645;167.2478545630"
+      "37;167.987019683648;168.748548851298;169.525108123807;170.309218810871;171.093329497935;171.869888770445;172.631"
+      "417938094;173.370583058705;174.080265568098;174.753630835754;175.384193986049;175.965882351142;176.493093954096;"
+      "176.960751458971;177.364351068347;177.700005897356;177.964483406507;178.155236532808;178.270428219378;178.308949"
+      "107304;178.308949107304], [113.618216710165;112.834106023101;112.057546750592;111.296017582942;110.556852462331;"
+      "109.847169952939;109.173804685282;108.543241534988;107.961553169894;107.43434156694;106.966684062065;106.5630844"
+      "52689;106.22742962368;105.962952114529;105.772198988228;105.657007301658;105.618486413732;105.657007301658;105.7"
+      "72198988228;105.962952114529;106.22742962368;106.563084452689;106.966684062065;107.43434156694;107.961553169894;"
+      "108.543241534988;109.173804685282;109.847169952939;110.556852462331;111.296017582942;112.057546750592;112.834106"
+      "023101;113.618216710165;114.402327397229;115.178886669738;115.940415837388;116.679580957999;117.389263467392;118"
+      ".062628735048;118.693191885343;119.274880250436;119.80209185339;120.269749358265;120.673348967641;121.0090037966"
+      "5;121.273481305801;121.464234432102;121.579426118672;121.617947006598;121.579426118672;121.464234432102;121.2734"
+      "81305801;121.00900379665;120.673348967641;120.269749358265;119.80209185339;119.274880250436;118.693191885343;118"
+      ".062628735048;117.389263467392;116.679580957999;115.940415837388;115.178886669738;114.402327397229;113.618216710"
+      "165;113.618216710165], [0;0;0])\nplot([178.308949107304;178.270428219378;178.155236532808;177.964483406507;177.7"
+      "00005897356;177.364351068347;176.960751458971;176.493093954097;175.965882351142;175.384193986049;174.75363083575"
+      "5;174.080265568098;173.370583058705;172.631417938094;171.869888770445;171.093329497935;170.309218810871;169.5251"
+      "08123807;168.748548851298;167.987019683648;167.247854563037;166.538172053645;165.864806785988;165.234243635694;1"
+      "64.6525552706;164.125343667646;163.657686162771;163.254086553395;162.918431724386;162.653954215236;162.463201088"
+      "934;162.348009402364;162.309488514438;162.348009402364;162.463201088934;162.653954215236;162.918431724386;163.25"
+      "4086553395;163.657686162771;164.125343667646;164.6525552706;165.234243635694;165.864806785988;166.538172053645;1"
+      "67.247854563037;167.987019683648;168.748548851298;169.525108123807;170.309218810871;171.093329497935;171.8698887"
+      "70445;172.631417938094;173.370583058705;174.080265568098;174.753630835754;175.384193986049;175.965882351142;176."
+      "493093954096;176.960751458971;177.364351068347;177.700005897356;177.964483406507;178.155236532808;178.2704282193"
+      "78;178.308949107304;178.308949107304], [113.618216710165;112.834106023101;112.057546750592;111.296017582942;110."
+      "556852462331;109.847169952939;109.173804685282;108.543241534988;107.961553169894;107.43434156694;106.96668406206"
+      "5;106.563084452689;106.22742962368;105.962952114529;105.772198988228;105.657007301658;105.618486413732;105.65700"
+      "7301658;105.772198988228;105.962952114529;106.22742962368;106.563084452689;106.966684062065;107.43434156694;107."
+      "961553169894;108.543241534988;109.173804685282;109.847169952939;110.556852462331;111.296017582942;112.0575467505"
+      "92;112.834106023101;113.618216710165;114.402327397229;115.178886669738;115.940415837388;116.679580957999;117.389"
+      "263467392;118.062628735048;118.693191885343;119.274880250436;119.80209185339;120.269749358265;120.673348967641;1"
+      "21.00900379665;121.273481305801;121.464234432102;121.579426118672;121.617947006598;121.579426118672;121.46423443"
+      "2102;121.273481305801;121.00900379665;120.673348967641;120.269749358265;119.80209185339;119.274880250436;118.693"
+      "191885343;118.062628735048;117.389263467392;116.679580957999;115.940415837388;115.178886669738;114.402327397229;"
+      "113.618216710165;113.618216710165])\npatch([64.926944905892;64.888424017966;64.7732323313963;64.5824792050947;64"
+      ".3180016959439;63.9823468669351;63.5787472575591;63.1110897526843;62.5838781497303;62.0021897846366;61.371626634"
+      "3423;60.6982613666856;59.988578857293;59.2494137366818;58.4878845690323;57.7113252965232;56.927214609459;56.1431"
+      "039223949;55.3665446498857;54.6050154822362;53.8658503616251;53.1561678522324;52.4828025845758;51.8522394342815;"
+      "51.2705510691878;50.7433394662337;50.275681961359;49.872082351983;49.5364275229742;49.2719500138234;49.081196887"
+      "5218;48.9660052009521;48.9274843130261;48.9660052009521;49.0811968875218;49.2719500138234;49.5364275229742;49.87"
+      "20823519831;50.275681961359;50.7433394662338;51.2705510691878;51.8522394342816;52.4828025845758;53.1561678522325"
+      ";53.8658503616251;54.6050154822362;55.3665446498858;56.143103922395;56.927214609459;57.7113252965232;58.48788456"
+      "90323;59.2494137366818;59.988578857293;60.6982613666856;61.3716266343422;62.0021897846366;62.5838781497303;63.11"
+      "10897526843;63.5787472575591;63.982346866935;64.3180016959439;64.5824792050947;64.7732323313963;64.888424017966;"
+      "64.926944905892;64.926944905892], [113.618216710165;112.834106023101;112.057546750592;111.296017582942;110.55685"
+      "2462331;109.847169952939;109.173804685282;108.543241534988;107.961553169894;107.43434156694;106.966684062065;106"
+      ".563084452689;106.22742962368;105.962952114529;105.772198988228;105.657007301658;105.618486413732;105.6570073016"
+      "58;105.772198988228;105.962952114529;106.22742962368;106.563084452689;106.966684062065;107.43434156694;107.96155"
+      "3169894;108.543241534988;109.173804685282;109.847169952939;110.556852462331;111.296017582942;112.057546750592;11"
+      "2.834106023101;113.618216710165;114.402327397229;115.178886669738;115.940415837388;116.679580957999;117.38926346"
+      "7392;118.062628735048;118.693191885343;119.274880250436;119.80209185339;120.269749358265;120.673348967641;121.00"
+      "900379665;121.273481305801;121.464234432102;121.579426118672;121.617947006598;121.579426118672;121.464234432102;"
+      "121.273481305801;121.00900379665;120.673348967641;120.269749358265;119.80209185339;119.274880250436;118.69319188"
+      "5343;118.062628735048;117.389263467392;116.679580957999;115.940415837388;115.178886669738;114.402327397229;113.6"
+      "18216710165;113.618216710165], [0;0;0])\nplot([64.926944905892;64.888424017966;64.7732323313963;64.5824792050947"
+      ";64.3180016959439;63.9823468669351;63.5787472575591;63.1110897526843;62.5838781497303;62.0021897846366;61.371626"
+      "6343423;60.6982613666856;59.988578857293;59.2494137366818;58.4878845690323;57.7113252965232;56.927214609459;56.1"
+      "431039223949;55.3665446498857;54.6050154822362;53.8658503616251;53.1561678522324;52.4828025845758;51.85223943428"
+      "15;51.2705510691878;50.7433394662337;50.275681961359;49.872082351983;49.5364275229742;49.2719500138234;49.081196"
+      "8875218;48.9660052009521;48.9274843130261;48.9660052009521;49.0811968875218;49.2719500138234;49.5364275229742;49"
+      ".8720823519831;50.275681961359;50.7433394662338;51.2705510691878;51.8522394342816;52.4828025845758;53.1561678522"
+      "325;53.8658503616251;54.6050154822362;55.3665446498858;56.143103922395;56.927214609459;57.7113252965232;58.48788"
+      "45690323;59.2494137366818;59.988578857293;60.6982613666856;61.3716266343422;62.0021897846366;62.5838781497303;63"
+      ".1110897526843;63.5787472575591;63.982346866935;64.3180016959439;64.5824792050947;64.7732323313963;64.8884240179"
+      "66;64.926944905892;64.926944905892], [113.618216710165;112.834106023101;112.057546750592;111.296017582942;110.55"
+      "6852462331;109.847169952939;109.173804685282;108.543241534988;107.961553169894;107.43434156694;106.966684062065;"
+      "106.563084452689;106.22742962368;105.962952114529;105.772198988228;105.657007301658;105.618486413732;105.6570073"
+      "01658;105.772198988228;105.962952114529;106.22742962368;106.563084452689;106.966684062065;107.43434156694;107.96"
+      "1553169894;108.543241534988;109.173804685282;109.847169952939;110.556852462331;111.296017582942;112.057546750592"
+      ";112.834106023101;113.618216710165;114.402327397229;115.178886669738;115.940415837388;116.679580957999;117.38926"
+      "3467392;118.062628735048;118.693191885343;119.274880250436;119.80209185339;120.269749358265;120.673348967641;121"
+      ".00900379665;121.273481305801;121.464234432102;121.579426118672;121.617947006598;121.579426118672;121.4642344321"
+      "02;121.273481305801;121.00900379665;120.673348967641;120.269749358265;119.80209185339;119.274880250436;118.69319"
+      "1885343;118.062628735048;117.389263467392;116.679580957999;115.940415837388;115.178886669738;114.402327397229;11"
+      "3.618216710165;113.618216710165])\nplot([56.927214609459;161.805568495765], [113.618216710165;56.927214609459])\n"
+      "patch([0;227.23643342033;227.23643342033;0;0;0.472425017505884;0.472425017505884;226.764008402824;226.7640084028"
+      "24;0.472425017505884;0], [227.23643342033;227.23643342033;0;0;227.23643342033;226.764008402824;0.472425017505884"
+      ";0.472425017505884;226.764008402824;226.764008402824;227.23643342033], [1;1;1])\nplot([170.309218810871;198.6547"
+      "19861224;198.654719861224;227.000220911577], [113.618216710165;113.618216710165;113.618216710165;113.61821671016"
+      "5])\nplot([56.927214609459;0.236212508752942], [113.618216710165;113.618216710165]);\n"
+      MaskIconFrame	      off
+      MaskIconOpaque	      on
+      MaskIconRotate	      "port"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Switch"
+	Location		[439, 819, 543, 989]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Reference
+	  Name			  "Diode"
+	  SID			  49
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [26, 65, 54, 105]
+	  BlockRotation		  90
+	  BlockMirror		  on
+	  LibraryVersion	  "1.1"
+	  DialogController	  "NetworkEngine.DynNeDlgSource"
+	  SourceBlock		  "fl_lib/Electrical/Electrical Elements/Diode"
+	  SourceType		  "Diode"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  ClassName		  "pwl_diode"
+	  SchemaVersion		  "1"
+	  Vf			  "0.6"
+	  Vf_unit		  "V"
+	  Ron			  "0.3"
+	  Ron_unit		  "Ohm"
+	  Goff			  "1e-08"
+	  Goff_unit		  "1/Ohm"
+	  i_Log			  "off"
+	  v_Log			  "off"
+	  LocalVarNames		  "|i|v"
+	  LocalVarDescs		  "|i|v"
+	  LocalVarLogging	  "[0 0]"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Conn1"
+	  SID			  51
+	  Position		  [25, 25, 55, 40]
+	  BlockRotation		  270
+	  BlockMirror		  on
+	  ShowName		  off
+	  Port			  "1"
+	  Side			  "Right"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Conn2"
+	  SID			  52
+	  Position		  [25, 130, 55, 145]
+	  BlockRotation		  270
+	  ShowName		  off
+	  Port			  "2"
+	  Side			  "Left"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Conn1"
+	  SrcPort		  RConn1
+	  DstBlock		  "Diode"
+	  DstPort		  RConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Conn2"
+	  SrcPort		  RConn1
+	  DstBlock		  "Diode"
+	  DstPort		  LConn1
+	}
+      }
+    }
+    Line {
+      LineType		      "Connection"
+      Points		      [215, 200; 0, 30]
+      DstBlock		      "Switch"
+      DstPort		      RConn1
+      Branch {
+	ConnectType		"SRC_DEST"
+	SrcBlock		"10 KOhms"
+	SrcPort			RConn1
+	Points			[0, 20]
+      }
+      Branch {
+	ConnectType		"SRC_SRC"
+	DstBlock		"100 Ohms\n        "
+	DstPort			LConn1
+      }
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms\n        "
+      SrcPort		      RConn1
+      DstBlock		      "DC Voltage Source"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "\n\nPotentiometer"
+      SrcPort		      RConn1
+      Points		      [0, 5; -120, 0]
+      Branch {
+	ConnectType		"DEST_DEST"
+	SrcBlock		"LED 5"
+	SrcPort			RConn1
+	Points			[0, 25]
+      }
+      Branch {
+	ConnectType		"DEST_SRC"
+	Points			[-115, 0]
+	Branch {
+	  ConnectType		  "DEST_SRC"
+	  Points		  [-110, 0]
+	  Branch {
+	    ConnectType		    "DEST_DEST"
+	    SrcBlock		    "LED 3"
+	    SrcPort		    RConn1
+	    Points		    [0, 25]
+	  }
+	  Branch {
+	    ConnectType		    "DEST_SRC"
+	    Points		    [-105, 0]
+	    Branch {
+	      ConnectType	      "DEST_SRC"
+	      DstBlock		      "LED 2"
+	      DstPort		      RConn1
+	    }
+	    Branch {
+	      ConnectType	      "DEST_SRC"
+	      Points		      [-115, 0]
+	      Branch {
+		ConnectType		"DEST_DEST"
+		SrcBlock		"LED 1"
+		SrcPort			RConn1
+		Points			[0, 25]
+	      }
+	      Branch {
+		ConnectType		"DEST_SRC"
+		Points			[-115, 0]
+		DstBlock		"Switch"
+		DstPort			LConn1
+	      }
+	    }
+	  }
+	  Branch {
+	    ConnectType		    "DEST_SRC"
+	    DstBlock		    "GND"
+	    DstPort		    LConn1
+	  }
+	}
+	Branch {
+	  ConnectType		  "DEST_DEST"
+	  SrcBlock		  "LED 4"
+	  SrcPort		  RConn1
+	  Points		  [0, 25]
+	}
+      }
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "10 KOhms"
+      SrcPort		      LConn1
+      DstBlock		      "+5V"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms"
+      SrcPort		      RConn1
+      DstBlock		      "LED 1"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms"
+      SrcPort		      LConn1
+      DstBlock		      "DC Voltage Source1"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms "
+      SrcPort		      RConn1
+      DstBlock		      "LED 2"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms "
+      SrcPort		      LConn1
+      DstBlock		      "DC Voltage Source2"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms  "
+      SrcPort		      LConn1
+      DstBlock		      "DC Voltage Source3"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms  "
+      SrcPort		      RConn1
+      DstBlock		      "LED 3"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms   "
+      SrcPort		      RConn1
+      DstBlock		      "LED 4"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms   "
+      SrcPort		      LConn1
+      DstBlock		      "DC Voltage Source4"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms    "
+      SrcPort		      LConn1
+      DstBlock		      "DC Voltage Source5"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms    "
+      SrcPort		      RConn1
+      DstBlock		      "LED 5"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "\n\nPotentiometer"
+      SrcPort		      LConn1
+      DstBlock		      "100 Ohms          "
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "100 Ohms          "
+      SrcPort		      LConn1
+      DstBlock		      "+5V1"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "DC Voltage Source6"
+      SrcPort		      LConn1
+      DstBlock		      "DC Voltage Source7"
+      DstPort		      RConn1
+    }
+    Annotation {
+      Name		      "Digital Pin #2"
+      Position		      [59, 183]
+    }
+    Annotation {
+      Name		      "Digital \nPin #9"
+      Position		      [364, 58]
+    }
+    Annotation {
+      Name		      "Digital \nPin #10"
+      Position		      [479, 58]
+    }
+    Annotation {
+      Name		      "Digital \nPin #11"
+      Position		      [584, 58]
+    }
+    Annotation {
+      Name		      "Digital \nPin #12"
+      Position		      [694, 58]
+    }
+    Annotation {
+      Name		      "Digital \nPin #13"
+      Position		      [809, 58]
+    }
+    Annotation {
+      Name		      "Analog Pin #2"
+      Position		      [1049, 248]
+    }
+    Annotation {
+      Name		      "Copyright 2009-2013 The MathWorks, Inc."
+      Position		      [50, 382]
+      HorizontalAlignment     "left"
+    }
+  }
+}

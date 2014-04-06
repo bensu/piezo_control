@@ -1,0 +1,181 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>example_encoders</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2013-08-27"><meta name="DC.source" content="example_encoders.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Basic example for encoders</a></li><li><a href="#2">create arduino object and connect to board</a></li><li><a href="#3">encoders</a></li><li><a href="#4">close session</a></li></ul></div><h2>Basic example for encoders<a name="1"></a></h2><pre class="codeinput"><span class="comment">% This is a very simple example that shows how to use encoders.</span>
+</pre><h2>create arduino object and connect to board<a name="2"></a></h2><pre class="codeinput"><span class="keyword">if</span> exist(<span class="string">'a'</span>,<span class="string">'var'</span>) &amp;&amp; isa(a,<span class="string">'arduino'</span>) &amp;&amp; isvalid(a),
+    <span class="comment">% nothing to do</span>
+<span class="keyword">else</span>
+    a=arduino(<span class="string">'DEMO'</span>);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Demo mode connection .......
+Motor Shield V1 sketch detected !
+Arduino successfully connected !
+</pre><h2>encoders<a name="3"></a></h2><pre class="codeinput"><span class="comment">% attach encoder #0 on pins 3 (pin A) and 2 (pin B)</span>
+encoderAttach(a,0,3,2)
+
+<span class="comment">% read the encoder position</span>
+encoderRead(a,0)
+
+<span class="comment">% attach encoder #2 on pins 18 (pin A) and 21 (pin B)</span>
+encoderAttach(a,2,18,21)
+
+<span class="comment">% sets debouncing delay to 17 (~1.7ms) for encoder #2</span>
+encoderDebounce(a,2,17)
+
+<span class="comment">% read position or encoder #2</span>
+encoderRead(a,2)
+
+<span class="comment">% sets debouncing delay to 20 (~2ms) for encoder #0</span>
+encoderDebounce(a,0,20)
+
+<span class="comment">% read position or encoder #0</span>
+encoderRead(a,0)
+
+<span class="comment">% reset position of encoder #0</span>
+encoderReset(a,0)
+
+<span class="comment">% get status of all three encoders</span>
+encoderStatus(a);
+
+<span class="comment">% detach encoder #0</span>
+encoderDetach(a,0);
+
+<span class="comment">% detach encoder #2</span>
+encoderDetach(a,2);
+</pre><pre class="codeoutput">
+ans =
+
+       17705
+
+
+ans =
+
+      -11634
+
+
+ans =
+
+       18661
+
+Encoder 0 is ATTACHED
+Encoder 1 is DETACHED
+Encoder 2 is ATTACHED
+</pre><h2>close session<a name="4"></a></h2><pre class="codeinput">delete(a)
+</pre><p class="footer">Copyright 2013 The MathWorks, Inc.<br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Basic example for encoders
+
+% This is a very simple example that shows how to use encoders.
+
+%% create arduino object and connect to board
+if exist('a','var') && isa(a,'arduino') && isvalid(a),
+    % nothing to do    
+else
+    a=arduino('DEMO');
+end
+
+%% encoders
+
+% attach encoder #0 on pins 3 (pin A) and 2 (pin B)
+encoderAttach(a,0,3,2)
+
+% read the encoder position
+encoderRead(a,0)
+
+% attach encoder #2 on pins 18 (pin A) and 21 (pin B)
+encoderAttach(a,2,18,21)
+
+% sets debouncing delay to 17 (~1.7ms) for encoder #2
+encoderDebounce(a,2,17)
+
+% read position or encoder #2
+encoderRead(a,2)
+
+% sets debouncing delay to 20 (~2ms) for encoder #0
+encoderDebounce(a,0,20)
+
+% read position or encoder #0
+encoderRead(a,0)
+
+% reset position of encoder #0
+encoderReset(a,0)
+
+% get status of all three encoders
+encoderStatus(a);
+
+% detach encoder #0
+encoderDetach(a,0);
+
+% detach encoder #2
+encoderDetach(a,2);
+
+%% close session
+delete(a)
+
+% Copyright 2013 The MathWorks, Inc.
+##### SOURCE END #####
+--></body></html>

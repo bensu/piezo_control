@@ -1,0 +1,1017 @@
+Library {
+  Name			  "arduino_io_lib"
+  Version		  7.1
+  MdlSubVersion		  0
+  SavedCharacterEncoding  "windows-1252"
+  LibraryType		  "BlockLibrary"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  Created		  "Wed Oct 20 08:57:35 2010"
+  Creator		  "gvallabh"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "gcampa"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Fri Aug 31 16:20:04 2012"
+  RTWModifiedTimeStamp	  268330189
+  ModelVersionFormat	  "1.%<AutoIncrement:80>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  RecordCoverage	  off
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  BlockDefaults {
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+    Orientation		    "right"
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      M-S-Function
+      FunctionName	      "matlabfile"
+      DisplayMFileStacktrace  on
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+  }
+  System {
+    Name		    "arduino_io_lib"
+    Location		    [400, 80, 1040, 790]
+    Open		    off
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Arduino Analog Read"
+      Ports		      [0, 1]
+      Position		      [235, 146, 335, 204]
+      FunctionName	      "msfun_arduino_analogread"
+      Parameters	      "arduinoVar, arduinoPin, T"
+      MaskType		      "Arduino IO Analog Read"
+      MaskDescription	      "Every time this block is executed it asks the server program running on the Arduino to pe"
+      "rform an analog input on (that is read the voltage from) a given pin, and to return the value (0 to 1023) via se"
+      "rial port. This value is then set as the output of the block.\n\nThe first parameter in the mask is the name of "
+      "the Arduino object (which must match the one chosen in the Setup block). The second parameter is the number of t"
+      "he analog input pin (0 to 5) where the analog input needs to be performed. The last parameter is the sample time"
+      ".\n\nSee the help for more details."
+      MaskHelp		      "Every time this block is executed it asks the server program running on the Arduino to perform "
+      "an analog input on (that is read the voltage from) a given pin, and to return the value (0 to 1023) via serial p"
+      "ort. This value is then set as the output of the block.\n\nThe first parameter in the mask is the name of the Ar"
+      "duino object (which must match the one chosen in the Setup block). The second parameter is the number of the ana"
+      "log input pin (0 to 5) where the analog input needs to be performed.\n\nNote that the analog input pins 0 to 5 a"
+      "re also known as digital pins from 14 to 19, and are located on the lower right corner of the board. Specificall"
+      "y, analog input pin 0 corresponds to digital pin 14, and analog input pin 5 corresponds to digital pin 19. Perfo"
+      "rming analog input does   not affect the digital state (high, low, digital input) of the pin. The last parameter"
+      " is the sample time.\n\nThe returned value, ranges from 0 to 1023, with 0 corresponding to an input voltage of 0"
+      " volts, and 1023 to a reference value that is typically 5 volts (this voltage can be set up by the analogReferen"
+      "ce function). Therefore, assuming a range from 0 to 5 V the resolution is .0049 volts (4.9 mV) per unit.\n\nThe "
+      "corresponding ArduinoIO method is \"analogRead\", so you can type \"doc arduino.analogRead\" or \"help arduino.a"
+      "nalogRead\" for more details."
+      MaskPromptString	      "Arduino Variable|Pin|Sample Time (-1 for inherited):"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(0|1|2|3|4|5),edit"
+      MaskVariables	      "arduinoVar=&1;arduinoPin=&2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(b"
+      "droot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(S"
+      "etupBlockName,'workspaceVarName');\n        fprintf('%s\\nAnalog Read\\nPin %s',str{1},arduinoPin);\n    catch\n"
+      "        fprintf('Workspace var #%s\\nAnalog Read\\nPin %s',arduinoVar(end),arduinoPin)\n    end\nelse\n    fprin"
+      "tf('%s\\nAnalog Read\\nPin %s',arduinoVar(end-7:end),arduinoPin)\nend\ncolor('gray')\nplot(0:0.02:1, 0.5+(sin([0"
+      ":0.02:1]*2*pi)/2))\n\n\n\n\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|0|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Arduino Analog Write"
+      Ports		      [1]
+      Position		      [515, 146, 615, 204]
+      FunctionName	      "msfun_arduino_analogwrite"
+      Parameters	      "arduinoVar, arduinoPin, T"
+      MaskType		      "Arduino IO analog Write (PWM)"
+      MaskDescription	      "Every time this block is executed it gets the value (0 to 255) at its input and sends to "
+      "the server program running on the Arduino a command to set that value as the analog (PWM) output of a given pin."
+      "\n\nThe first parameter in the mask is the name of the Arduino object (which must match the one chosen in the Se"
+      "tup block). The second parameter is the number of the pin (3,5,6,9,10,11) where the analog output needs to be pe"
+      "rformed. The last parameter is the sample time.\n\nSee the help for more details."
+      MaskHelp		      "Every time this block is executed it gets the value (0 to 255) at its input and sends to the se"
+      "rver program running on the Arduino a command to set that value as the analog (PWM) output of a given pin.\n\nTh"
+      "e first parameter in the mask is the name of the Arduino object (which must match the one chosen in the Setup bl"
+      "ock). The second parameter is the number of the pin (3,5,6,9,10,11) where the analog output needs to be performe"
+      "d. The last parameter is the sample time.\n\nNote that the digital pins from 0 to 13 are located on the upper ri"
+      "ght part of the board. \n\nThe corresponding ArduinoIO method is \"analogWrite\", so you can type \"doc arduino."
+      "analogWrite\" or \"help arduino.analogWrite\" for more details."
+      MaskPromptString	      "Arduino Variable|Pin|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(3|5|6|9|10|11),edit"
+      MaskVariables	      "arduinoVar=&1;arduinoPin=&2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "patch(0:0.05:1, 0.5+(sin([0:0.05:1]*2*pi)/2), [0.8 0.8 0.8])\nif ~isempty(strfind(arduinoVar,"
+      "'Existing')),\n    try\n        SetupBlockName = find_system(bdroot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino "
+      "IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(SetupBlockName,'workspaceVarName');\n        fprint"
+      "f('%s\\nAnalog Write\\nPin %s',str{1},arduinoPin);\n    catch\n        fprintf('Workspace var #%s\\nAnalog Write"
+      "\\nPin %s',arduinoVar(end),arduinoPin)\n    end\nelse\n    fprintf('%s\\nAnalog Write\\nPin %s',arduinoVar(end-7"
+      ":end),arduinoPin)\nend\n\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|3|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Arduino Digital Read"
+      Ports		      [0, 1]
+      Position		      [105, 146, 205, 204]
+      FunctionName	      "msfun_arduino_digitalread"
+      Parameters	      "arduinoVar, arduinoPin, T"
+      MaskType		      "Arduino IO digital read"
+      MaskDescription	      "Every time this block is executed it asks the server program running on the Arduino to pe"
+      "rform a digital input on (that is read a high or low voltage value from) a given pin, and to return the value (0"
+      " or 1) via serial port. This value is then set as the output of the block.\n\nThe first parameter in the mask is"
+      " the name of the Arduino object (which must match the one chosen in the Setup block). The second parameter is th"
+      "e number of the pin (2 to 13) where the digital input needs to be performed. The last parameter is the sample ti"
+      "me.\n\nSee the help for more details."
+      MaskHelp		      "Every time this block is executed it asks the server program running on the Arduino to perform "
+      "a digital input on (that is read a high or low voltage value from) a given pin, and to return the value (0 tor 1"
+      ") via serial port. This value is then set as the output of the block.\n\nThe first parameter in the mask is the "
+      "name of the Arduino object (which must match the one chosen in the Setup block). The second parameter is the num"
+      "ber of the pin (2 to 13) where the digital input needs to be performed. The last parameter is the sample time.\n"
+      "\nNote that the digital pins from 0 to 13 are located on the upper right part of the board, while the digital pi"
+      "ns from 14 to 19 are better known as \"analog input\" pins and are located in the lower right corner of the boar"
+      "d.\n\nThe corresponding ArduinoIO method is \"digitalRead\", so you can type \"doc arduino.digitalRead\" or \"he"
+      "lp arduino.digitalRead\" for more details."
+      MaskPromptString	      "Arduino Variable|Pin|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19),edit"
+      MaskVariables	      "arduinoVar=&1;arduinoPin=&2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(b"
+      "droot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(S"
+      "etupBlockName,'workspaceVarName');\n        fprintf('%s\\nDigital Read\\nPin %s',str{1},arduinoPin);\n    catch\n"
+      "        fprintf('Workspace var #%s\\nDigital Read\\nPin %s',arduinoVar(end),arduinoPin)\n    end\nelse\n    fpri"
+      "ntf('%s\\nDigital Read\\nPin %s',arduinoVar(end-7:end),arduinoPin)\nend\ncolor('gray')\nplot([0 0.25 0.25 0.5 0."
+      "5 0.75], [0 0 0.9 0.9 0 0])\n\n\n\n\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|2|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Arduino Digital Write"
+      Ports		      [1]
+      Position		      [385, 146, 485, 204]
+      FunctionName	      "msfun_arduino_digitalwrite"
+      Parameters	      "arduinoVar, arduinoPin, T"
+      MaskType		      "Arduino IO digital Write"
+      MaskDescription	      "Every time this block is executed it gets the value (0 or 1) at its input and sends to th"
+      "e server program running on the Arduino a command to set that value as the digital output of a given pin.\n\nThe"
+      " first parameter in the mask is the name of the Arduino object (which must match the one chosen in the Setup blo"
+      "ck). The second parameter is the number of the pin (2 to 13) where the digital output needs to be performed. The"
+      " last parameter is the sample time.\n\nSee the help for more details."
+      MaskHelp		      "Every time this block is executed it gets the value (0 or 1) at its input and sends to the serv"
+      "er program running on the Arduino a command to set that value as the digital output of a given pin.\n\nThe first"
+      " parameter in the mask is the name of the Arduino object (which must match the one chosen in the Setup block). T"
+      "he second parameter is the number of the pin (2 to 13) where the digital output needs to be performed. The last "
+      "parameter is the sample time.\n\nNote that the digital pins from 0 to 13 are located on the upper right part of "
+      "the board, while the digital pins from 14 to 19 are better known as \"analog input\" pins and are located in the"
+      " lower right corner of the board.\n\nThe corresponding ArduinoIO method is \"digitalWrite\", so you can type \"d"
+      "oc arduino.digitalWrite\" or \"help arduino.digitalWrite\" for more details."
+      MaskPromptString	      "Arduino Variable|Pin|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19),edit"
+      MaskVariables	      "arduinoVar=&1;arduinoPin=&2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "patch([0 0.25 0.25 0.5 0.5 0.75], [0 0 0.9 0.9 0 0], [0.8 0.8 0.8])\nif ~isempty(strfind(ardu"
+      "inoVar,'Existing')),\n    try\n        SetupBlockName = find_system(bdroot(gcb),'SearchDepth', 1, 'MaskType', 'A"
+      "rduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(SetupBlockName,'workspaceVarName');\n       "
+      " fprintf('%s\\nDigital Write\\nPin %s',str{1},arduinoPin);\n    catch\n        fprintf('Workspace var #%s\\nDigi"
+      "tal Write\\nPin %s',arduinoVar(end),arduinoPin)\n    end\nelse\n    fprintf('%s\\nDigital Write\\nPin %s',arduin"
+      "oVar(end-7:end),arduinoPin)\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|3|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Arduino IO Setup"
+      Ports		      []
+      Position		      [105, 54, 207, 111]
+      Priority		      "3"
+      FunctionName	      "msfun_arduino_io_setup"
+      Parameters	      "arduinoVar, comPort, workspaceVarName"
+      MaskType		      "Arduino IO Setup"
+      MaskDescription	      "If a \"Temporary arduino variable\" (one of the first four entries, Arduino1 to Arduino4)"
+      " is selected as a first mask parameter, then the block instantiates an arduino object before the simulation star"
+      "ts, using the serial port provided by the second mask parameter (e.g. 'COM5' or 'COM8' on Windows, '/dev/ttyS101"
+      "' on Unix, or 'DEMO' for demo mode). \nThe object is then used by the other Arduino IO blocks in the Simulink mo"
+      "del that specify the same variable name, and is deleted at the end of the simulation. In this case, make sure th"
+      "at the port is not already used by the IDE or by MATLAB (e.g. by a valid arduino object in the workspace), so th"
+      "at Simulink can use the serial connection.\n\nIf an \"Existing workspace arduino variable\" is instead selected "
+      "as a first mask parameter (one of the last four entries), then a preexisitng arduino object (whose name is selec"
+      "ted by the second mask parameter) is used in the simulation by the other blocks that specify the same name. The "
+      "object will continue to be available in the workspace after the end of the simulation."
+      MaskHelp		      "If a \"Temporary arduino variable\" (one of the first four entries, Arduino1 to Arduino4) is se"
+      "lected as a first mask parameter, then the block instantiates an arduino object before the simulation starts, us"
+      "ing the serial port provided by the second mask parameter (e.g. 'COM5' or 'COM8' on Windows, '/dev/ttyS101' on U"
+      "nix, or 'DEMO' for demo mode). \nThe object is then used by the other Arduino IO blocks in the Simulink model th"
+      "at specify the same variable name, and is deleted at the end of the simulation.\nIn this case, make sure that th"
+      "e port is not already used by the IDE or by MATLAB (e.g. by a valid arduino object in the workspace), so that Si"
+      "mulink can use the serial connection.\n<p>\nIf an \"Existing workspace arduino variable\" is instead selected as"
+      " a first mask parameter (one of the last four entries), then a preexisitng arduino object (whose name is selecte"
+      "d by the second mask parameter) is used in the simulation by the other blocks that specify the same name. The ob"
+      "ject will continue to be available in the workspace after the end of the simulation.\n<p>\nIn any case, if you h"
+      "ave multiple Arduino boards connected to your computer, you must use a different setup block for each of them."
+      MaskPromptString	      "Arduino variable|Name of existing workspace variable|Serial (COM) port"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),ed"
+      "it,edit"
+      MaskVariables	      "arduinoVar=&1;workspaceVarName=&2;comPort=&3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "AIOSetupBlockMaskEnables = get_param(gcb,'MaskEnables');\nAIOSetupBlockMaskVisibilities"
+      " = get_param(gcb,'MaskVisibilities');\nif ~isempty(strfind(get_param(gcb,'arduinoVar'), 'Existing'))\n    AIOSet"
+      "upBlockMaskEnables{2} = 'on';AIOSetupBlockMaskVisibilities{2} = 'on';\n    AIOSetupBlockMaskEnables{3} = 'off';A"
+      "IOSetupBlockMaskVisibilities{3} = 'off';\nelse\n    AIOSetupBlockMaskEnables{2} = 'off';AIOSetupBlockMaskVisibil"
+      "ities{2} = 'off';\n    AIOSetupBlockMaskEnables{3} = 'on';AIOSetupBlockMaskVisibilities{3} = 'on';\nend\nset_par"
+      "am(gcb,'MaskEnables',AIOSetupBlockMaskEnables);\nset_param(gcb,'MaskVisibilities',AIOSetupBlockMaskVisibilities)"
+      ";\nclear AIOSetupBlockMaskEnables AIOSetupBlockMaskVisibilities||"
+      MaskEnableString	      "on,off,on"
+      MaskVisibilityString    "on,off,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        ser=serial(evalin('base',works"
+      "paceVarName));\n    catch\n        ser='Unknown';\n    end\n    fprintf('Setup\\n%s\\n%s',workspaceVarName, ser)"
+      "\nelse\n    fprintf('Setup\\n%s\\n%s',arduinoVar(end-7:end),comPort)\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "Temporary arduino variable: Arduino1|a|DEMO"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "DC Motor"
+      Ports		      [2]
+      Position		      [385, 441, 485, 499]
+      FunctionName	      "msfun_arduino_dcmotor"
+      Parameters	      "arduinoVar, motorNum, sendOnChange, T"
+      MaskType		      "Arduino IO DC Motor"
+      MaskDescription	      "Every time this block is executed it sends to the server program running on the Arduino a"
+      " command to set direction and speed of a given DC motor.\n\nThe first input is the direction (mode) of the motor"
+      " (positive=forward, 0=release, negative=backward), while the second input is the desired speed (0 to 255, for ne"
+      "gative numbers only the magnitude is considered).\n\nThe first parameter in the mask is the name of the Arduino "
+      "object (which must match the one chosen in the Setup block). The second parameter is the number of the motor (1 "
+      "to 4). The third parameter is a checkbox that when checked causes the block to send motor commands only when inp"
+      "uts change. The last parameter is the sample time."
+      MaskHelp		      "Every time this block is executed it sends to the server program running on the Arduino a comma"
+      "nd to set direction and speed of a given DC motor.\n\nThe first input is the direction (mode) of the motor (posi"
+      "tive=forward, 0=release, negative=backward), while the second input is the desired speed (0 to 255, for negative"
+      " numbers only the magnitude is considered).\n\nThe first parameter in the mask is the name of the Arduino object"
+      " (which must match the one chosen in the Setup block). The second parameter is the number of the motor (1 to 4)."
+      " The third parameter is a checkbox that when checked casues the block to send motor commands only when inputs ch"
+      "ange. The last parameter is the sample time.\n\nSee also arduino.motorRun and arduino.motorSpeed for more detail"
+      "s."
+      MaskPromptString	      "Arduino Variable|Motor number|Send motor commands only when inputs change |Sample Time ("
+      "-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(1|2|3|4),checkbox,edit"
+      MaskVariables	      "arduinoVar=&1;motorNum=&2;sendOnChange=@3;T=@4;"
+      MaskTunableValueString  "off,off,off,off"
+      MaskCallbackString      "|||"
+      MaskEnableString	      "on,on,on,on"
+      MaskVisibilityString    "on,on,on,on"
+      MaskToolTipString	      "on,on,on,on"
+      MaskDisplay	      "port_label('input', 1, 'Dir')\nport_label('input', 2, 'Spd')\nif ~isempty(strfind(arduinoVar,"
+      "'Existing')),\n    try\n        SetupBlockName = find_system(bdroot(gcb),'SearchDepth',1, 'MaskType','Arduino IO"
+      " Setup','arduinoVar',arduinoVar);\n        str=get_param(SetupBlockName,'workspaceVarName');\n        fprintf('%"
+      "s\\nDC Motor (#%s)',str{1},motorNum);\n    catch\n        fprintf('Workspace var #%s\\nDC Motor (#%s)',arduinoVa"
+      "r(end),motorNum)\n    end\nelse\n    fprintf('%s\\nDC Motor (#%s)',arduinoVar(end-7:end),motorNum)\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|3|on|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Encoder Read"
+      Ports		      [0, 1]
+      Position		      [105, 336, 205, 394]
+      FunctionName	      "msfun_arduino_encoderread"
+      Parameters	      "arduinoVar, encNum, pinA, pinB, DbDl, T"
+      MaskType		      "Arduino IO Encoder Read"
+      MaskDescription	      "Every time this block is executed it asks the server program running on the Arduino to re"
+      "ad the position of a given encoder, and to return the value in steps (-32768 to 32767) via serial port. This val"
+      "ue is then set as the output of the block.\n\nThe first parameter in the mask is the name of the Arduino object "
+      "(which must match the one chosen in the Setup block). The second parameter is the number of the encoder (0 to 2)"
+      ". The following two parameters are the two pins (A and B) to which the encoder is attached. The fifth parameter "
+      "is the debouncing delay in units of approximately 0.1 ms. The last parameter is the sample time."
+      MaskHelp		      "Every time this block is executed it asks the server program running on the Arduino to read the"
+      " position of a given encoder, and to return the value in steps (-32768 to 32767) via serial port. This value is "
+      "then set as the output of the block.\n\nThe first parameter in the mask is the name of the Arduino object (which"
+      " must match the one chosen in the Setup block). The second parameter is the number of the encoder (0 to 2). The "
+      "following two parameters are the two pins (A and B) to which the encoder is attached. The fifth parameter is the"
+      " debouncing delay in units of approximately 0.1 ms (use with caution, and see the help for the arduino.encoderDe"
+      "bounce function for more info). The last parameter is the sample time.\n\nAlso see \"doc arduino.encoderAttach\""
+      " or \"help arduino.encoderAttach\", and \"doc arduino.encoderRead\" or \"help arduino.encoderRead\" for more det"
+      "ails."
+      MaskPromptString	      "Arduino Variable|Encoder Number|Pin A|Pin B|Debounce delay|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(0|1|2),popup(2|3|21|20|19|18),popup(2|3|21|20|19|18),edit,edit"
+      MaskVariables	      "arduinoVar=&1;encNum=&2;pinA=&3;pinB=&4;DbDl=@5;T=@6;"
+      MaskTunableValueString  "off,off,off,off,on,off"
+      MaskCallbackString      "AIOEncoderReadBlockMaskEnables = get_param(gcb,'MaskEnables');\nAIOEncoderReadBlockMask"
+      "Visibilities = get_param(gcb,'MaskVisibilities');\nAIOEncoderReadBlockMaskEnables{3} = 'on';AIOEncoderReadBlockM"
+      "askVisibilities{3} = 'on';\nAIOEncoderReadBlockMaskEnables{4} = 'on';AIOEncoderReadBlockMaskVisibilities{4} = 'o"
+      "n';\nif ~isempty(strfind(get_param(gcb,'arduinoVar'), 'Existing')),\n    AIOEncoderReadBlockEncoderNumber=get_pa"
+      "ram(gcb,'encNum');\n    AIOEncoderReadBlockArduinoVariable=get_param(gcb,'arduinoVar');\n    AIOEncoderReadBlock"
+      "SetupBlockName = find_system(bdroot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', AIOEnco"
+      "derReadBlockArduinoVariable);\n    AIOEncoderReadBlockArduinoObjectString=get_param(AIOEncoderReadBlockSetupBloc"
+      "kName,'workspaceVarName');\n    if ~isempty(AIOEncoderReadBlockArduinoObjectString),\n       try\n          eval"
+      "(['AIOEncoderReadBlockEncoderStatus=encoderStatus(' AIOEncoderReadBlockArduinoObjectString{1} ',' AIOEncoderRead"
+      "BlockEncoderNumber ');']);\n       catch\n          AIOEncoderReadBlockEncoderStatus=0;\n       end\n       if A"
+      "IOEncoderReadBlockEncoderStatus,\n            AIOEncoderReadBlockMaskEnables{3} = 'off';AIOEncoderReadBlockMaskV"
+      "isibilities{3} = 'off';\n            AIOEncoderReadBlockMaskEnables{4} = 'off';AIOEncoderReadBlockMaskVisibiliti"
+      "es{4} = 'off';\n       end\n    end\nend\nset_param(gcb,'MaskEnables',AIOEncoderReadBlockMaskEnables);\nset_para"
+      "m(gcb,'MaskVisibilities',AIOEncoderReadBlockMaskVisibilities);\nclear AIOEncoderReadBlockMaskEnables AIOEncoderR"
+      "eadBlockMaskVisibilities \nclear AIOEncoderReadBlockEncoderNumber AIOEncoderReadBlockArduinoVariable\nclear AIOE"
+      "ncoderReadBlockEncoderStatus AIOEncoderReadBlockSetupBlockName AIOEncoderReadBlockArduinoObjectString|AIOEncoder"
+      "ReadBlockMaskEnables = get_param(gcb,'MaskEnables');\nAIOEncoderReadBlockMaskVisibilities = get_param(gcb,'MaskV"
+      "isibilities');\nAIOEncoderReadBlockMaskEnables{3} = 'on';AIOEncoderReadBlockMaskVisibilities{3} = 'on';\nAIOEnco"
+      "derReadBlockMaskEnables{4} = 'on';AIOEncoderReadBlockMaskVisibilities{4} = 'on';\nAIOEncoderReadBlockMaskEnables"
+      "{5} = 'on';AIOEncoderReadBlockMaskVisibilities{5} = 'on';\nif ~isempty(strfind(get_param(gcb,'arduinoVar'), 'Exi"
+      "sting')),\n    AIOEncoderReadBlockEncoderNumber=get_param(gcb,'encNum');\n    AIOEncoderReadBlockArduinoVariable"
+      "=get_param(gcb,'arduinoVar');\n    AIOEncoderReadBlockSetupBlockName = find_system(bdroot(gcb),'SearchDepth', 1,"
+      " 'MaskType', 'Arduino IO Setup', 'arduinoVar', AIOEncoderReadBlockArduinoVariable);\n    AIOEncoderReadBlockArdu"
+      "inoObjectString=get_param(AIOEncoderReadBlockSetupBlockName,'workspaceVarName');\n    if ~isempty(AIOEncoderRead"
+      "BlockArduinoObjectString),\n       try\n          eval(['AIOEncoderReadBlockEncoderStatus=encoderStatus(' AIOEnc"
+      "oderReadBlockArduinoObjectString{1} ',' AIOEncoderReadBlockEncoderNumber ');']);\n       catch\n          AIOEnc"
+      "oderReadBlockEncoderStatus=0;\n       end\n       if AIOEncoderReadBlockEncoderStatus,\n            AIOEncoderRe"
+      "adBlockMaskEnables{3} = 'off';AIOEncoderReadBlockMaskVisibilities{3} = 'off';\n            AIOEncoderReadBlockMa"
+      "skEnables{4} = 'off';AIOEncoderReadBlockMaskVisibilities{4} = 'off';\n            AIOEncoderReadBlockMaskEnables"
+      "{5} = 'off';AIOEncoderReadBlockMaskVisibilities{5} = 'off';\n       end\n    end\nend\nset_param(gcb,'MaskEnable"
+      "s',AIOEncoderReadBlockMaskEnables);\nset_param(gcb,'MaskVisibilities',AIOEncoderReadBlockMaskVisibilities);\ncle"
+      "ar AIOEncoderReadBlockMaskEnables AIOEncoderReadBlockMaskVisibilities \nclear AIOEncoderReadBlockEncoderNumber A"
+      "IOEncoderReadBlockArduinoVariable\nclear AIOEncoderReadBlockEncoderStatus AIOEncoderReadBlockSetupBlockName AIOE"
+      "ncoderReadBlockArduinoObjectString||||"
+      MaskEnableString	      "on,on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on,on"
+      MaskToolTipString	      "on,on,on,on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(b"
+      "droot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(S"
+      "etupBlockName,'workspaceVarName');\n        fprintf('%s\\nEncoder Read (#%s)',str{1},encNum);\n    catch\n      "
+      "  fprintf('Workspace var #%s\\nEncoder Read (#%s)',arduinoVar(end),encNum)\n    end\nelse\n    fprintf('%s\\nEnc"
+      "oder Read (#%s)',arduinoVar(end-7:end),encNum)\nend"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|1|3|2|0|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Encoder Reset"
+      Ports		      [1]
+      Position		      [385, 336, 485, 394]
+      FunctionName	      "msfun_arduino_encoderreset"
+      Parameters	      "arduinoVar, encNum, T"
+      MaskType		      "Arduino IO Encoder Reset"
+      MaskDescription	      "Every time this block is executed it checks its input, and if it is greater than 0, then "
+      "it asks the server program running on the Arduino to reset the position of a given encoder.\nThe first parameter"
+      " in the mask is the name of the Arduino object (which must match the one chosen in the Setup block). The second "
+      "parameter is the number of the Encoder (0 to 2) which position needs to be reset. The last parameter is the samp"
+      "le time."
+      MaskHelp		      "Every time this block is executed it checks its input, and if it is greater than 0, then it ask"
+      "s the server program running on the Arduino to reset the position of a given encoder.\nThe first parameter in th"
+      "e mask is the name of the Arduino object (which must match the one chosen in the Setup block). The second parame"
+      "ter is the number of the Encoder (0 to 2) which position needs to be reset. The last parameter is the sample tim"
+      "e.\n\nAlso see \"doc arduino.encoderReset\" or \"help arduino.encoderReset\" for more details."
+      MaskPromptString	      "Arduino Variable|Encoder Number|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(0|1|2),edit"
+      MaskVariables	      "arduinoVar=&1;encNum=&2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(b"
+      "droot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(S"
+      "etupBlockName,'workspaceVarName');\n        fprintf('%s\\nEncoder Reset (#%s)',str{1},encNum);\n    catch\n     "
+      "   fprintf('Workspace var #%s\\nEncoder Reset (#%s)',arduinoVar(end),encNum)\n    end\nelse\n    fprintf('%s\\nE"
+      "ncoder Reset (#%s)',arduinoVar(end-7:end),encNum)\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|0|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Real-Time Pacer"
+      Ports		      []
+      Position		      [515, 54, 617, 111]
+      FunctionName	      "msfun_realtime_pacer"
+      Parameters	      "simTimePerRealTime"
+      MaskType		      "RealTime_Pacer"
+      MaskDescription	      "Slow down a simulation to track real (i.e., wall clock) elapsed time. \n\n\"Speedup\" spe"
+      "cifies the ratio between simulation time and real time \n Speedup = N => N sec. of simulation time per sec. of r"
+      "eal time\n Speedup can be fractional (e.g., 0.5, 1.3). \n Speedup = inf => allow simulation to run at full speed"
+      "\n\nClick on the Help button for details."
+      MaskHelp		      "web('realtime_pacer_help.html', '-helpbrowser')"
+      MaskPromptString	      "Speedup (Simulation Time / Real Time):"
+      MaskStyleString	      "edit"
+      MaskVariables	      "simTimePerRealTime=@1;"
+      MaskTunableValueString  "on"
+      MaskEnableString	      "on"
+      MaskVisibilityString    "on"
+      MaskToolTipString	      "on"
+      MaskDisplay	      "fprintf('Real-Time Pacer\\nSpeedup = %g', simTimePerRealTime)"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "1"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 1"
+      Ports		      []
+      Position		      [145, 665, 240, 702]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "blink_challenge_sf"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Stateflow \\nBlink Challenge')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 1"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 2"
+      Ports		      []
+      Position		      [145, 615, 240, 652]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "blink_challenge_sim"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Simulink \\nBlink Challenge')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 2"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 3"
+      Ports		      []
+      Position		      [270, 615, 365, 652]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "servo_sim"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Servo\\n Read & Write')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 3"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 4"
+      Ports		      []
+      Position		      [520, 615, 615, 652]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "motor_sim"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('DC Motor\\n Example')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 4"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 5"
+      Ports		      []
+      Position		      [520, 665, 615, 702]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "stepper_sim"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Stepper Motor\\n Example')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 5"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 6"
+      Ports		      []
+      Position		      [20, 615, 115, 652]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "blink_led_sim"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Pin 13\\n Blink Led')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 6"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Run command file 7"
+      Ports		      []
+      Position		      [395, 615, 490, 652]
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "encoder_sim"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Encoder\\n Read & Reset')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Run command file 7"
+	Location		[16, 158, 236, 601]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+      }
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Servo Read"
+      Ports		      [0, 1]
+      Position		      [105, 241, 205, 299]
+      FunctionName	      "msfun_arduino_servoread"
+      Parameters	      "arduinoVar, pinNum, T"
+      MaskType		      "Arduino IO Servo Read"
+      MaskDescription	      "Every time this block is executed it asks the server program running on the Arduino to re"
+      "ad the angle of a given servo, and to return the value in degrees (0 to 180) via serial port. This value is then"
+      " set as the output of the block.\n\nThe first parameter in the mask is the name of the Arduino object (which mus"
+      "t match the one chosen in the Setup block). The second parameter is the number of the (PWM) pin to which the ser"
+      "vo is attached. The last parameter is the sample time."
+      MaskHelp		      "Every time this block is executed it asks the server program running on the Arduino to read the"
+      " angle of a given servo, and to return the value in degrees (0 to 180) via serial port. This value is then set a"
+      "s the output of the block.\n\nThe first parameter in the mask is the name of the Arduino object (which must matc"
+      "h the one chosen in the Setup block). The second parameter is the number of the (PWM) pin to which the servo is "
+      "attached. The last parameter is the sample time.\n\nAlso see \"doc arduino.servoRead\" or \"help arduino.servoRe"
+      "ad\" for more details."
+      MaskPromptString	      "Arduino Variable|Pin #|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),ed"
+      "it,edit"
+      MaskVariables	      "arduinoVar=&1;pinNum=@2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(b"
+      "droot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(S"
+      "etupBlockName,'workspaceVarName');\n        fprintf('%s\\nServo Read (#%s)',str{1},int2str(pinNum));\n    catch\n"
+      "        fprintf('Workspace var #%s\\nServo Read (#%s)',arduinoVar(end),int2str(pinNum))\n    end\nelse\n    fpri"
+      "ntf('%s\\nServo Read (#%s)',arduinoVar(end-7:end),int2str(pinNum))\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|9|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Servo Write"
+      Ports		      [1]
+      Position		      [385, 241, 485, 299]
+      FunctionName	      "msfun_arduino_servowrite"
+      Parameters	      "arduinoVar, pinNum, T"
+      MaskType		      "Arduino IO servo Write"
+      MaskDescription	      "Every time this block is executed it gets the value (0 to 180) at its input and sends to "
+      "the server program running on the Arduino a command to set that value as the angle of a given servo.\n\nThe firs"
+      "t parameter in the mask is the name of the Arduino object (which must match the one chosen in the Setup block). "
+      "The second parameter is the number of the (PWM) pin to which the servo is attached. The last parameter is the sa"
+      "mple time."
+      MaskHelp		      "Every time this block is executed it gets the value (0 to 180) at its input and sends to the se"
+      "rver program running on the Arduino a command to set that value as the angle of a given servo.\n\nThe first para"
+      "meter in the mask is the name of the Arduino object (which must match the one chosen in the Setup block). The se"
+      "cond parameter is the number of the (PWM) pin to which the servo is attached. The last parameter is the sample t"
+      "ime.\n\nAlso see \"doc arduino.servoWrite\" or \"help arduino.servoWrite\" for more details."
+      MaskPromptString	      "Arduino Variable|Pin #|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),ed"
+      "it,edit"
+      MaskVariables	      "arduinoVar=&1;pinNum=@2;T=@3;"
+      MaskTunableValueString  "off,off,off"
+      MaskCallbackString      "||"
+      MaskEnableString	      "on,on,on"
+      MaskVisibilityString    "on,on,on"
+      MaskToolTipString	      "on,on,on"
+      MaskDisplay	      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(b"
+      "droot(gcb),'SearchDepth', 1, 'MaskType', 'Arduino IO Setup', 'arduinoVar', arduinoVar);\n        str=get_param(S"
+      "etupBlockName,'workspaceVarName');\n        fprintf('%s\\nServo Write (#%s)',str{1},int2str(pinNum));\n    catch"
+      "\n        fprintf('Workspace var #%s\\nServo Write (#%s)',arduinoVar(end),int2str(pinNum))\n    end\nelse\n    f"
+      "printf('%s\\nServo Write (#%s)',arduinoVar(end-7:end),int2str(pinNum))\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|9|0.2"
+    }
+    Block {
+      BlockType		      M-S-Function
+      Name		      "Stepper Motor"
+      Ports		      [3]
+      Position		      [515, 441, 615, 499]
+      FunctionName	      "msfun_arduino_stepper"
+      Parameters	      "arduinoVar, motorNum, motionStyle, sendOnChange, T"
+      MaskType		      "Arduino IO Stepper Motor"
+      MaskDescription	      "Every time this block is executed it sends to the server program running on the Arduino a"
+      " command to advance a given stepper motor by a given number of steps.\n\nThe first input is the direction (mode)"
+      " of the motor (positive=forward, 0=release, negative=backward), while the second input is the desired speed (0 t"
+      "o 255, for negative numbers only the magnitude is considered), and the third is the number of desired steps (0 t"
+      "o 255) the stepper advances every time the block executes.\n\nThe first parameter in the mask is the name of the"
+      " Arduino object (which must match the one chosen in the Setup block). The second parameter is the number of the "
+      "stepper motor (1 or 2). The third parameter is the motion style (single,double,interleave,microstep). The fourth"
+      " parameter is a checkbox that when checked casues the block to send speed commands only when the velocity input "
+      "changes. The last parameter is the sample time."
+      MaskHelp		      "Every time this block is executed it sends to the server program running on the Arduino a comma"
+      "nd to advance a given stepper motor by a given number of steps.\n\nThe first input is the direction (mode) of th"
+      "e motor (positive=forward, 0=release, negative=backward), while the second input is the desired speed (0 to 255,"
+      " for negative numbers only the magnitude is considered), and the third is the number of desired steps (0 to 255)"
+      " the stepper advances every time the block executes.\n\nThe first parameter in the mask is the name of the Ardui"
+      "no object (which must match the one chosen in the Setup block). The second parameter is the number of the steppe"
+      "r motor (1 or 2). The third parameter is the motion style (single,double,interleave,microstep). The fourth param"
+      "eter is a checkbox that when checked casues the block to send speed commands only when the velocity input change"
+      "s. The last parameter is the sample time.\n\nSee also arduino.stepperSpeed and arduino.stepperStep for more deta"
+      "ils."
+      MaskPromptString	      "Arduino Variable|Stepper Motor number|Motion Style|Send speed commands only when velocit"
+      "y input changes|Sample Time (-1 for inherited)"
+      MaskStyleString	      "popup(Temporary arduino variable: Arduino1|Temporary arduino variable: Arduino2|Temporary"
+      " arduino variable: Arduino3|Temporary arduino variable: Arduino4|Existing workspace arduino variable #1|Existing"
+      " workspace arduino variable #2|Existing workspace arduino variable #3|Existing workspace arduino variable #4),po"
+      "pup(1|2),popup(single    |double    |interleave|microstep ),checkbox,edit"
+      MaskVariables	      "arduinoVar=&1;motorNum=&2;motionStyle=&3;sendOnChange=@4;T=@5;"
+      MaskTunableValueString  "off,off,on,off,off"
+      MaskCallbackString      "||||"
+      MaskEnableString	      "on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on"
+      MaskToolTipString	      "on,on,on,on,on"
+      MaskDisplay	      "port_label('input', 1, 'Dir')\nport_label('input', 2, 'Spd')\nport_label('input', 3, 'Stp')\n"
+      "if ~isempty(strfind(arduinoVar,'Existing')),\n    try\n        SetupBlockName = find_system(bdroot(gcb),'SearchD"
+      "epth', 1, 'MaskType','Arduino IO Setup', 'arduinoVar',arduinoVar);\n        str=get_param(SetupBlockName,'worksp"
+      "aceVarName');\n        fprintf('%s\\nStepper\\n Motor (#%s)',str{1},motorNum);\n    catch\n        fprintf('Work"
+      "space var #%s\\nStepper\\n Motor (#%s)',arduinoVar(end),motorNum)\n    end\nelse\n    fprintf('%s\\nStepper\\n M"
+      "otor (#%s)',arduinoVar(end-7:end),motorNum)\nend\n"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "normalized"
+      MaskValueString	      "Temporary arduino variable: Arduino1|1|single    |on|0.2"
+    }
+    Annotation {
+      Name		      "SETUP\nBLOCK"
+      Position		      [18, 68]
+      HorizontalAlignment     "left"
+    }
+    Annotation {
+      Name		      "Simulink Library For the Arduino IO Package"
+      Position		      [208, 19]
+      TexMode	      "on"
+      FontName		      "@Arial Unicode MS"
+      FontSize		      20
+    }
+    Annotation {
+      Name		      "ANALOG IO\nAND \nDIGITAL IO\nBLOCKS"
+      Position		      [18, 173]
+      HorizontalAlignment     "left"
+    }
+    Annotation {
+      Name		      "SERVO\nBLOCKS"
+      Position		      [18, 253]
+      HorizontalAlignment     "left"
+    }
+    Annotation {
+      Name		      "MOTOR \nSHIELD:\n\nMOTOR\nBLOCKS"
+      Position		      [18, 468]
+      HorizontalAlignment     "left"
+    }
+    Annotation {
+      Name		      "NOTE: These blocks do not support code generation. For generating code that will run autonomously o"
+      "n the Arduino, use \nthe Simulink Support Package for Arduino, http://www.mathworks.com/academia/arduino-softwar"
+      "e/arduino-simulink.html\nCopyright 2010, The MathWorks, Inc. "
+      Position		      [22, 542]
+      HorizontalAlignment     "left"
+    }
+    Annotation {
+      Name		      "REALTIME\nPACER\nBLOCK"
+      Position		      [388, 73]
+      HorizontalAlignment     "left"
+    }
+    Annotation {
+      Name		      "Examples"
+      Position		      [63, 589]
+      TexMode	      "on"
+      FontName		      "@Arial Unicode MS"
+      FontSize		      20
+    }
+    Annotation {
+      Name		      "ENCODER\nBLOCKS"
+      Position		      [18, 348]
+      HorizontalAlignment     "left"
+    }
+  }
+}
