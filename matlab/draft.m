@@ -16,6 +16,14 @@ while (elapsed_time < 1)
     acc(i,3) = a.analogRead(2);
     i = i + 1;
 end
-g = mean(acc)
-% mean(stretch(1.5,-1.5,1023,0,acc))
+
+run static_data
+V = interp1([0 1023],[0 3.3],mean(acc));
+g = zeros(size(V));
+for coord = 1:3
+    g(coord) = G(v_table,coord,V(coord));
+end
+
+norm(g)
+g
 
