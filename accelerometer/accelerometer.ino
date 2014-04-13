@@ -12,13 +12,16 @@
 long int counter;
 
 Acc acc = Acc(X_PIN, Y_PIN, Z_PIN);
-
+int control_pin = 4;
+bool boolean_val;
 void setup(void) {
-    delay(250); //Allow the chip to stop shaking from the reset press
-    
-    Serial.begin(9600);
-    Serial.println("Start");
-    counter = 0;
+    // TCCR0B = _BV(CS00) | _BV(CS02);
+    delay(250); //Allow the chip to stop shaking rfom the reset press
+    // analogWrite(control_pin, 127);
+    pinMode(control_pin,OUTPUT);
+    // digitalWrite(control_pin, HIGH);
+    // analogWrite(control_pin,127);
+    boolean_val = false;
 }
 
 /**
@@ -26,17 +29,10 @@ void setup(void) {
  * 
  */
 void loop(void) {
-    char otherChar;
-    if (++counter > FILTER) {
-        counter = 0;
-        double sum = 0;
-        for(int i=0; i<3; i++) {
-            double value = Acc::to_v(acc.take_sample(AVERAGING_POINTS,i));
-            otherChar = (i==2) ? '\n' : ',';
-            Serial.print(value);
-            Serial.print(otherChar);
-            sum = sum + sq(value);
-        }
-        // Serial.println(sqrt(sum)); 
-    }
+
+    delay(10); //Allow the chip to stop shaking rfom the reset press
+    boolean_val = !boolean_val;
+    digitalWrite(control_pin, boolean_val ? HIGH : LOW);
+    // analogWrite(control_pin,127);
+
 }

@@ -24,8 +24,10 @@ public:
 private:
 	static double line(double, double, double, double, double);
 	int PINS[3];
-	double MAX_G[3];
-	double MIN_G[3];
+	// double MAX_G[3];
+	// double MIN_G[3];
+	// double MAX_A[3];
+	// double MIN_A[3];
 };
 
 #endif
