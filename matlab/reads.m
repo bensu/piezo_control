@@ -61,17 +61,17 @@ b_z = mean(v_table(:,1:2),2) - v_table(:,3);
 
 
 %% CHECK
-
-figure
-hold on
-V = 0:0.5:3.3';
-y = zeros(size(V,2),3);
-for i = 1:3
-    y(:,i) = G(v_table,i,V);
-end
-hold off
-
-plot(V,y(:,3)-y(:,2))
+% 
+% figure
+% hold on
+% V = 0:0.5:3.3';
+% y = zeros(size(V,2),3);
+% for i = 1:3
+%     y(:,i) = G(v_table,i,V);
+% end
+% hold off
+% 
+% plot(V,y(:,3)-y(:,2))
 
 
 
