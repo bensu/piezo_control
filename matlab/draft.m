@@ -39,7 +39,7 @@ hold off
 clear Y
 clear f
 NFFT = 2^nextpow2(length(t)); % Next power of 2 from length of y
-Y = fft(acc(:,3));
+Y = fft(g(:,3));
 f = 1/2/T*linspace(0,1,NFFT/2+1);
 
 % Plot single-sided amplitude spectrum.
@@ -48,6 +48,6 @@ title('Single-Sided Amplitude Spectrum of a_z(t)')
 xlabel('Frequency (Hz)')
 ylabel('|Y(f)|')
 
-[pvals pplaces] = findpeaks(abs(Y));
-[NOT_USED max_place] = max(pvals);
+[pvals, pplaces] = findpeaks(abs(Y));
+[NOT_USED, max_place] = max(pvals);
 f_1 = f(pplaces(max_place))

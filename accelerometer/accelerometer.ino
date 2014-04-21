@@ -10,18 +10,21 @@
 #define FILTER 50000
 
 long int counter;
-
+int dc;
 Acc acc = Acc(X_PIN, Y_PIN, Z_PIN);
-int control_pin = 4;
+int control_pin = 5;
 bool boolean_val;
 void setup(void) {
     // TCCR0B = _BV(CS00) | _BV(CS02);
     delay(250); //Allow the chip to stop shaking rfom the reset press
-    // analogWrite(control_pin, 127);
+    // TIMER 3 - PINS 5, 3, and 2
+    // TCCR3B = TCCR2B & 0b11111000 | 0x03;  // analogWrite(control_pin, 127);
     pinMode(control_pin,OUTPUT);
-    // digitalWrite(control_pin, HIGH);
+    digitalWrite(control_pin, HIGH);
     // analogWrite(control_pin,127);
     boolean_val = false;
+    dc = 115;
+    // digitalWrite(control_pin, HIGH);
 }
 
 /**
@@ -30,9 +33,15 @@ void setup(void) {
  */
 void loop(void) {
 
-    delay(10); //Allow the chip to stop shaking rfom the reset press
-    boolean_val = !boolean_val;
+   
+    boolean_val = false;
     digitalWrite(control_pin, boolean_val ? HIGH : LOW);
+    // analogWrite(control_pin,62);
+    delay(330-dc); //Allow the chip to stop shaking rfom the reset press
+    boolean_val = true;
+    // analogWrite(control_pin,127);
+    digitalWrite(control_pin, boolean_val ? HIGH : LOW);
+    delay(dc);
     // analogWrite(control_pin,127);
 
 }

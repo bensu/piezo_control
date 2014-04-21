@@ -10,6 +10,8 @@ Acc::Acc(int x_pin, int y_pin, int z_pin) {
 	PINS[1] = y_pin;
 	PINS[2] = z_pin;
 
+
+
 	// Values found from previous calibration
 	// MAX_A[0] = 1.81;
 	// MAX_A[1] = 1.47;
