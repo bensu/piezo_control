@@ -18,13 +18,16 @@ public:
 	int read_raw(int coord_num);
 	int take_sample(int average_points, int coord_num);
 	static double to_v(int n_read);
-	// static double to_g(int n_read);
+	double to_g(int coord, int n_read);
 	static double to_ms2(int n_read);
 	double read_g(int average_points, int coord_num);
+	void test_loop(void);
 private:
-	static double line(double, double, double, double, double);
-	int PINS[3];
-	// double MAX_G[3];
+	static double line(double max_y, double min_y, double max_x, double min_x, double val);
+	int PINS[3]; 
+	double V_READS[3][3] = {{1.02, 1.80, 2.58},
+							{0.98, 1.80, 2.61},
+							{0.53, 1.27, 2.11}};
 	// double MIN_G[3];
 	// double MAX_A[3];
 	// double MIN_A[3];
