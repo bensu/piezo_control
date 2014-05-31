@@ -1,5 +1,6 @@
 %a = arduino('/dev/ttyS101');
-
+%sudo ln -s /dev/ttyACM0 /dev/ttyS101 
+% Connect pins
 % run reads
 
 N = 40;
@@ -12,7 +13,11 @@ acc = zeros(N,3);
 tic
 elapsed_time = toc;
 i = 1;
-while (elapsed_time < 5)
+for i = 2:69
+    a.pinMode(i,'input');
+end
+i = 1;
+while (elapsed_time < 30)
     elapsed_time = toc;
     if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-5
         prev = elapsed_time;
@@ -25,7 +30,7 @@ while (elapsed_time < 5)
 end
 
 V = zeros(size(acc));
-g = V;
+g = zeros(size(acc));
 figure
 hold on
 for coord = 1:3
@@ -35,19 +40,24 @@ for coord = 1:3
 end
 hold off
 
+% g_mean = mean(g);
+% for i = 1:size(g,2)
+%     g(i,:) = g(i,:) - g_mean;
+% end
 %%
 clear Y
 clear f
 NFFT = 2^nextpow2(length(t)); % Next power of 2 from length of y
 Y = fft(g(:,3));
-f = 1/2/T*linspace(0,1,NFFT/2+1);
-
+f = 1/2/T*linspace(0,1,NFFT/2+1)';
+new_Y = abs(Y(1:NFFT/2+1));
 % Plot single-sided amplitude spectrum.
-plot(f,abs(Y(1:NFFT/2+1)))
+plot(f,abs(new_Y))
 title('Single-Sided Amplitude Spectrum of a_z(t)')
 xlabel('Frequency (Hz)')
 ylabel('|Y(f)|')
 
-[pvals, pplaces] = findpeaks(abs(Y));
+[pvals, pplaces] = findpeaks(new_Y(f>1));
+new_f = f(f>1);
 [NOT_USED, max_place] = max(pvals);
-f_1 = f(pplaces(max_place))
+f_1 = new_f(pplaces(max_place))

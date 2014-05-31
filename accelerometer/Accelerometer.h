@@ -12,18 +12,26 @@
 #define MAX_N 1023
 #define MIN_N 0
 
+enum Coord {
+   X,
+   Y,
+   Z
+};
+
 class Acc {
 public:
 	Acc(int x_pin, int y_pin, int z_pin);
-	int read_raw(int coord_num);
-	int take_sample(int average_points, int coord_num);
+	static int coord2int(Coord coord);
+	static Coord int2coord(int i);
+	int read_raw(Coord coord);
+	int take_sample(int average_points, Coord coord);
 	static double to_v(int n_read);
 	double to_g(int coord, int n_read);
 	static double to_ms2(int n_read);
 	double read_g(int average_points, int coord_num);
 	void test_loop(void);
-private:
 	static double line(double max_y, double min_y, double max_x, double min_x, double val);
+private:
 	int PINS[3]; 
 	double V_READS[3][3] = {{1.02, 1.80, 2.58},
 							{0.98, 1.80, 2.61},
