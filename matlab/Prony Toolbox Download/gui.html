@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Prony Toolbox Help</title>
+<style>
+a{font-family: arial, san-serif;color:#5C5E26; }
+a.sidenavigate:hover { background:#808000}
+a.headnavigate:hover { background:#808000}
+h1{font-size:1.2em;}
+h2{font-size:1.1em;}
+h3{font-size:1em;}
+h4{font-size:.9em;}
+p{font-size:.8em}
+.bold{font-weight:bold;}
+.italic {font-style: italic;font-family: arial, san-serif;}
+.bi {font-weight: bold; font-style: italic}
+.center{text-align:center}
+.indent{margin-left:1em ;sword-spacing: 1em}
+.headnavigate{font-family:  arial, serif; font-size:0.9em; color:#FFFFFF; text-decoration:none}
+.topnavigate{font-family: arial, serif;  color:#FFFFFF; text-decoration:none}
+.sidenavigate{font-family: arial, serif; color:#FFFFFF;}
+.mainbody{margin-left:4em;  margin-top:2em;font-family: arial, san-serif;}
+.pfont{font-size:.8em}
+
+</style>
+
+</head>
+
+<body bgcolor="#CCCCFF">
+<table width="80%" cellpadding="2" cellspacing="0" border="0">
+<tr bgcolor="#3333FF">
+  <td  colspan="12"    class="center" valign="middle" class="italic" ><a href="http://wwweng.uwyo.edu/electrical/">
+  <img src="ecelogo.jpg" alt="ECE Department, University of Wyoming" align="center" width="758" height="136" 
+  longdesc="ECE deptt"></a> </td>
+ 
+ </tr>
+
+<tr>
+ <td colspan="1" width="20%" valign="top" bgcolor="#3333FF" >  
+  <div class="indent"><br>
+  	<a href></a><a href="pronytoolhelp.html"><h3 class="sidenavigate">Prony Analysis</h3></a>
+   <a href></a><a href="design.html"><h3 class="sidenavigate">Design Basis of the PTbox</h3></a>
+	<a href></a><a href="references.html"><h3 class="sidenavigate">References</h3></a>
+	
+   
+ </div>
+ </td>
+
+<!-- Main body -->
+  <td colspan="10" valign="top" width="500" height="400">
+  
+     
+ <h2 class="mainbody">GUIs in the Prony Toolbox</h2>
+ <div class="mainbody">
+
+<p>PTbox consists of five GUI’s:</p>
+<ul class="pfont">
+ <li>Splash GUI</li>
+<li>Prepare Prony Data GUI</li>
+<li>Perform PA GUI</li>
+<li>Compare PA Sessions GUI</li>
+<li>Export Data GUI.</li>
+</ul>
+<p>Each of the GUIs is designed to implement a particular task.  For example, the Prepare Prony Data GUI performs data preprocessing tasks and prepares the data for PA.  The data flow in the PTbox is summarized in Figure 4.4.1.  First data is obtained and preprocessed in the Prepare Prony Data GUI and then PA is performed.  In the last GUI, PA sessions are compared.  The Export Data GUI allows the export of data associated with each GUI.</p>  
+<h2>Prepare Prony Data GUI</h2>
+<p>The main features of this GUI are as follows:</p>
+<p class="bold">Import Data:</p>  <p>A file open dialog window appears when the user presses this push button.  The user has to choose a data file from the traditional file open dialog.  The data file should be in MATLAB MAT-file form.  Once the file is selected and successfully read, the variables are shown in two list boxes.</p>  
+<p> PTbox requires that the data should be stored along with variable names in the MAT-file; the read fails if the file does not contain variable names.  PTbox uses the variable names for display in the selection list boxes.  Presently, PTbox does not provide the flexibility of modifying the data names.  However, this should not be a limitation as the names in the MAT-file can be modified directly by the user via the load and save commands of MATLAB.</p>
+
+<p class="bold"> Plot:</p> <p>This push button plots the variables selected by the user from the dependent and independent variable list boxes.  It is a plot of the original data with no preprocessing.</p>  
+
+<p class="bold">Decimation:</p> <p>  This option allows the user to specify a particular data range and reduce the data length by decimating the signal.  The extent of data length reduction is typically described by the down sampling.
+PTbox obtains the down-sampling factor M from the user and performs M-fold decimation.  For example:  if the user has specified a down-sampling factor of two then the toolbox selects alternate samples of the data, hence the decimated signal samples appear at a rate slower than that of the original signal by a factor of two.  
+The down-sampling process can cause aliasing in the frequency domain.  Hence, an antialiasing filter with cut off frequency of pi/M should be used before down sampling.  Presently PTbox does not provide the flexibility of filtering the decimated signal.  PTbox has ‘decimation off’ by default, and consequently the user has to activate the decimation option.</p>
+
+<p class="bold">Data Range:</p><p>This option allows the user to specify a specific section of the decimated or undecimated signal.  This option is particularly useful when the signal damps out rapidly.  Data range is specified by a left mouse click at two different locations on the plotted range.</p>  
+
+<p class="bold">Data Preprocessing:</p> <p> PTbox can preprocess the original data range or specific data range signal.  Several data preprocessing options are available:<p> 
+<p class="italic">Remove Mean:</p><p>It subtracts the signal sample mean from each sample.  It also changes the time range of signals.  The time range of negative values is discarded and positive values are picked up during the Remove Mean operation.  It scales the PCR signals; amplitude of all other signal is unchanged.  The pulsed voltage signals and the pulsed current signals are scaled by a factor of 242000 and 710 respectively.</p>
+<p class="italic">Detrend:</p><p>It removes the linear trend from the signal.  It computes the least-squares fit of a straight line (or composite line for piecewise linear trends) to the data and subtracts the resulting function from the data (MATLAB Help 2002).</p>
+<p class="italic">No change:</p><p>It results in no preprocessing of the signal.</p>
+<p>By pressing the Go push button, the selected data preprocessing is implemented.  After data preprocessing is performed, the data is ready to send to the Perform PA GUI.  This is done by pressing the Perform Prony Analysis push button.</p>
+
+<h2> Perform PA GUI</h2>
+<p>The main features of this GUI are as follows:</p>
+<p class="bold">Model Order:</p><p>The user has to specify a model order in the editable text box.  The GUI uses the user-specified value to perform the PA. </p>
+
+<p class="bold">Graphic Mode:</p><p>This refers to the graphic display of the PA fit in time or frequency domain.  The frequency domain description of the Prony fit is obtained by computing the Fast Fourier Transform (FFT) of the Prony estimated signal in the sample or time domain.</p>
+
+<p class="bold">Number of Residues:</p><p>The number of residues to be retained for the results display must  be specified by the user in an editable box.  This number is used to choose only specific residues according to the selection criteria.  The total number of residues specified cannot exceed the model order previously given.  If it exceeds, then a dialog box appears and prompts the user to specify a number of residues less than or equal to the model order.  For a specific number of residues, the GUI also checks that the conjugate of the last residue is always included in the PA if it indeed exists.  The GUI has been programmed such that it automatically increments the number of residues by one and picks up the conjugate mode, if the user missed selecting it.</p> 
+
+<p class="bold">Mode Sorting Criteria:</p><p>  The GUI sorts the Prony residues according to two criteria:</p>
+<p class="italic">Amplitude:</p><p> Sorts the Prony residues according to their amplitude.</p>
+<p class="italic">Energy:</p><p>  Sorts the Prony residues according to their energy level.</p>  
+<p class="bold">Mode Selection Options:</p><p>This feature provides the flexibility of choosing the residues according to the following options:</p>
+<p class="italic">All Modes:</p><p>   All the PA result modes are considered.</p> 
+<p class="italic">Selected Modes Only: </p><p>  In this option, only the user selected modes are considered.  The user can select multiple modes by pressing CTRL+ left mouse button. </p> 
+<p class="italic">All But Selected Modes: </p><p>  This is a complement option to the Selected modes only option.  In this case, all the modes are considered except the selected modes.</p> 
+
+<p class="bold">Results:</p><p>The GUI shows the PA results in a list box.  It displays amplitude, frequency, damping coefficient and energy of the modes according to the mode sorting criteria and mode selection options.</p>
+
+<p class="bold">Plots:</p><p>This feature provides the following types of plots to assist the user in validating the Prony fit:</p>
+<p class="italic">Squared Error: </p><p> In this option, the square of the error between the original signal and Prony fit is plotted with respect to time.This plot is a quick indication of the performance of the Prony fit.  A large squared error is an indication of incorrect model order or number of residues or missing signal modes during the mode selection process.</p>
+<p class="italic">Poles:</p><p>  This shows the poles of the Prony model.</p>
+<p class="italic">Residues:</p><p>  This shows the selected as well as all residues.  This plot helps the user to estimate the correct model order.</p>  
+<p class="italic">Energy:</p><p>  This shows the energy of the Prony modes.</p>  
+
+<p class="bold">Mean squared error (MSE):</p><p> MSE is the mean of the squared error over the sample data length.  MSE is an important statistic that provides information about the performance of the Prony fit.  The main advantage of MSE over the squared error is that it is a single number.</p>  
+<p class="bold">Save PA session:</p><p>  The current PA session can be saved by selecting Save from the Session menu.  The GUI saves the sessions in the MATLAB workspace, and an unlimited number of sessions can be saved.  The Session menu also has an option of saving the current session as a file.  It saves the session as a CMP-file, which can be opened in the Compare PA Sessions GUI.  When the user saves a PA session, the Compare Sessions push button is enabled.</p>
+
+<h2>Compare PA Sessions GUI</h2>
+<p>This GUI compares several PA sessions simultaneously.  Its features include the following:</p>
+<p class="bold">Compare Set Menu:</p><p>To compare sessions, first the user has to specify the data to be compared by either loading the data from the workspace or importing the data from a CMP-file.  This menu has options to load the data from the workspace or open the CMP- file.</p>
+ <p class="bold">Sessions List: </p><p> The GUI displays all the specified saved sessions in a list box.  For each session it displays the data file name, data set, data preprocessing option, decimation option, decimation factor, data range option, model order, number of modes, mode sorting criteria and mode selection option.</p>
+
+ <p class="bold">Plots: </p><p> The GUI plots the poles, squared error, energy and residues for the selected PA sessions.</p>
+
+<h2>Export Data GUI</h2>
+<p>PTbox provides the flexibility of saving, analyzing and plotting the PA results according to the user needs, by exporting the results associated with the Prepare Prony Data GUI, Perform PA GUI and Compare PA Sessions GUI.  Figure 4.9.1 shows the Export Data GUI.  The GUI consists of several check boxes and edit boxes.  Each check box refers to particular axis data from the other GUIs.  The edit box provides the flexibility for the user to specify the data structure name.  The data can be exported to the MATLAB workspace as well as to a file.  When the user saves the data in a file, PTbox stores the data in a single structure named Exported_Data in the user specified file name.  The data structure can be expanded in the workspace using the following MATLAB commands:</p>
+<p class="bold">load filename;</p><p>%Loads the data in the base workspace of MATLAB.</p>
+<p class="bold">mmv2struct(Exported_Data);</p><p>%Unpacks the Exported_Data Structure.</p>
+<h2>Context Menu:</h2>
+<p>A context menu is designed for each axis in PTbox.  The context menu provides the ability to draw the axis plot in a new figure.  It is activated by right-clicking the mouse on the axis.  It provides the flexibility to edit the axis properties and customize it according to the user’s requirements.</p>  
+
+ </div>
+
+  </td> </tr></table>
+</body>
+</html>
+

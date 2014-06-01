@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Prony Toolbox Help</title>
+<style>
+a{font-family: arial, san-serif;color:#5C5E26; }
+a.sidenavigate:hover { background:#808000}
+a.headnavigate:hover { background:#808000}
+h1{font-size:1.2em;}
+h2{font-size:1.1em;}
+h3{font-size:1em;}
+h4{font-size:.9em;}
+p{font-size:.8em}
+.bold{font-weight:bold;}
+.italic {font-style: italic;font-family: arial, san-serif;}
+.bi {font-weight: bold; font-style: italic}
+.center{text-align:center}
+.indent{margin-left:1em ;sword-spacing: 1em}
+.headnavigate{font-family:  arial, serif; font-size:0.9em; color:#FFFFFF; text-decoration:none}
+.topnavigate{font-family: arial, serif;  color:#FFFFFF; text-decoration:none}
+.sidenavigate{font-family: arial, serif; color:#FFFFFF;}
+.mainbody{margin-left:4em;  margin-top:2em;font-family: arial, san-serif;}
+
+
+</style>
+
+</head>
+
+<body bgcolor="#CCCCFF">
+<table width="80%" cellpadding="2" cellspacing="0" border="0">
+<tr bgcolor="#3333FF">
+  <td  colspan="12"    class="center" valign="middle" class="italic" ><a href="http://wwweng.uwyo.edu/electrical/">
+  <img src="ecelogo.jpg" alt="ECE Department, University of Wyoming" align="center" width="758" height="136" 
+  longdesc="ECE deptt"></a> </td>
+ 
+ </tr>
+
+<tr>
+ <td colspan="1" width="20%" valign="top" bgcolor="#3333FF" >  
+  <div class="indent"><br>
+  	<a href></a><a href="pronytoolhelp.html"><h3 class="sidenavigate">Prony Analysis</h3></a>
+   	<a href></a><a href="gui.html"><h3 class="sidenavigate">PTbox GUIs</h3></a>
+	<a href></a><a href="references.html"><h3 class="sidenavigate">References</h3></a>
+		
+   
+ </div>
+ </td>
+
+<!-- Main body -->
+  <td colspan="10" valign="top" width="500" height="400">
+  
+     
+ <h2 class="mainbody">Design Basis of the Prony Toolbox</h2>
+ <div class="mainbody">
+<p> Application of Prony analysis (PA) to characterize Pulsed Corona Reactor (PCR) measurements is a real world application.  Presently, there exist a few software tools (e.g. MATLAB, Auto Signal, DSI Tools Ringdown) available to perform PA and each of them has their own limitations: uncommon data input format, limited number of input signals, rigid software architecture, bugs and limited features.  One of the main constraints of the existing software systems is inability or inflexibility for simultaneous display and comparison of several Prony analysis sessions.  The analysis comparison ability is believed to be an essential requirement for the PCR signal characterization.  Our hypothesis requires that the roots of the PA for various sets of experiments can be simultaneously inspected.  Hence, we have designed a software tool, the Prony Toolbox (PTbox), built around MATLAB functions with a user-friendly graphical interface and containing all the necessary features to perform PA in the application setting of PCR characterization.<p>  
+<p> PA is a multi-step procedure which involves performing an autoregressive (AR) fit, rooting the AR coefficients for complex exponential parameters, filtering the roots, completing a least squares fit for complex amplitude parameters, and creating the final model with signal thresholding.  All of these steps involve design considerations: data input format, data preprocessing and filtering, model order selection criteria, signal-noise separation, assessing residuals and root inspection.  Data preprocessing is required including filtering and removal of the mean.  A detailed numeric summary of a PA session results is an essential ingredient of the software tool.  The subsequent sections of this Chapter describe the design requirements in detail.</p>
+ 
+<p class="bold"> Data Input Format </p>
+<p>One of the fundamental themes of PTbox is simplicity.  In order to attain this theme, it is important to design the tool in a data input format that is widely accepted in the research community and industry.  It is also required that the file format is cross-platform-compatible (Hanselman, Littlefield 2001).  The different platforms of MATLAB should not involve any special treatment.  The native binary MAT-files fulfill all of the above requirements.  MAT-files also have the ability to store the data with high precision and to load the data into the MATLAB base workspace with high speed.  Due to the above qualities of the native binary MAT-files, PTbox is designed to import the data files in the MAT-file format.</p>  
+ 
+<p class="bold">  Reduction in Data Length </p>
+<p>Prony analysis involves the solution of an over-determined set of linear equations and rooting of a high-order polynomial, which are highly numerically intensive operations (Trudnowski 1995).  Down-sampling the signal can increase the computational efficiency and performance of the Prony analysis.  Hence, a flexibility to down-sample the signal is provided in the PTbox.</p>
+
+
+
+<p class="bold">  Data Range </p>
+<p>	Apart from down-sampling the signal, reduction in the data length can also be achieved by selecting a specific region of the data.  This feature is especially useful when the signal damps out rapidly; in such a case, the user can specify a data range as the specific section of the signal where it is judged significant.</p>  
+
+<p class="bold">  Data Preprocessing and Filtering</p>
+<p>	A linear trend, a signal mean, or noise in the raw data can cause significant errors in the PA results.  Hence, it is important to preprocess the data before applying the Prony analysis.  Data preprocessing involves filtering the data to isolate the signal components by frequency, detrending and removing the mean from the signal.  Detrend removes any linear trend from the signal.  It computes the least-squares fit of a straight line to the data and subtracts the resulting function from the data (MATLAB Help 2002).</p>
+
+<p class="bold">  Model Order Determination</p>
+ <p>PA requires some a priori information about the system to be identified; most obvious is the model order.  Usually, in most real systems, the model order is unknown, however a system specialist may have a rough idea of the expected order.  There are several methods available to estimate model order.  The residue amplitude and minimum energy criterion are two of these sorting methods that presort the residues according to their amplitude and energy.  Several other criteria exist, including specifically the Akaike information criterion (Trudnowski 1994) and Minimum Descriptive Length (Wax, Kailath 1985).  In the literature, they are known to perform poorly for very closely spaced modes (Trudnowski, Hauer, Rogers 1995).</p>
+<p>	As there is no straightforward method to compute the model order of an arbitrary system, an initial estimate of model order can be obtained from the user.  Subsequently, Prony analysis can be performed based on this initial guess, and residues can be presorted according to their amplitudes and energies. </p>
+<p>	A good rule of thumb is to initially assume a model order which is approximately one-third of the sample data length (Trudnowski, Hauer, Rogers 1995).  A subset of the resulting modes can then be selected by iteratively increasing the number of modes in the model response until the model reconstruction accurately represents the original data.  In order to implement the above rule of thumb, it is necessary to design the PTbox in such a way that it allows the user to select the specific residues from the presorted residues list.  The feature to select the presorted residues should be implemented in a simple and user-friendly way.  </p>
+
+<p class="bold">  Graphic Mode of Prony Analysis Fit</p>
+	<p>Prony analysis fit can be displayed in two graphic modes: time and frequency.  To analyze the Prony fit, both graphic modes are necessary.  The time domain graphic mode provides more information in the case of a signal containing low energy residues.  The frequency domain graphic mode emphasizes the high energy residues and the major frequency components of the Prony fit.</p>
+
+
+<p class="bold">  Signal-Noise Separation</p>
+<p>	Most real signals are corrupted by additive broad-band noise that cannot simply be filtered out.  It is difficult to separate the noise modes from the signal modes in such a signal.  When there is sufficient signal-noise separation, residue amplitudes and residue energy plots will typically reveal one or more sharp transitions between the signal subspace and the noise subspace floor (Autosignal 2002).  Hence, residue amplitude and energy plots should be provided in the PTbox to assist the user to distinguish the signal modes.</p>
+
+<p class="bold">  Root Inspection </p>
+	<p>The inspection of the Prony roots is believed to be an essential requirement to validate our hypothesis regarding PCR root clustering.  The hypothesis validation also requires the ability to simultaneously display the Prony roots of several Prony analysis sessions.  The root inspection in the Prony model can also assist the user to distinguish the signal modes. </p>
+	
+<p class="bold">  Accuracy of Prony Fit</p>
+<p>Computations of some of the key statistics should be available.  For example, r2 goodness of fit index, squared error and mean squared error (MSE), would be helpful to determine the accuracy of the Prony fit.</p>  
+
+ 
+<p class="bold">  Numeric Summary</p>
+	<p>A list of the key parameters of the Prony analysis should be displayed so that the user can analyze the Prony fit.  There should be features to export and plot the results associated with each step of the Prony fit. </p>
+
+<p class="bold">  Non-Linear Optimization</p>
+	<p>The refinement of the parameters of the Prony fit can be achieved by non-linear optimization (Autosignal 2002).  Constrained least-squares and robust (maximum likelihood) non-linear fitting are two non-linear optimization techniques that can be applied to improve the Prony results.</p>
+
+<p class="bold">  Assessing Residuals</p>
+	<p>The normal probability plot of the residuals indicates if the model is under specified or over specified (Autosignal 2002).  Providing the ability to assess the residuals is an optional design feature of the PTbox.</p>
+
+<p class="bold">  Simultaneous Display of Several Prony Analysis Sessions</p>
+	<p>The ability to display and analyze several Prony analysis sessions is one of the fundamental and essential design requirements to validate our hypothesis.  This is a unique feature of PTbox which is not present in any of the existing PA software tools examined by the author.  </p>
+<p class="bold">  Graphical User Interface</p>
+<p>PTbox is designed to provide an interface between the user and the application's underlying code hence the user can apply PA without knowing cumbersome command line interface commands.  </p>
+<p>The graphical user interfaces (GUIs) in the PTbox are built using the GUIDE (Graphical User Interface Development Environment) tool in MATLAB 6.5.  The GUIDE tool provides an easy and efficient way to compose a GUI and add functionality to it (Marchand 1999).  It allows the application programmer to place and modify MATLAB graphics objects (i.e., uicontrol (user interface control), uimenu (user interface menu) and axes) in a graphical manner.  GUI development using MATLAB graphics objects can be time consuming and tedious.  It requires a lot of experience and practice to estimate the position attributes of uicontrol and uimenu elements to obtain the desired look for a GUI (Marchand 1999).  The GUIDE circumvents this tedious GUI development process and provides a simple and intuitive graphical approach to GUI design.  By providing a user-friendly way to design GUIs, GUIDE cuts down the development time.  Using GUIDE, the application programmer can focus on functionality of the GUI; the appearance and form of the GUI is taken care of by the GUIDE tool.</p>
+ 
+ </div>
+
+  </td> </tr></table>
+</body>
+</html>
+

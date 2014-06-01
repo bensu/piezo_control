@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Prony Toolbox Help</title>
+<style>
+a{font-family: arial, san-serif;color:#5C5E26; }
+a.sidenavigate:hover { background:#808000}
+a.headnavigate:hover { background:#808000}
+h1{font-size:1.2em;}
+h2{font-size:1.1em;}
+h3{font-size:1em;}
+h4{font-size:.9em;}
+p{font-size:.8em}
+.bold{font-weight:bold;}
+.italic {font-style: italic;font-family: arial, san-serif;}
+.bi {font-weight: bold; font-style: italic}
+.center{text-align:center}
+.indent{margin-left:1em ;sword-spacing: 1em}
+.headnavigate{font-family:  arial, serif; font-size:0.9em; color:#FFFFFF; text-decoration:none}
+.topnavigate{font-family: arial, serif;  color:#FFFFFF; text-decoration:none}
+.sidenavigate{font-family: arial, serif; color:#FFFFFF;}
+.mainbody{margin-left:4em;  margin-top:2em;font-family: arial, san-serif;}
+
+
+</style>
+
+</head>
+
+<body bgcolor="#CCCCFF">
+<table width="80%" cellpadding="2" cellspacing="0" border="0">
+<tr bgcolor="#3333FF">
+  <td  colspan="12"    class="center" valign="middle" class="italic" ><a href="http://wwweng.uwyo.edu/electrical/">
+  <img src="ecelogo.jpg" alt="ECE Department, University of Wyoming" align="center" width="758" height="136" 
+  longdesc="ECE deptt"></a> </td>
+ 
+ </tr>
+
+<tr>
+ <td colspan="1" width="20%" valign="top" bgcolor="#3333FF" >  
+  <div class="indent"><br>
+  	<a href></a><a href="pronytoolhelp.html"><h3 class="sidenavigate">Prony Toolbox Help</h3></a>
+	
+	
+   
+ </div>
+ </td>
+
+<!-- Main body -->
+  <td colspan="10" valign="top" width="500" height="400">
+  
+     
+ <h2 class="mainbody">Prony Toolbox Demos </h2>
+ <div class="mainbody">
+<p> Prony Toolbox demos are provided in the demos directory.</p> 
+<p class="bold"> Pure Signal Demo </p> <p> The pure_demo MAT-file contains a demo of a pure signal. The signal Y is constructed using 3 real damped sinusoids or 6 complex damped sinusoids: <br>
+c1 = 2e (-50t)sin(2&#960;100t+&#960;).<br>
+c2 = 3e(-20t)sin(2&#960;200t+&#960;/2).<br>
+c3 = 4e(-100t)sin(2&#960;400t).<br>
+Y = c1+c2+c3. </p> 
+ 
+ 
+ <p class="bold">Signal with Pure Tone Noise Demo </p><p> The puretone_demo MAT-file contains a demo of a signal with a pure tone noise.  Test signal “Y1” is a noisy signal with pure tone noises n1 and n2. <br>
+c1 = 2e (-50t)sin(2&#960;100t+&#960;).<br>
+c2 = 3e(-20t)sin(2&#960;200t+&#960;/2).<br>
+c3 = 4e(-100t)sin(2&#960;400t).<br>
+n1 = sin(2&#960;150t).<br>
+n2= 6sin(2&#960;300t).<br>
+Y1 = c1+c2+c3+n1+n2. </p>
+</p>
+ 
+ <p class="bold">Signal with Broadband Noise Demo </p><p> The bbnoise_demo MAT-file contains a demo of a signal with a broadband noise. The testsignal Y2 is constructed Test using the following components:<br> 
+c1 = 2e (-50t)sin(2&#960;100t+&#960;).<br>
+c2 = 3e(-20t)sin(2&#960;200t+&#960;/2).<br>
+c3 = 4e(-100t)sin(2&#960;400t).<br>
+n = 2 randn(1,200).<br>
+Y2 = c1+c2+c3+n. <br>
+</p>
+
+ </div> </td> </tr></table>
+</body>
+</html>
+
