@@ -33,13 +33,21 @@ void Piezo::apply_voltage(float V) {
 	// }
 
 	// Reverse logic because we are producing the inverse function
-	analogWrite(ENABLE_PIN,ADC_LIMIT-amplitude);
+	analogWrite(ENABLE_PIN,amplitude);
     digitalWrite(DIR_PIN, sign ? HIGH : LOW);
+}
+
+void Piezo::actuate_square(float amp, float f) {
+	float t = millis() / 1000.0;
+	float T = 1/f;			// Period
+	float m_t = t - (t/T);	// Remainder of t/T
+	apply_voltage((m_t < T/2) ? amp : 0);
+
 }
 
 void Piezo::actuate_sin(float amp, float f) {
 	// Should be in loop()
     float t = millis() / 1000.0;
-    float V = amp*(sin(2*3.14*f*t));
+    float V = amp*sin(2*3.14*f*t);
     apply_voltage(V);
 }

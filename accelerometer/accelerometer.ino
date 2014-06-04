@@ -22,7 +22,7 @@ int sign = 1;
 int dc;
 bool boolean_val;
 
-float f = 2.1;
+float f = 3;
 int V = 150;
 
 void setup(void) {
@@ -46,9 +46,10 @@ void setup(void) {
 void loop(void) {
 
     // acc.test_loop();
-    // piezo.actuate_sin(V,f);
-    digitalWrite(dir_pin, HIGH);
-    analogWrite(enable_pin, 220);
+    piezo.actuate_sin(V,f);
+    // piezo.actuate_square(V,f);
+    // digitalWrite(dir_pin, HIGH);
+    // analogWrite(enable_pin, 220);
     // digitalWrite(dir_pin, HIGH);
 
 

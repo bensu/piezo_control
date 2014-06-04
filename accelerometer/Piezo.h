@@ -17,6 +17,7 @@ public:
 	Piezo(int dir_pin, int enable_pin);
 	void apply_voltage(float V);
 	void actuate_sin(float amp, float f);
+	void actuate_square(float amp, float f);
 private:
 	int DIR_PIN ;
 	int ENABLE_PIN;
