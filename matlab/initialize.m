@@ -7,7 +7,7 @@ enable_pin = 10;
 for p = 50:69
     a.pinMode(p,'input');
 end
-for p = [dir_pin enable_pin]
+for p = [13 dir_pin enable_pin]
     a.pinMode(p,'output');
 end
 

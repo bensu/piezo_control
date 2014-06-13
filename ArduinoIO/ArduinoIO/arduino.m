@@ -515,24 +515,21 @@ classdef arduino < handle
             if a.chkp,
                 
                 % check nargin
-                if nargin~=3,
+                if nargin ~= 3,
                     error('Function must have the "pin" and "val" arguments');
                 end
                 
                 % check pin
-                errstr=arduino.checknum(pin,'pin number',2:69);
+                errstr = arduino.checknum(pin,'pin number',2:69);
                 if ~isempty(errstr), error(errstr); end
                 
                 % check val
                 errstr=arduino.checknum(val,'value',0:1);
                 if ~isempty(errstr), error(errstr); end
-                
-                % get object name
-                if isempty(inputname(1)), name='object'; else name=inputname(1); end
-                
+
                 % pin should be configured as output
                 if a.pins(pin)~=1,
-                    warning('MATLAB:Arduino:digitalWrite',['If digital pin ' num2str(pin) ' is set as input, digital output takes place only after using ' name' '.pinMode(' num2str(pin) ',''output''); ']);
+                    warning('MATLAB:Arduino:digitalWrite','pin should be configured as output');
                 end
                 
             end
@@ -547,18 +544,14 @@ classdef arduino < handle
             
             if strcmpi(get(a.aser,'Port'),'DEMO'),
                 % handle demo mode
-                
                 % minimum digital output delay
                 pause(0.0014);
-                
             else
-                
                 % check a.aser for openness if a.chks is true
                 if a.chks,
                     errstr=arduino.checkser(a.aser,'open');
                     if ~isempty(errstr), error(errstr); end
                 end
-                
                 % send mode, pin and value
                 fwrite(a.aser,[50 97+pin 48+val],'uchar');
                 
@@ -703,8 +696,28 @@ classdef arduino < handle
                 fwrite(a.aser,[52 97+pin val],'uchar');
                 
             end
-            
         end % analogwrite
+        
+        % round trip
+        function roundTrip(a,dir_val,analog_val)
+            %% Checks
+            % Check Arduino Object for validity
+            if a.chks,
+                errstr = arduino.checkser(a.aser,'valid');
+                if ~isempty(errstr), error(errstr); end
+            end
+            % Check arguments
+            if (dir_val > 1 || analog_val > 255)
+                error('WrongRanges');
+            end
+            % check a.aser for openness if a.chks is true
+            if a.chks,
+                errstr = arduino.checkser(a.aser,'open');
+                if ~isempty(errstr), error(errstr); end
+            end
+            %% Send mode dir_val and analog_val
+            fwrite(a.aser,[88 48+dir_val analog_val],'uchar');
+        end % roundtrip
         
         % function analog reference
         function analogReference(a,str)
@@ -768,11 +781,10 @@ classdef arduino < handle
                 fwrite(a.aser,[82 48+num],'uchar');
                 
             end
-            
-            
         end % analogreference
-        
-        % servo attach
+
+
+                % servo attach
         function servoAttach(a,pin)
             
             % servoAttach(a,pin); or a.servoAttach(pin); attaches a servo to a pin.
@@ -854,7 +866,6 @@ classdef arduino < handle
             
             % update pin status to unassigned
             a.pins(pin)=-1;
-            
         end % servoattach
         
         % servo detach
@@ -926,7 +937,6 @@ classdef arduino < handle
             end
             
             a.srvs(pin)=0;
-            
         end % servodetach
         
         % servo status
@@ -1028,7 +1038,6 @@ classdef arduino < handle
                 clear val
                 return
             end
-            
         end % servostatus
         
         % servo read
@@ -1112,7 +1121,6 @@ classdef arduino < handle
                 val=fscanf(a.aser,'%d');
                 
             end
-            
         end % servoread
         
         % servo write
@@ -1190,7 +1198,6 @@ classdef arduino < handle
                 fwrite(a.aser,[56 97+pin val],'uchar');
                 
             end
-            
         end % servowrite
         
         % encoder attach
@@ -1283,8 +1290,7 @@ classdef arduino < handle
             a.encs(1+enc)=1;
             
             % update pin status to input
-            a.pins([pinA pinB])=[0 0];
-            
+            a.pins([pinA pinB])=[0 0]; 
         end % encoderattach
         
         % encoder detach
@@ -1351,7 +1357,6 @@ classdef arduino < handle
             end
             
             a.encs(1+enc)=0;
-            
         end % encoderdetach
         
         % encoder status
@@ -1412,7 +1417,6 @@ classdef arduino < handle
                 clear val
                 return
             end
-            
         end % encoderstatus
         
         % encoder read
@@ -1495,7 +1499,6 @@ classdef arduino < handle
                 val=fscanf(a.aser,'%d');
                 
             end
-            
         end % encoderread
         
         % encoder reset
@@ -1566,7 +1569,6 @@ classdef arduino < handle
                 fwrite(a.aser,[72 48+enc],'uchar');
                 
             end
-            
         end % encoderreset
         
         % encoder attach
@@ -1650,81 +1652,8 @@ classdef arduino < handle
                 % send mode, encoder and pins
                 fwrite(a.aser,[73 48+enc 97+del],'uchar');
                 
-            end
-            
+            end 
         end % encoderdebounce
-
-        % round trip
-        function val=roundTrip(a,byte)
-            
-            % roundTrip(a,byte); sends something to the arduino and back
-            % The first argument, a, is the arduino object.
-            % The second argument, byte, is any integer from 0 to 255.
-            % The output is the same byte, which was received from the
-            % arduino and sent back along the serial connection unchanged.
-            %
-            % This is provided as an example for people that want to add
-            % their own code to this arduino class (the section handling
-            % this dummy function in the pde file is handled as "case 400:",
-            % one might take the parameter, perform some potentially useful
-            % operation, and then send any result back via serial connection).
-            %
-            % Examples:
-            % roundTrip(a,48); % sends '48' to the arduino and back.
-            % a.roundTrip(53); % sends '53' to the arduino and back.
-            %
-            
-            %%%%%%%%%%%%%%%%%%%%%%%%% ARGUMENT CHECKING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
-            % check arguments if a.chkp is true
-            if a.chkp,
-                
-                % check nargin
-                if nargin~=2,
-                    error('Function must have one argument');
-                end
-                
-                % check argument (must be a byte)
-                errstr=arduino.checknum(byte,'byte',0:255);
-                if ~isempty(errstr), error(errstr); end
-                
-            end
-            
-            % check a.aser for validity if a.chks is true
-            if a.chks,
-                errstr=arduino.checkser(a.aser,'valid');
-                if ~isempty(errstr), error(errstr); end
-            end
-            
-            %%%%%%%%%%%%%%%%%%%%%%%%% SEND ARGUMENT ALONG %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
-            if strcmpi(get(a.aser,'Port'),'DEMO'),
-                % handle demo mode
-                
-                % minimum analog output delay
-                pause(0.0014);
-                
-                % sets the output
-                val=byte;
-                
-            else
-                
-                % check a.aser for openness if a.chks is true
-                if a.chks,
-                    errstr=arduino.checkser(a.aser,'open');
-                    if ~isempty(errstr), error(errstr); end
-                end
-                
-                % send mode and byte
-                fwrite(a.aser,[88 byte],'uchar');
-                
-                % get value back
-                val=fscanf(a.aser,'%d');
-                
-            end
-            
-        end % roundtrip
-        
         % motor speed
         function val=motorSpeed(a,num,val)
             

@@ -37,7 +37,7 @@ elapsed_time = toc;
 for p = 50:69
     a.pinMode(p,'input');
 end
-for p = [dir_pin enable_pin]
+for p = [13 dir_pin enable_pin]
     a.pinMode(p,'output');
 end
 
@@ -50,14 +50,12 @@ while (elapsed_time < total_t)
         if (elapsed_time < actuate_t)
             V(i) = amplitude*sin(2*pi*f*elapsed_time);
             [n,dir] = V_to_N(V(i));
-            a.analogWrite(enable_pin,n);
-            a.digitalWrite(dir_pin,dir);
+            a.roundTrip(dir,n);
             t_act(i) = toc;
         else
             if first_read
                 first_read = false;
-                a.analogWrite(enable_pin,0);
-                a.digitalWrite(dir_pin,0);
+                a.roundTrip(0,0);
             end
         end
         t(i) = elapsed_time;
@@ -66,9 +64,9 @@ while (elapsed_time < total_t)
     end
 end
 
-
-a.analogWrite(enable_pin,0);
-a.digitalWrite(dir_pin,0);
+% a.analogWrite(enable_pin,0);
+% a.digitalWrite(dir_pin,0);
+a.roundTrip(0,0);
 
 %% Normalize
 

@@ -37,10 +37,14 @@
 #define MIN_ADC 20
 #define MAX_PV 150
 #define MIN_PV 0
+#define EN_PIN 10
+#define DIR_PIN 7
 
 void setup() {
   /* initialize serial                                     */
   TCCR2B = TCCR2B & 0b11111000 | 0x01;
+  pinMode(EN_PIN,OUTPUT);
+  pinMode(DIR_PIN,OUTPUT);
   analogReference(EXTERNAL);
   Serial.begin(115200);
 }
@@ -53,9 +57,10 @@ void loop() {
   static int  s   = -1;    /* state                          */
   static int  pin = 13;    /* generic pin number             */
  
-  int  val =  0;           /* generic value read from serial */
-  int  agv =  0;           /* generic analog value           */
-  int  dgv =  0;           /* generic digital value          */
+  static int dir = 0; 
+  int val = 0;           /* generic value read from serial */
+  int agv = 0;           /* generic analog value           */
+  int dgv = 0;           /* generic digital value          */
 
   // float t = millis() / 1000.0;
   // float V = 150*sin(2*3.14*3*t);
@@ -95,14 +100,14 @@ void loop() {
 
       /* calculate next state                                */
       if (val>47 && val<90) {
-	  /* the first received value indicates the mode       
-           49 is ascii for 1, ... 90 is ascii for Z          
-           s=0 is change-pin mode;
-           s=10 is DI;  s=20 is DO;  s=30 is AI;  s=40 is AO; 
-           s=90 is query script type (1 basic, 2 motor);
-           s=340 is change analog reference;
-           s=400 example echo returning the input argument;
-                                                             */
+  	  /* the first received value indicates the mode       
+             49 is ascii for 1, ... 90 is ascii for Z          
+             s=0 is change-pin mode;
+             s=10 is DI;  s=20 is DO;  s=30 is AI;  s=40 is AO; 
+             s=90 is query script type (1 basic, 2 motor);
+             s=340 is change analog reference;
+             s=400 example echo returning the input argument;
+                                                               */
         s=10*(val-48);
       }
       
@@ -171,7 +176,7 @@ void loop() {
       /* the second received value indicates the pin 
          from abs('c')=99, pin 2, to abs('¦')=166, pin 69    */
       if (val>98 && val<167) {
-        pin=val-97;                /* calculate pin          */
+        pin = val-97;                /* calculate pin          */
         s=21; /* next we will need to get 0 or 1 from serial */
       } 
       else {
@@ -182,8 +187,8 @@ void loop() {
       case 21:
       /* the third received value indicates the value 0 or 1 */
       if (val>47 && val<50) {
-        dgv=val-48;                /* calculate value        */
-	digitalWrite(pin,dgv);     /* perform Digital Output */
+        dgv = val-48;                /* calculate value        */
+        digitalWrite(pin,dgv);     /* perform Digital Output */
       }
       s=-1;  /* we are done with DO so next state is -1      */
       break; /* s=21 taken care of                           */
@@ -196,9 +201,9 @@ void loop() {
       /* the second received value indicates the pin 
          from abs('a')=97, pin 0, to abs('p')=112, pin 15    */
       if (val>96 && val<113) {
-        pin=val-97;                /* calculate pin          */
-        agv=analogRead(pin);       /* perform Analog Input   */
-	Serial.println(agv);       /* send value via serial  */
+        pin = val-97;                /* calculate pin          */
+        agv = analogRead(pin);       /* perform Analog Input   */
+        Serial.println(agv);       /* send value via serial  */
       }
       s=-1;  /* we are done with AI so next state is -1      */
       break; /* s=30 taken care of                           */
@@ -221,9 +226,9 @@ void loop() {
 
 
       case 41:
-      /* the third received value indicates the analog value */
-      analogWrite(pin,val);        /* perform Analog Output  */
-      s=-1;  /* we are done with AO so next state is -1      */
+        /* the third received value indicates the analog value */
+        analogWrite(pin,val);        /* perform Analog Output  */
+        s=-1;  /* we are done with AO so next state is -1      */
       break; /* s=41 taken care of                           */
       
       
@@ -274,7 +279,7 @@ void loop() {
       s=-1;  /* we are done with this so next state is -1    */
       break; /* s=341 taken care of                          */
 
-      
+
 
       /* s=400 roundtrip example function (returns the input)*/
       
@@ -284,14 +289,25 @@ void loop() {
       /* This is an auxiliary function that returns the ASCII 
          value of its first argument. It is provided as an 
          example for people that want to add their own code  */
-         
-      /* your own code goes here instead of the serial print */
-      Serial.println(val);
 
-      s=-1;  /* we are done with the aux function so -1      */
-      break; /* s=400 taken care of                          */
+      // The first value indicates the direction, a boolean value
+        if (val == 48 || val == 49) {
+          dir = val - 48;                /* calculate value        */
+          // digitalWrite(7,dir);
+          s = 401;
+        } else {
+          // Error ocurred
+          s = -1;
+        }
+        break;
 
-
+      case 401:
+        // The second value indicates the analog_value
+        digitalWrite(13, (val < 127));
+        analogWrite(10,val);
+        digitalWrite(7,dir);
+        s = -1;  /* we are done with the aux function so -1      */
+        break;
 
       /* ******* UNRECOGNIZED STATE, go back to s=-1 ******* */
       

@@ -4,7 +4,7 @@
 clear acc
 clear t
 
-total_t = 15;
+total_t = 20;
 actuate_t = 10;
 
 %% Arrays
@@ -38,7 +38,7 @@ hp = @(y,x_1,x_2) ((1-alpha_high)*y + (1-alpha_high)*(x_1 - x_2));
 a.analogWrite(enable_pin,230);
 a.digitalWrite(dir_pin,0);
 
-cut_off = [5e-4 1e-4 0.2]; % [xf vf gf]
+cut_off = [5e-4 5e-3 0.2]; % [xf vf gf]
 
 %% Controller
 k = -1e2;
@@ -46,7 +46,7 @@ z = -0.999;
 p = -0.8607;
 
 Kx = -1e4;
-Kv = 2e3;
+Kv = 6e3;
 Kg = -150;
 l = 0.1;
 n_samples = 10;
@@ -78,10 +78,9 @@ while (elapsed_time < total_t)
         if abs(vf(i)) > cut_off(2) && i > n_samples*4
 %             abs([xf(i) vf(i) gf(i)]) > cut_off
 % %             act(i) = -p*act(i-1) + k*(gf(i) + z*gf(i-1));
-            act(i) = -Kv*vf(i);
+            act(i) = -Kv*(vf(i)-sign(vf(i))*cut_off(2));
             [n,dir] = V_to_N(act(i));
-            a.digitalWrite(dir_pin,dir); 
-            a.analogWrite(enable_pin,n);
+            a.roundTrip(dir,n);
         end
         t_act(i) = toc;
         i = i + 1;
@@ -116,19 +115,19 @@ normalize = @(gf,x) (rms(gf)*x/rms(x));
 figure
 hax = axes;
 hold on
-plot(t,normalize(vf,acc-mean(acc)),'r')
+% plot(t,normalize(vf,acc-mean(acc)),'r')
 % plot(t,g,'k')
 % plot(t,gf)
 % plot(t,normalize(acc-mean(acc)),'k')
 % plot(t,normalize(vf,vf),'k')
 
-% plot(t,vf,'k')
-plot(t_act,normalize(vf,act),'k')
+plot(t,vf,'k')
+% plot(t_act,normalize(vf,act),'k')
 % plot(t,act,'r')
-plot(t,normalize(vf,xf),'g')
+% plot(t,normalize(vf,xf),'g')
 % plot(t,xf,'g')
 num = 2;
-% line(get(hax,'XLim'),[cut_off(num) cut_off(num)])
-% line(get(hax,'XLim'),-[cut_off(num) cut_off(num)])
+line(get(hax,'XLim'),[cut_off(num) cut_off(num)])
+line(get(hax,'XLim'),-[cut_off(num) cut_off(num)])
 grid on
 hold off
