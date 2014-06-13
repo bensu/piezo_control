@@ -1,63 +1,79 @@
 %a = arduino('/dev/ttyS101');
 %sudo ln -s /dev/ttyACM0 /dev/ttyS101 
 % Connect pins
-% run reads
 
-N = 40;
+
 clear acc
 clear t
 prev = 0;
-T = 0.04;
+total_time = 15;    % [s]
+T = 0.01;           % [s]
+N = total_time / T;
 t = zeros(N,1);
-acc = zeros(N,3);
+acc = zeros(N,1);
+
+%% Start
+a.analogWrite(enable_pin,0);
+a.digitalWrite(dir_pin,0);
+i = 1;
 tic
 elapsed_time = toc;
-i = 1;
-for i = 2:69
-    a.pinMode(i,'input');
-end
-i = 1;
-while (elapsed_time < 30)
+while (elapsed_time < total_time)
     elapsed_time = toc;
     if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-5
-        prev = elapsed_time;
         t(i) = elapsed_time;
-        acc(i,1) = a.analogRead(0);
-        acc(i,2) = a.analogRead(1);
-        acc(i,3) = a.analogRead(2);
+        acc(i) = a.analogRead(2);
+        prev = elapsed_time;
         i = i + 1;
     end
 end
 
-V = zeros(size(acc));
-g = zeros(size(acc));
-figure
-hold on
-for coord = 1:3
-    V(:,coord) = interp1([0 1023],[0 3.3],acc(:,coord));
-    g(:,coord) = G(v_table,coord,V(:,coord));
-    plot(t,g(:,coord));
-end
-hold off
+a.analogWrite(enable_pin,0);
+a.digitalWrite(dir_pin,0);
 
-% g_mean = mean(g);
-% for i = 1:size(g,2)
-%     g(i,:) = g(i,:) - g_mean;
-% end
 %%
-clear Y
-clear f
-NFFT = 2^nextpow2(length(t)); % Next power of 2 from length of y
-Y = fft(g(:,3));
-f = 1/2/T*linspace(0,1,NFFT/2+1)';
-new_Y = abs(Y(1:NFFT/2+1));
-% Plot single-sided amplitude spectrum.
-plot(f,abs(new_Y))
-title('Single-Sided Amplitude Spectrum of a_z(t)')
-xlabel('Frequency (Hz)')
-ylabel('|Y(f)|')
 
-[pvals, pplaces] = findpeaks(new_Y(f>1));
-new_f = f(f>1);
-[NOT_USED, max_place] = max(pvals);
-f_1 = new_f(pplaces(max_place))
+index_values = (t ~= 0);
+t   = t(index_values);
+acc = acc(index_values);
+g = n_to_g(3,acc);
+
+%% Hand Integration for Real Time
+
+alpha_low = 0.1;
+lp = @(y,x) (alpha_low*y + (1-alpha_low)*x);
+alpha_high = 0.1;
+hp = @(y,x_1,x_2) ((1-alpha_high)*y + (1-alpha_high)*(x_1 - x_2));
+
+gf = zeros(size(t));
+v  = zeros(size(t));
+x  = zeros(size(t));
+vf = zeros(size(t));
+xf = zeros(size(t));
+
+for i = 2:length(t)
+    % a(t) filtering
+    gf(i) = hp(gf(i-1),g(i),g(i-1));
+    gf(i) = lp(gf(i-1),gf(i));
+    % a(t) integral to v(t)
+    v(i) = v(i-1) + (t(i)-t(i-1))*gf(i-1);
+    % v(t) filtering
+    vf(i) = hp(vf(i-1),v(i),v(i-1));
+    vf(i) = lp(vf(i-1),vf(i));
+    % v(t) integral to x(t)
+    x(i) = x(i-1) + (t(i)-t(i-1))*vf(i-1);
+    % v(t) filtering
+    xf(i) = hp(xf(i-1),x(i),x(i-1));
+    xf(i) = lp(xf(i-1),xf(i));
+end
+
+%%
+cut_off_g = 0.1;
+first_noise = find_noise(cut_off_g,10,gf);
+tn = t(first_noise);
+%%
+hold on
+plot(t,gf)
+plot(t,rms(gf)*vf/rms(vf),'k')
+plot(t,rms(gf)*xf/rms(xf),'r')
+hold off

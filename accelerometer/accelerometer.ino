@@ -23,7 +23,7 @@ int dc;
 bool boolean_val;
 
 float f = 3;
-int V = 150;
+int V = 100;
 
 void setup(void) {
     TCCR2B = TCCR2B & 0b11111000 | 0x01;
@@ -45,8 +45,9 @@ void setup(void) {
 
 void loop(void) {
 
-    // acc.test_loop();
-    piezo.actuate_sin(V,f);
+    acc.test_loop();
+    // piezo.actuate_sin(V,f);
+    // piezo.apply_voltage(50);
     // piezo.actuate_square(V,f);
     // digitalWrite(dir_pin, HIGH);
     // analogWrite(enable_pin, 220);

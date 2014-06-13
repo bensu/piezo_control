@@ -1,75 +1,29 @@
-%% Wave analysis
+% function analysis(T,t,g)
 
-% I want to find omega and zeta for any wave.
+%%
+[envelope, envelop_loc] = findpeaks(abs(gf));
 
-%% Load files
-
-clc
-clear all
-
-addpath('Prony Toolbox Download')
-
-static_space  = load('acc_static');
-acc_static  = static_space.acc;
-
-%% What acc sample do I use? 
-
-sample = 3;
-switch (sample)
-    case 1
-        space	= load('acc_soft');
-    case 2
-        space	= load('acc_medium');
-    case 3
-        space	= load('acc_hard');
+count = 0;
+hull = [];
+hull_loc = [];
+current_max = envelope(end);
+for i = length(envelop_loc):-1:1
+    if current_max < envelope(i)
+        current_max = envelope(i);
+        hull = [hull current_max];
+        hull_loc = [hull_loc envelop_loc(i)];
+    end
 end
 
-acc = space.acc(:,3);
-t = space.t;
+hull = hull(end:-1:1)';
+hull_loc = hull_loc(end:-1:1)';
+
+
+plot(t(hull_loc),hull)
 
 %%
 
-zero_g = mean(acc_static(:,3));   % Value the ADC takes for 0g
-max_n = max(acc_static(:,3));
-min_n = min(acc_static(:,3));
-n_delta = max_n - min_n;        % Error size in ADC.
-
-%%
-one_g = max(acc_static(:,1));
-
-g_table = [zero_g; one_g];
-g_vals = [0; 1];
-
-g = @(n_val) to_g(g_table,g_vals,n_val);
-a = @(n_val) 9.8*g(n_val);
-
-%% Find where acc_hard becomes noise
-
-[pks, loc] = findpeaks(acc);
-small_pks = (pks < max_n);
-aux = find(small_pks);
-first_small_peak = loc(aux(1));
-
-%% 
-% fig = figure;
-% hax = axes; 
-% hold on
-% plot(t,acc,'k')
-% line([t(first_small_peak) t(first_small_peak)],get(hax,'YLim'))
-% line([t(first_small_peak) t(end)],[max_n max_n])
-% line([t(first_small_peak) t(end)],[min_n min_n])
-% get(hax,'XLim')
-% hold off
-
-
-%% Analyze envelope
-
-t_wave = t(1:first_small_peak);
-wave = a(acc(1:first_small_peak));
-[envelope, envelop_loc] = findpeaks(wave);
-% Fit with exponential
-
-model = fit(t_wave(envelop_loc), (envelope), 'exp1');
+model = fit(t(hull_loc), (hull), 'exp1');
 k_fit = model.a;
 tau_fit = -1/model.b;
 % p = polyfit(t_wave(envelop_loc), log(envelope), 1);
@@ -78,65 +32,109 @@ tau_fit = -1/model.b;
 % plot(t_wave, wave, t_wave(envelop_loc), envelope, 'or', t_wave, k_fit * exp(-t_wave / tau_fit), '-k')
 
 %%
-T = 0.04;
-clear Y
-clear f
-NFFT = 2^nextpow2(length(t_wave)); % Next power of 2 from length of y
+NFFT = 2^nextpow2(length(t)); % Next power of 2 from length of y
 % NFFT = 4;
-Y = fft(wave,NFFT);
+Y = fft(g,NFFT);
 f = 1/2/T*linspace(0,1,NFFT/2+1)';
 
 %%
 
 new_Y = Y(1:NFFT/2+1);
-
-[pvals, pplaces] = findpeaks(abs(new_Y(f>1)));
+Y_abs = abs(new_Y(f>1));
+[pvals, pplaces] = findpeaks(Y_abs);
 new_f = f(f>1);
 [NOT_USED, max_place] = max(pvals);
-f_1 = new_f(pplaces(max_place));
-w_damped = 2*pi*f_1;
+f_damped = new_f(pplaces(max_place));
+w_damped = 2*pi*f_damped;
 
 phase_1 = angle(new_Y(pplaces(max_place)))
 
-% Plot single-sided amplitude spectrum.
+%% Find Q-Factor
+
+Y_max_value = max(Y_abs);
+[aux,index] = sort(abs(Y_abs - Y_max_value/sqrt(2)));
+
+f_1 = new_f(index(1))
+f_2 = new_f(index(2))
+
+Q = f_damped / abs(f_1 - f_2);
+damping_from_Q = 1/(2*Q);
+
+%% Plot single-sided amplitude spectrum.
+
 fig = figure;
 hax = axes;
 hold on
 plot(f,abs(new_Y),'k')
 title('Single-Sided Amplitude Spectrum of a_z(t)')
+line([f_damped f_damped],get(hax,'YLim'));
 line([f_1 f_1],get(hax,'YLim'));
+line([f_2 f_2],get(hax,'YLim'));
+line(get(hax,'XLim'),[Y_max_value/2 Y_max_value/2]);
 xlabel('Frequency (Hz)')
 ylabel('|Y(f)|')
 hold off
 
-%% Solve for natural frequency and damping ratio
 
-damping = sqrt(1/(1 + (w_damped*tau_fit)^2))
-w_natural = 1/(tau_fit*damping)
-f_natural = w_natural / (2*pi)
+%% Solve for natural frequency and damping ratio
+damping = 1/(tau_fit*w_damped)
+% damping   = sqrt(1/(1 + (w_damped*tau_fit)^2));
+w_natural = 1/(tau_fit*damping);
+f_natural = w_natural / (2*pi);
 
 %% Plot Fitted function
 
-fit_damped = @(t) (k_fit*exp(-t_wave/tau_fit).*sin(w_damped*t-phase_1));
+fit_damped = @(t) (k_fit*exp(-t/tau_fit).*sin(w_damped*t-phase_1));
 
-error = abs(wave - fit_damped(t_wave))./abs(a(max_n)-a(min_n));
-% plot(t_wave,error)
+% error = abs(wave - fit_damped(t_wave))./abs(a(max_n)-a(min_n));
+
+to_str = @(var_sym,value,units) [var_sym, ' = ', num2str(value), units];
+message = { to_str('\tau',tau_fit,'s'),
+            to_str('f',f_damped,'Hz'),
+            to_str('\omega',w_damped,'rad/s^2'),
+            to_str('\zeta',damping,'')};
+        
+%% Plot Uncontrolled
 
 hold on
-plot(t_wave,fit_damped(t_wave),'k')
-plot(t_wave,wave)
+title('Signal with Exponential Envelope');
+grid on
+% plot(t,fit_damped(t),'k')
+plot(t,gf)
+plot(t,k_fit*exp(-t/tau_fit),'k')
+plot(t,-k_fit*exp(-t/tau_fit),'k')
+legend('Meassured Signal','K*e^{-t/\tau}');
+text(0.8*t(end),0.5*max(gf),message)
 hold off
 
-%%
 
-% v = cumtrapz(t,a(acc));
-% x = cumtrapz(t,v);
+% end 
+%% Fit controlled
+% 
+% x = [0.927908 0.323765];
+% t_fit = [0.1354897 3.843444];
+% 
+% 	
+% tau_fit = diff(t_fit)/log(x(1)/x(2));
+% k_fit   = x(1)/exp(-t(1)/tau);
+% damping = 1/(w_natural*tau);
+%% Plot Controlled
+% 
+% to_str = @(var_sym,value,units) [var_sym, ' = ', num2str(value), units];
+% message = { to_str('\tau',tau_fit,'s'),
+%             to_str('f',f_damped,'Hz'),
+%             to_str('\omega',w_damped,'rad/s^2'),
+%             to_str('\zeta',damping,'')};
+% 
 % 
 % hold on
-% % plot(t,a(acc))
-% % plot(t,v)
-% % plot(t,x)
+% title('Signal with Exponential Envelope');
+% grid on
+% % plot(t,fit_damped(t),'k')
+% plot(t,gf)
+% plot(t,k_fit*exp(-t/tau_fit),'k')
+% plot(t,-k_fit*exp(-t/tau_fit),'k')
+% legend('Meassured Signal','K*e^{-t/\tau}');
+% text(0.8*t(end),0.5*max(gf),message)
 % hold off
-
-
 

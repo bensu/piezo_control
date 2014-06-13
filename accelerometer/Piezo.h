@@ -5,8 +5,8 @@
 #define PIEZO_H_
 // #define MAX_G 1.5
 // #define MIN_G -1.5
-#define ADC_LIMIT 256
-#define MAX_ADC 240
+#define ADC_LIMIT 1023
+#define MAX_ADC 1000
 #define MIN_ADC 20
 #define MAX_PV 150
 #define MIN_PV 0
