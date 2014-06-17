@@ -7,7 +7,7 @@ total_t = 20;
 actuate_t = 10;
 
 %% Arrays
-T = 0.01;
+T = 0.02;
 N = total_t / T + 30;
 t = zeros(N,1);
 t_act = zeros(N,1);
@@ -62,9 +62,10 @@ tic
 elapsed_time = toc;
 while (elapsed_time < total_t)
     elapsed_time = toc;
-    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-5
+    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-3
         t(i) = elapsed_time;
-        acc(i) = a.analogRead(2);
+%         acc(i) = a.analogRead(2);
+        acc(i) = a.sample();
         read_time(i) = toc - elapsed_time;
         g(i)   = n_to_g(3,mean(acc(i-n_samples:i)));
         prev = elapsed_time;

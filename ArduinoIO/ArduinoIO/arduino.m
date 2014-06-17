@@ -697,7 +697,27 @@ classdef arduino < handle
                 
             end
         end % analogwrite
-        
+                % analog read
+        function val = sample(a)
+            
+            % check a.aser for validity if a.chks is true
+            if a.chks,
+                errstr=arduino.checkser(a.aser,'valid');
+                if ~isempty(errstr), error(errstr); end
+            end
+
+            % check a.aser for openness if a.chks is true
+            if a.chks,
+                errstr=arduino.checkser(a.aser,'open');
+                if ~isempty(errstr), error(errstr); end
+            end
+            
+            % send mode and pin
+            fwrite(a.aser,[89],'uchar');
+            % get value
+            val=fscanf(a.aser,'%d');
+
+        end % analogread
         % round trip
         function roundTrip(a,dir_val,analog_val)
             %% Checks

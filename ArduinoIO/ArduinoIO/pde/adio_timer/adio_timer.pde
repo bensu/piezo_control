@@ -39,12 +39,14 @@
 #define MIN_PV 0
 #define EN_PIN 10
 #define DIR_PIN 7
+#define Z_PIN 2
 
 void setup() {
   /* initialize serial                                     */
   TCCR2B = TCCR2B & 0b11111000 | 0x01;
   pinMode(EN_PIN,OUTPUT);
   pinMode(DIR_PIN,OUTPUT);
+  pinMode(Z_PIN,INPUT);
   analogReference(EXTERNAL);
   Serial.begin(115200);
 }
@@ -114,8 +116,17 @@ void loop() {
       /* the following statements are needed to handle 
          unexpected first values coming from the serial (if 
          the value is unrecognized then it defaults to s=-1) */
-      if ((s>40 && s<90) || (s>90 && s!=340 && s!=400)) {
+      if ((s>40 && s<90) || (s>90 && s!=340 && s!=400 && s!=410)) {
         s=-1;
+      } else if (s==410) {
+        int N = 50;
+        long int sum = 0;
+        for(int i=0; i < N; i++) {
+          sum += analogRead(Z_PIN);
+        }
+        int aux = (int)(sum/N);
+        Serial.println(aux);       /* send value via serial  */
+        s=-1;  /* we are done with AI so next state is -1      */
       }
 
       /* the break statements gets out of the switch-case, so
@@ -309,7 +320,7 @@ void loop() {
         break;
 
       /* ******* UNRECOGNIZED STATE, go back to s=-1 ******* */
-      
+
       default:
       /* we should never get here but if we do it means we 
          are in an unexpected state so whatever is the second 
