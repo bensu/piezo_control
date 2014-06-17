@@ -1,5 +1,36 @@
+% function analysis(T,t,g)
 
-[k_fit,tau_fit] = fit_exp(t,g-mean(g))
+%%
+% [envelope, envelop_loc] = findpeaks(abs(gf));
+% 
+% count = 0;
+% hull = [];
+% hull_loc = [];
+% current_max = envelope(end);
+% for i = length(envelop_loc):-1:1
+%     if current_max < envelope(i)
+%         current_max = envelope(i);
+%         hull = [hull current_max];
+%         hull_loc = [hull_loc envelop_loc(i)];
+%     end
+% end
+% 
+% hull = hull(end:-1:1)';
+% hull_loc = hull_loc(end:-1:1)';
+
+
+
+H = hilbert(acc-mean(acc));
+
+hull = abs(H);
+
+% plot(t(hull_loc),hull)
+
+%%
+
+model = fit(t, (hull), 'exp1');
+k_fit = model.a;
+tau_fit = -1/model.b;
 % p = polyfit(t_wave(envelop_loc), log(envelope), 1);
 % tau_fit = -1/p(1);
 % k_fit = exp(p(2));
@@ -74,7 +105,7 @@ hold on
 title('Signal with Exponential Envelope');
 grid on
 % plot(t,fit_damped(t),'k')
-plot(t,g-mean(g))
+plot(t,acc-mean(acc))
 plot(t,k_fit*exp(-t/tau_fit),'k')
 plot(t,-k_fit*exp(-t/tau_fit),'k')
 legend('Meassured Signal','K*e^{-t/\tau}');

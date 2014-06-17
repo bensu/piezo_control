@@ -303,7 +303,6 @@ void loop() {
 
       case 401:
         // The second value indicates the analog_value
-        digitalWrite(13, (val < 127));
         analogWrite(10,val);
         digitalWrite(7,dir);
         s = -1;  /* we are done with the aux function so -1      */
