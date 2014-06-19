@@ -14,10 +14,10 @@
 clear acc
 clear t
 
-total_t   = 20;
-actuate_t = 10;
-T = 0.01;
-N = (total_t) / T;
+total_t   = 40;
+actuate_t = 20;
+T = 0.03;
+N = floor(total_t / T);
 t = zeros(N,1);
 t_act = zeros(N,1);
 acc = zeros(N,1);
@@ -28,7 +28,7 @@ enable_pin  = 10;
 
 
 f = 3.07;          % [Hz]
-amplitude = 120;    % [V]
+amplitude = 100;    % [V]
 prev = 0;
 
 tic
@@ -45,18 +45,21 @@ first_read = true;
 i = 1;
 while (elapsed_time < total_t)
     elapsed_time = toc;
-    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-5
-        acc(i) = a.analogRead(2);
+    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-3
+        acc(i) = a.sample();
         if (elapsed_time < actuate_t)
-            V(i) = amplitude*sin(2*pi*f*elapsed_time);
+%             first_read = false;
+%             V(i) = amplitude*sin(2*pi*f*elapsed_time);
+              V(i) = amplitude*(elapsed_time)/actuate_t;
             [n,dir] = V_to_N(V(i));
+%             [n,dir] = V_to_N(150);
             a.roundTrip(dir,n);
             t_act(i) = toc;
         else
-            if first_read
-                first_read = false;
+%             if first_read
+%                 first_read = false;
                 a.roundTrip(0,0);
-            end
+%             end
         end
         t(i) = elapsed_time;
         prev = elapsed_time;
@@ -75,7 +78,15 @@ t   = t(index_values);
 t_act   = t_act(index_values);
 V = V(index_values);
 acc = acc(index_values);
+
+
+
+%% Filter
 g   = n_to_g(3,acc);
+alpha = 0.01;
+B = alpha;
+A = [1 alpha-1];
+g = filter(B,A,g);
 
 %% Plot
 
@@ -84,16 +95,17 @@ for i = 1:length(V)
    n(i) = aux;
    dir(i) = aux2;
 end
-gf = custom_filter(g);
+% gf = custom_filter(g);
 figure
 hax = axes;
 hold on
 grid on
+plot(t,rms(V)*g/rms(g))
 plot(t,V,'r')
-line(get(hax,'XLim'),[150 150])
-line(get(hax,'XLim'),-[150 150])
+% line(get(hax,'XLim'),[150 150])
+% line(get(hax,'XLim'),-[150 150])
 % plot(t,n)
 % plot(t,g)
 % plot(t,(acc-mean(acc))/rms(acc))
-plot(t_act,gf*rms(V)/rms(gf))
+
 hold off

@@ -70,6 +70,7 @@ message = { to_str('\tau',tau_fit,'s'),
         
 %% Plot Uncontrolled
 
+figure
 hold on
 title('Signal with Exponential Envelope');
 grid on

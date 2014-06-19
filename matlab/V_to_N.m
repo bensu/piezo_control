@@ -1,5 +1,5 @@
 function [n, dir] = V_to_N(V)
-    MAX_ADC = 230;
+    MAX_ADC = 245;
     n = floor((MAX_ADC/150)*abs(V));
     if n > MAX_ADC
         n = MAX_ADC;

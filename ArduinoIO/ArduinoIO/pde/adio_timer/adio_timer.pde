@@ -119,7 +119,7 @@ void loop() {
       if ((s>40 && s<90) || (s>90 && s!=340 && s!=400 && s!=410)) {
         s=-1;
       } else if (s==410) {
-        int N = 50;
+        int N = 75;
         long int sum = 0;
         for(int i=0; i < N; i++) {
           sum += analogRead(Z_PIN);
