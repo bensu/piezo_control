@@ -1,85 +1,70 @@
-% Spring mass damper model in continuous time
-k = 0.1;
-m = 5;
-cf = 0.1;
-A = [0      1;
-    -k/m -cf/m];
-B = [0; 1/m];
-C = [1 0];
+%% Assumes T, t, and g
+
+
+% T = 0.01;
+% A = [1 T T^2/2;
+%      0 1 T;
+%      0 0 1];
+% B = [0; 0; 1];
+omega = 2*pi*3;
+damping = 0.014;
+bk = 1;
+Ac = [0 1; -omega^2 -2*damping*omega];
+Bc = [0; bk];
+C = [-omega^2 -2*damping*omega];
 D = 0;
-s1 = ss(A,B,C,D);
-% LTI system object
-[y,t,xs] = step(s1);
-% plot step response
+cs = ss(Ac,Bc,C,D);    % Continuous system
+ds = c2d(cs,T,'zoh');           % Discrete system
 
-plot(t,y)
+A = ds.A;
+B = ds.B;
 
-% Discrete-time model of the process
-dt = 0.1;
-% sampling time of system
-Phi = expm(A*dt);
-Gamma = inv(A)*(Phi-eye(2))*B;
-H = C;
+%% Signal
+omega = 2*pi*3.08;
+damping = 0.0279;
+tau = 1/(omega*damping);
+k = 1;
+N = length(t);
+% t = 0:T:((N-1)*T);
+offset = 0.01;
+% g = k*exp(-t/tau).*cos(omega*t) + offset;
+u = zeros(N,1);
 
-% Simulation loop
+%% Filter
+Q = 1;
+R = 0.5;
+N = length(t);
+P = B*Q*B';         % Initial error covariance
+x = zeros(2,N);     % Initial condition on the state
+ye = zeros(N,1);
+ycov = zeros(N,1); 
+errcov = zeros(N,1);
 
-%
-T = 500;
-n = T/dt;
+for i = 2:length(t)
+  % Measurement update
+  Mn = P*C'/(C*P*C'+R);
+  x_aux = x(:,i-1) + Mn*(g(i)-C*x(:,i-1));   % x[n|n]
+  P = (eye(2)-Mn*C)*P;      % P[n|n]
 
-x = zeros(2,n);
-% zero the state vector
-wk = 1;
-% process noise source
-vk = 5;
-% measurement noise
-t = 0:dt:(n-1)*dt;
-% time vector
+  ye(i) = C*x_aux;
+  errcov(i) = C*P*C';
 
-for i = 1:n
-
-% Drive the system with process noise only to generate some noisy data to be filtered.
-%
-% Benefits of driving the process with noise from the input is that the
-% noise magnitudes will be realistic w.r.t each other i.e. psoition and
-% velocity because you are using the input couplingand dynamics of the
-% model to generate the states. The direct injection method may produce an
-% unreasnoable relationship between state noise variances.
-%
-x(:,i+1) = Phi*x(:,i) + Gamma*wk*(randn(1,1));
-% generated with input-reffered noise
-% x(:,i+1) = Phi*x(:,i) + wk*(randn(2,1));
-% process noise(direct)
-z(i) = H * x(:,i) + vk*randn(1);
-
-end
-subplot(3,1,1),stairs(t,z)
-legend('Measurement','Actual State')
-hold off
-
-% Now filter the data with a Kalman filter
-
-%
-Q = [0.031 0; 0 0.01]*0.02;
-R = 25;
-P = [0.5 0;0 0.5];
-xhat = zeros(2,n);
-u = 0;
-
-% Filter loop
-
-for i = 1:n
-    [xhat(:,i+1),Pp,K] = kalman(xhat(:,i),z(i),P,Phi,B,u,Q,R,H);
-    P = Pp;
+  % Time update
+  x(:,i) = A*x_aux + B*u(i);        % x[n+1|n]
+  P = A*P*A' + B*Q*B';     % P[n+1|n]
 end
 
-subplot(3,1,2),stairs(t,z)
+%%
+ph = @(y,x) (180/pi)*(acos(dot(x,y)/norm(x)/norm(y)));
+dc_out = @(x) (x-mean(x));
+ph((g),(x(2,:)))
+ph((g),(x(1,:)))
+
+%%
+nm = @(y,x) rms(y)*x/rms(x);
 hold on
-stairs(t,xhat(1,1:end-1),'r')
-legend('Measurement','State Estimate')
-hold off
-subplot(3,1,3),stairs(t,xhat(1,1:end-1),'r')
-hold on
-stairs(t,x(1,1:end-1),'g')
-legend('State Estimate','Actual State')
+grid on
+plot(t,g-mean(g))
+plot(t,nm(g,x(2,:)),'k')
+plot(t,nm(g,x(1,:)),'r')
 hold off

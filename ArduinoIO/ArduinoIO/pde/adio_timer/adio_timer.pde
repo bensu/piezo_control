@@ -29,6 +29,9 @@
    99    : returns script type (0 adio.pde ... 3 motor.pde ) */
    
 /* define internal for the MEGA as 1.1V (as as for the 328)  */
+
+#include "sampler.h"
+
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 #define INTERNAL INTERNAL1V1
 #endif
@@ -40,6 +43,9 @@
 #define EN_PIN 10
 #define DIR_PIN 7
 #define Z_PIN 2
+// #define N_SAMPLES 1
+
+Sampler sampler = Sampler();
 
 void setup() {
   /* initialize serial                                     */
@@ -119,12 +125,13 @@ void loop() {
       if ((s>40 && s<90) || (s>90 && s!=340 && s!=400 && s!=410)) {
         s=-1;
       } else if (s==410) {
-        int N = 75;
-        long int sum = 0;
-        for(int i=0; i < N; i++) {
-          sum += analogRead(Z_PIN);
-        }
-        int aux = (int)(sum/N);
+        // int N = 75;
+        // long int sum = 0;
+        // for(int i=0; i < N; i++) {
+        //   sum += analogRead(Z_PIN);
+        // }
+        // int aux = (int)(sum/N);
+        int aux = sampler.take_sample();
         Serial.println(aux);       /* send value via serial  */
         s=-1;  /* we are done with AI so next state is -1      */
       }
@@ -333,6 +340,8 @@ void loop() {
     } /* end switch on state s                               */
 
   } /* end if serial available                               */
+
+  sampler.add_sample(analogRead(Z_PIN));
+
   
 } /* end loop statement                                      */
-
