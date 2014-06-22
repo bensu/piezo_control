@@ -55,7 +55,7 @@ z = -0.999;
 p = -0.8607;
 delta_time = 5;
 Kx = 0;
-Kv = 5e2;
+Kv = 1e3;
 Kg = 0;
 l  = 0.1;
 n_samples = 2;
@@ -91,10 +91,4 @@ run = Run(T,t,acc,[x v g]',act);
 run.store();
 %%
 
-% run.plot(3,[5 3])
-
-%%
-
-r = DSP.nm_rms(run.g)
-damping = DSP.get_damping(run.T,run.t,run.g)
-% DSP.plot_exp(run.T,run.t,run.g)
+DSP
