@@ -14,52 +14,45 @@
 clear acc
 clear t
 
-total_t   = 40;
+total_t   = 30;
 actuate_t = 20;
 T = 0.03;
 N = floor(total_t / T);
 t = zeros(N,1);
 t_act = zeros(N,1);
 acc = zeros(N,1);
+dummy = zeros(N,2);
+x = zeros(3,N);
 V = zeros(N,1);
 
-dir_pin     = 7;
-enable_pin  = 10;
-
-
 f = 3.07;          % [Hz]
-amplitude = 100;    % [V]
+amplitude = 150;    % [V]
 prev = 0;
 
 tic
 elapsed_time = toc;
-
-for p = 50:69
-    a.pinMode(p,'input');
-end
-for p = [13 dir_pin enable_pin]
-    a.pinMode(p,'output');
-end
+time_tol = 1e-3;
 
 first_read = true;
 i = 1;
 while (elapsed_time < total_t)
     elapsed_time = toc;
-    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-3
+    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < time_tol
         acc(i) = a.sample();
+        dummy(i,1) = a.analogRead(0);
+        dummy(i,2) = a.analogRead(1);
         if (elapsed_time < actuate_t)
-%             first_read = false;
-%             V(i) = amplitude*sin(2*pi*f*elapsed_time);
-              V(i) = amplitude*(elapsed_time)/actuate_t;
+            V(i) = amplitude*sin(2*pi*f*elapsed_time);
+%             V(i) = amplitude*(elapsed_time)/actuate_t;
             [n,dir] = V_to_N(V(i));
 %             [n,dir] = V_to_N(150);
             a.roundTrip(dir,n);
             t_act(i) = toc;
         else
-%             if first_read
-%                 first_read = false;
+            if first_read
+                first_read = false;
                 a.roundTrip(0,0);
-%             end
+            end
         end
         t(i) = elapsed_time;
         prev = elapsed_time;
@@ -67,17 +60,17 @@ while (elapsed_time < total_t)
     end
 end
 
-% a.analogWrite(enable_pin,0);
-% a.digitalWrite(dir_pin,0);
 a.roundTrip(0,0);
 
 %% Normalize
 
-index_values = (t ~= 0);
-t   = t(index_values);
-t_act   = t_act(index_values);
-V = V(index_values);
-acc = acc(index_values);
+run = Run(T,t,acc,x,V);
+run.store();
+
+t = run.t;
+V = run.V;
+acc = run.acc;
+
 
 
 
@@ -87,25 +80,19 @@ alpha = 0.01;
 B = alpha;
 A = [1 alpha-1];
 g = filter(B,A,g);
+index_val = t ~= 0;
+dummy_f1 = filter(B,A,n_to_g(1,dummy(index_val,1)));
+dummy_f2 = filter(B,A,n_to_g(2,dummy(index_val,2)));
 
-%% Plot
+% dummy_f1 = dummy_f1 - mean(dummy_f1);
 
-for i = 1:length(V)
-   [aux,aux2] = V_to_N(V(i));
-   n(i) = aux;
-   dir(i) = aux2;
-end
-% gf = custom_filter(g);
-figure
-hax = axes;
 hold on
-grid on
-plot(t,rms(V)*g/rms(g))
-plot(t,V,'r')
-% line(get(hax,'XLim'),[150 150])
-% line(get(hax,'XLim'),-[150 150])
-% plot(t,n)
-% plot(t,g)
-% plot(t,(acc-mean(acc))/rms(acc))
-
+plot(t,g)
+plot(t,dummy_f1,'k')
+plot(t,dummy_f2,'r')
+% plot(t,g,'r')
 hold off
+%%
+
+figure
+run.plot(3,[3,5])

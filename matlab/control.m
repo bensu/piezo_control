@@ -7,11 +7,12 @@ total_t = 20;
 actuate_t = 10;
 
 %% Arrays
-T = 0.02;
+T = 0.03;
 N = floor(total_t / T) + 30;
 t = zeros(N,1);
 t_act = zeros(N,1);
 acc = zeros(N,1);
+dummy = zeros(N,2);
 act = zeros(N,1);
 g  = zeros(size(t));
 gf = zeros(size(t));
@@ -54,7 +55,7 @@ z = -0.999;
 p = -0.8607;
 delta_time = 5;
 Kx = 0;
-Kv = 7e0;
+Kv = 7e2;
 Kg = 0;
 l  = 0.1;
 n_samples = 2;
@@ -66,6 +67,8 @@ while (elapsed_time < total_t)
     if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-4
         t(i) = elapsed_time;
         acc(i) = a.sample();
+        dummy(i,1) = a.analogRead(0);
+        dummy(i,2) = a.analogRead(1);
         read_time(i) = toc - elapsed_time;
         g(i)   = n_to_g(3,acc(i));
         prev = elapsed_time;
@@ -73,7 +76,7 @@ while (elapsed_time < total_t)
         v(i) = d(g(i),g(i-1));
         vf(i) = lp(vf(i-1),v(i));
         x(i) = -g(i);
-        if any(abs([x(i) vf(i) g(i)]) > cut_off) && false
+        if any(abs([x(i) vf(i) g(i)]) > cut_off) && true
 %             process_time(i) = toc - elapsed_time - read_time(i);
             act(i) = -[Kx Kv Kg]*[x(i) vf(i) g(i)]';
             [n,dir] = V_to_N(act(i));
@@ -81,16 +84,20 @@ while (elapsed_time < total_t)
 %             actuate_time(i) = toc - elapsed_time - read_time(i) - process_time(i);
 %             t_act(i) = toc;
         end
-        if elapsed_time > delta_time && elapsed_time < 2*delta_time
-            a.roundTrip(0,245);
-        end
-        if elapsed_time > 2*delta_time
-%            a.roundTrip(1,0);
-        end
+%         if elapsed_time > delta_time && elapsed_time < 2*delta_time
+%             a.roundTrip(0,245);
+%         end
+%         if elapsed_time > 2*delta_time
+% %            a.roundTrip(1,0);
+%         end
         i = i + 1;
     end
 end
 
+a.roundTrip(0,0);
+
+run = Run(T,t,acc,[x v g]',act);
+run.store();
 
 a.analogWrite(enable_pin,0);
 a.digitalWrite(dir_pin,0);
