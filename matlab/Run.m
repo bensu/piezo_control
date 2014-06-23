@@ -40,7 +40,7 @@ classdef Run
                     signal = run.x(2,:)';
                 case 3
                     name = 'g';
-                    signal = n_to_g(3,run.acc);
+                    signal = Arduino.n_to_g(3,run.acc);
                 case 4
                     name = 'acc';
                     signal = run.acc;
@@ -101,7 +101,7 @@ classdef Run
             hold off
         end
         function g = get.g(run)
-            g = n_to_g(3,run.acc);
+            g = Arduino.n_to_g(3,run.acc);
         end
     end
     methods (Static)

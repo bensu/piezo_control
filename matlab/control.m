@@ -37,7 +37,7 @@ actuate_time = zeros(N,1);
 %% Start
 a.roundTrip(0,0);
 
-cut_off = [2e-4 4e-3 6e-2]; % [xf vf gf]
+cut_off = [2e-4 4e-3 6e-2]; % [x v g]
 
 %% Start loop
 n_samples = 1;
@@ -53,14 +53,13 @@ while (elapsed_time < total_t)
     if Run.sample_time(1e-4,T,prev,elapsed_time)
         t(i)   = elapsed_time;
         acc(i) = a.sample();
-        g(i)   = n_to_g(3,acc(i));
+        g(i)   = Arduino.n_to_g(3,acc(i));
         prev = elapsed_time;
         %% Signal Processing
         x(:,i) = con.predict(i,x(:,i-1),0,g(i));
         if any(abs([x(:,i)' g(i)]) > cut_off) && true
             V(i) = -K*[x(:,i); g(i)];
-            [n,dir] = V_to_N(V(i));
-            a.roundTrip(dir,n);
+            a.piezo_actuate(V(i));
         end
         i = i + 1;
     end
