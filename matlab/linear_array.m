@@ -1,1 +1,0 @@
-function linear_array(

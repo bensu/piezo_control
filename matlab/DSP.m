@@ -2,6 +2,12 @@ classdef DSP
     % Class DSP
     % Meant as a library for digital signal processing
     methods (Static)
+        function [t_mean,t_std] = t_dispersion(t)
+            d_t = diff(t);
+            t_mean = mean(d_t);
+            t_std  = std(d_t);
+            histfit(d_t)
+        end
         function d = get_damping(T,t,x)
             % d = get_damping(T,t,x)
             [~,tau] = DSP.fit_exp(t,x);
@@ -66,10 +72,9 @@ classdef DSP
             f_damped = DSP.damped_f(X,f,1);      %% HARCODED f_min = 1Hz;
             [damping,f_natural] = DSP.damping(f_damped,tau);
             %% Plot Fitted function
-            to_str = @(var_sym,value,units) [var_sym, ' = ', num2str(value), units];
-            message = { to_str('\tau',tau,'s'),
-                to_str('f',f_natural,'Hz'),
-                to_str('\zeta',damping,'')};
+            message = { DSP.to_str('\tau',tau,'s'),
+                DSP.to_str('f',f_natural,'Hz'),
+                DSP.to_str('\zeta',damping,'')};
             figure
             hold on
             title('Signal with Exponential Envelope');
@@ -80,6 +85,9 @@ classdef DSP
             legend('Meassured Signal','K*e^{-t/\tau}');
             text(0.8*t(end),0.5*max(x),message)
             hold off
+        end
+        function s = to_str(var_sym,value,units)
+            s = [var_sym, ' = ', num2str(value), units];
         end
         function plot_spectrum(T,x)
             % Plot single-sided amplitude spectrum.

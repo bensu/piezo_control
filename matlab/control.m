@@ -4,81 +4,62 @@ clear acc
 clear t
 
 total_t = 20;
-actuate_t = 10;
 
 %% Arrays
 T = 0.03;
-N = floor(total_t / T) + 30;
-t = zeros(N,1);
-t_act = zeros(N,1);
-acc = zeros(N,1);
-dummy = zeros(N,2);
-act = zeros(N,1);
-g  = zeros(size(t));
-gf = zeros(size(t));
-v  = zeros(size(t));
-x  = zeros(size(t));
-vf = zeros(size(t));
-xf = zeros(size(t));
-K = 1000;
+[t,acc,x,V] = Run.prepare_run(total_t,T);
+N = length(t);
+g = zeros(N,1);
+
+%% Controller Object
+omega = 2*pi*3;
+damping = 0.0118;
+bk = 1;
+con = Controller(T,omega,damping,bk);
+
+%% Observer
+Q = 1;
+R = 0.5;
+tol = 1e-8;
+con = con.find_Mn(Q,R,tol);
+
+%% Controller
+Kx = 0;
+Kv = -7e3;
+Kg = 0;
+K = [Kx Kv Kg];
 
 %% Profiling
-
-read_time    = zeros(size(t));
-process_time = zeros(size(t));
-actuate_time = zeros(size(t));
-
-%%
-
-enable_pin  = 10;
-dir_pin     = 7;
-
-f = 3;      % [Hz]
-prev = 0;
-
-%% Filters
-alpha_low = 0.2;
-lp = @(y,x) (alpha_low*y + (1-alpha_low)*x);
-alpha_high = 0.1;
-hp = @(y,x_1,x_2) ((1-alpha_high)*y + (1-alpha_high)*(x_1 - x_2));
-d  = @(x,x2) -(x-x2);
+read_time    = zeros(N,1);
+process_time = zeros(N,1);
+actuate_time = zeros(N,1);
 
 %% Start
 a.roundTrip(0,0);
 
-cut_off = [0.15 0.15 0.15]; % [xf vf gf]
-g_cut_off = 0.1;
+cut_off = [2e-4 4e-3 6e-2]; % [xf vf gf]
 
-%% Controller
-k = -1e2;
-z = -0.999;
-p = -0.8607;
-delta_time = 5;
-Kx = 0;
-Kv = 5e2;
-Kg = 0;
-l  = 0.1;
-n_samples = 2;
+%% Start loop
+n_samples = 1;
 i = n_samples + 1;
+
+input('Press enter to start loop');
+
 tic
+prev = 0;
 elapsed_time = toc;
 while (elapsed_time < total_t)
     elapsed_time = toc;
-    if (prev + T < elapsed_time) || abs(prev + T - elapsed_time) < 1e-4
-        t(i) = elapsed_time;
+    if Run.sample_time(1e-4,T,prev,elapsed_time)
+        t(i)   = elapsed_time;
         acc(i) = a.sample();
-%         dummy(i,1) = a.analogRead(0);
-%         dummy(i,2) = a.analogRead(1);
-%         read_time(i) = toc - elapsed_time;
         g(i)   = n_to_g(3,acc(i));
         prev = elapsed_time;
         %% Signal Processing
-        v(i) = d(g(i),g(i-1));
-        vf(i) = lp(vf(i-1),v(i));
-        x(i) = -g(i);
-        if any(abs([x(i) vf(i) g(i)]) > cut_off) && true
-            act(i) = -[Kx Kv Kg]*[x(i) vf(i) g(i)]';
-            [n,dir] = V_to_N(act(i));
+        x(:,i) = con.predict(i,x(:,i-1),0,g(i));
+        if any(abs([x(:,i)' g(i)]) > cut_off) && true
+            V(i) = -K*[x(:,i); g(i)];
+            [n,dir] = V_to_N(V(i));
             a.roundTrip(dir,n);
         end
         i = i + 1;
@@ -87,14 +68,20 @@ end
 
 a.roundTrip(0,0);
 %%
-run = Run(T,t,acc,[x v g]',act);
+run = Run(T,t,acc,x,V);
 run.store();
 %%
 
-% run.plot(3,[5 3])
+run.plot(3,[5 3])
 
 %%
+index = 2;
+run.plot_cutoff(index,cut_off(index))
+%%
+
+[X,f] = DSP.get_fft(T,run.g);
+f_damped = DSP.damped_f(X,f,1)
 
 r = DSP.nm_rms(run.g)
 damping = DSP.get_damping(run.T,run.t,run.g)
-% DSP.plot_exp(run.T,run.t,run.g)
+DSP.plot_exp(run.T,run.t,run.g)

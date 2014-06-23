@@ -29,6 +29,46 @@ classdef Run
             obj.x = x(:,index_values);
             obj.V = V(index_values);
         end
+        function [signal, name] = signal_index(run,index)
+            % Establishes a numbering convention for the stored signals
+            switch index
+                case 1
+                    name = 'x';
+                    signal = run.x(1,:)';
+                case 2
+                    name = 'v';
+                    signal = run.x(2,:)';
+                case 3
+                    name = 'g';
+                    signal = n_to_g(3,run.acc);
+                case 4
+                    name = 'acc';
+                    signal = run.acc;
+                case 5
+                    name = 'V';
+                    signal = run.V;
+            end
+        end
+        function store(run)
+            % store(run)
+            % Stores the run object in the /db directory.
+            directory_name = 'db/';
+            file_name = run.t_stamp;
+            whole_name = strcat(directory_name,file_name);
+            save(whole_name,'run');
+        end
+        function plot_cutoff(run,index,cut_off)
+            [signal, name] = run.signal_index(index);
+            figure
+            hax = axes;
+            hold on
+            grid on
+            plot(run.t,signal,'k');
+            line(get(hax,'XLim'),[cut_off cut_off]);
+            title(name);
+            xlabel('t [sec]');
+            hold off
+        end
         function plot(run,base_index,plot_index,varargin)
             % plot(base_index,plot_index)
             % Plots the functions given in plot_index by refering them to
@@ -60,39 +100,39 @@ classdef Run
             end
             hold off
         end
-        function [signal, name] = signal_index(run,index)
-            % Establishes a numbering convention for the stored signals
-            switch index
-                case 1
-                    name = 'x';
-                    signal = run.x(1,:)';
-                case 2
-                    name = 'v';
-                    signal = run.x(2,:)';
-                case 3
-                    name = 'g';
-                    signal = n_to_g(3,run.acc);
-                case 4
-                    name = 'acc';
-                    signal = run.acc;
-                case 5
-                    name = 'V';
-                    signal = run.V;
-            end
-        end
-        function store(run)
-            % store(run)
-            % Stores the run object in the /db directory.
-            directory_name = 'db/';
-            file_name = run.t_stamp;
-            whole_name = strcat(directory_name,file_name);
-            save(whole_name,'run');
-        end
         function g = get.g(run)
             g = n_to_g(3,run.acc);
         end
     end
     methods (Static)
+        function compare_runs(runU,runC)
+            dU = DSP.get_damping(runU.T,runU.t,runU.g);
+            dC = DSP.get_damping(runC.T,runC.t,runC.g);
+            message = { DSP.to_str('\zeta_{uncontrolled}',dU,''), ...
+                        DSP.to_str('\zeta_{controlled}',dC,'')};
+            hold on
+            title('Compare Runs')
+            grid on
+            plot(runU.t,runU.g)
+            plot(runC.t,runC.g,'k')
+            legend('Uncontrolled','Controlled')
+            text(0.7*runU.t(end),0.5*max(runU.g),message)
+            ylabel('g [gs]')
+            xlabel('t [sec]')
+            hold off
+        end
+        function [t,acc,x,V] = prepare_run(total_time,T)
+            N = floor(total_time / T) + 30;
+            t = zeros(N,1);
+            acc = zeros(N,1);
+            V = zeros(N,1);
+            x = zeros(2,N);
+        end
+        function b = sample_time(tol,T,prev,elapsed)
+            % b = sample_time(tol,T,prev,elapsed)
+            % Returns true if it's time to sample or the time has passed.
+            b = (prev + T < elapsed) || abs(prev + T - elapsed) < tol;
+        end
         function new_x = expand(t,x)
             % new_x = expand(t,x)
             % When the time extends beyond the original memory allocation,
