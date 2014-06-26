@@ -1,12 +1,16 @@
-classdef Controller
+classdef Controller < handle
     % class Controller
     % Data structure that contains the controller parameters
     properties
         system
-        Mn  % Kalman filter coefficients
+        x       % State vector
+        Mn      % Kalman filter coefficients
+        cut_off
+        K
+        n_samples
     end
     methods
-        function obj = Controller(T,omega,damping,bk)
+        function obj = Controller(T,cut_off,K,omega,damping,bk)
             % obj = Controller(T,omega,damping,bk)
             Ac  = [0 1; -omega^2 -2*damping*omega];
             Bc  = [0; bk];
@@ -15,6 +19,20 @@ classdef Controller
             cs  = ss(Ac,Bc,C,D);	% Continuous system
             ds  = c2d(cs,T,'zoh');	% Discrete system
             obj.system = ds;
+            obj.cut_off = cut_off;
+            obj.K = K;
+            obj.n_samples = 2;
+        end
+        function uk = loop(con,k,tk,yk)
+            con.x(:,k) = con.predict(k,con.x(:,k-1),0,yk);
+            if any(abs([con.x(:,k)' yk]) > con.cut_off) && true
+                uk = -con.K*[con.x(:,k); yk];
+            else 
+                uk = 0;
+            end
+        end
+        function init(control,N)
+            control.x = zeros(2,N);
         end
         function xk = predict(con,k,xk_1,uk,yk)
               % xk = predict(con,k,xk_1,uk,yk)

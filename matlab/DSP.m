@@ -20,9 +20,12 @@ classdef DSP
             % x(t) = k*exp(-t/tau);
             % k [Float]
             % tau [Float]
-            model = fit(t,abs(hilbert(x)), 'exp1');
+            model = fit(t,DSP.envelope(x), 'exp1');
             k = model.a;
             tau = -1/model.b;
+        end
+        function env = envelope(x)
+            env = abs(hilbert(x));
         end
         function f_damped = damped_f(X,f,f_dc)
             % f_damped = natural_freq(T,x)
@@ -79,7 +82,7 @@ classdef DSP
             hold on
             title('Signal with Exponential Envelope');
             grid on
-            plot(t,x)
+            plot(t,x-mean(x))
             plot(t,k*exp(-t/tau),'k')
             plot(t,-k*exp(-t/tau),'k')
             legend('Meassured Signal','K*e^{-t/\tau}');
