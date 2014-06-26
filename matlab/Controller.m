@@ -25,7 +25,7 @@ classdef Controller < handle
         end
         function uk = loop(con,k,tk,yk)
             con.x(:,k) = con.predict(k,con.x(:,k-1),0,yk);
-            if any(abs([con.x(:,k)' yk]) > con.cut_off) && true
+            if any(abs([con.x(:,k)' yk]) > con.cut_off) || true
                 uk = -con.K*[con.x(:,k); yk];
             else 
                 uk = 0;

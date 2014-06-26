@@ -19,17 +19,12 @@ classdef Run
             obj.t_stamp = Run.TimeStamp();
             obj.T = T;
             % Some of the vectors might not be the same length as t
-            V = Run.expand(t,V);
-            control.x = Run.expand(t,control.x')';
-            acc = Run.expand(t,acc);
-            % The run might not have filled all the allocated memory -> the
-            % extra values are eliminated.
-            index_values = (t ~= 0);
-            obj.t = t(index_values);
-            obj.acc = acc(index_values);
-            control.x = control.x(:,index_values);
+            ns = Run.expand(t,acc,control.x(1,:)',control.x(2,:)',V);
+            obj.t   = ns{1};
+            obj.acc = ns{2};
+            control.x = [ns{3}' ; ns{4}']; 
             obj.control = control;
-            obj.V = V(index_values);
+            obj.V = ns{5};
         end
         function [signal, name] = signal_index(run,index)
             % Establishes a numbering convention for the stored signals
@@ -51,12 +46,16 @@ classdef Run
                     signal = run.V;
             end
         end
-        function store(run)
+        function store(run,varargin)
             % store(run)
             % Stores the run object in the /db directory.
             directory_name = 'db/';
             file_name = run.t_stamp;
-            whole_name = strcat(directory_name,file_name);
+            if 0 < nargin
+                whole_name = strcat(directory_name,varargin{1},file_name);
+            else
+                whole_name = strcat(directory_name,file_name);
+            end
             save(whole_name,'run');
         end
         function plot_cutoff(run,index,cut_off)
@@ -116,12 +115,26 @@ classdef Run
         end
     end
     methods (Static)
+        function out = map(directory,varargin)
+            run_list = dir(directory);
+            N = length(run_list);
+            NF = length(varargin);
+            out = cell(NF,N);
+            for i = 1:(N-2)
+                space = load([directory,'/',run_list(i+2).name]);
+                run = space.run;
+                for n = 1:NF
+                    f = varargin{n};
+                    out{n,i} = f(run);
+                end
+            end
+        end
         function [t_vec,a,u] = sine_wave(a,total_t,g_max,T,A,f)
             f = @(k,t,g) A*sin(2*pi*f*t);
             s = @(k,t,g) (Arduino.n_to_g(3,g) < g_max);
             [t_vec,a,u] = Run.loop(a,total_t,T,2,s,f);
         end
-        function [t_vec,a,u] = loop(arduino,total_t,T,k_init,f_stop,fun_u)
+        function [t_vec,a,u] = loop(arduino,total_t,T,k_init,f_stop,f_u)
             k = k_init;
             [t_vec,a,u] = Run.prepare_run(total_t,T);
             prev = 0;
@@ -132,7 +145,7 @@ classdef Run
                 elapsed_time = toc;
                 if Run.sample_time(1e-4,T,prev,elapsed_time)
                     a(k) = arduino.sample;
-                    u(k) = fun_u(k,elapsed_time,Arduino.n_to_g(3,a(k)));
+                    u(k) = f_u(k,elapsed_time,a(k));
                     arduino.piezo_actuate(u(k));
                     t_vec(k) = elapsed_time;
                     prev = elapsed_time;
@@ -141,37 +154,17 @@ classdef Run
             end
             arduino.roundTrip(0,0);
         end
-        function run = control_run(arduino,total_t,T,control)
+        function run = control_run(arduino,total_t,T,g_max,control)
             % Prepare Loop
             arduino.roundTrip(0,0);
-            [t_vec,a,u] = Run.prepare_run(total_t,T);
             control.init(Run.N_from_time(total_t,T));
             s = @(k,t,a) true;
             f = @(k,t,a) control.loop(k,t,Arduino.n_to_g(3,a));
             input('Press enter to start loop');
             % Start loop
-            Run.sine_wave(arduino,5,0.55,T,150,3);
-%             [t_vec,a,u] = Run.loop(arduino,total_t,T, ...
-%                                 control.n_samples+1,s,f);
-            i = control.n_samples+1;
-            prev = 0;
-            tic
-            elapsed_time = toc;
-            while (elapsed_time < total_t)
-                elapsed_time = toc;
-                if Run.sample_time(1e-4,T,prev,elapsed_time)
-                    a(i) = arduino.sample;
-                    g    = Arduino.n_to_g(3,a(i));
-                    u(i) = control.loop(i,elapsed_time,g);
-                    arduino.piezo_actuate(u(i));
-                    t_vec(i) = elapsed_time;
-                    prev = elapsed_time;
-                    i = i + 1;
-                end
-            end
-            % Finish loop
-            arduino.roundTrip(0,0);
-
+%             Run.sine_wave(arduino,8,g_max,T,150,2.962);
+            [t_vec,a,u] = Run.loop(arduino,total_t,T, ...
+                                control.n_samples+1,s,f);
             run = Run(T,t_vec,a,control,u);
         end
         function compare_runs(runU,runC)
@@ -204,17 +197,25 @@ classdef Run
             % Returns true if it's time to sample or the time has passed.
             b = (prev + T < elapsed) || abs(prev + T - elapsed) < tol;
         end
-        function new_x = expand(t,x)
+        function out_x = expand(t,varargin)
             % new_x = expand(t,x)
             % When the time extends beyond the original memory allocation,
             % not all the vectors are the same size. To solve that, we
             % expand them to match the longest one and leave them a trail of zeros.
             new_N = length(t);
-            original_N = length(x);
-            if original_N < new_N
-                new_x = [x; zeros(new_N - original_N,size(x,2))];
-            else
-                new_x = x;
+            index = (t ~= 0);
+            NS    = length(varargin) + 1;  % Number of signals + time
+            out_x    = cell(NS,1);
+            out_x{1} = t(index);
+            for i = 2:NS
+                x = varargin{i-1};
+                original_N = length(x);
+                if original_N < new_N
+                    x = [x; zeros(new_N - original_N,size(x,2))];
+                else
+                    x = x;
+                end
+                out_x{i} = x(index);
             end
         end
         function s = TimeStamp()

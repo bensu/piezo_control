@@ -1,30 +1,29 @@
-% 1. Connect the Arduino and load the Arduino I/O program.
-% 2. Create a link between the connected port
-% (ACM0, ACM1, ACM2, etc.) and ttyS101 by typing:
-%       sudo ln -s /dev/ttyACM0 /dev/ttyS101 
-% in the terminal.
-% 
-% 3. While the Arduino is connected type:
-%       a = arduino('/dev/ttyS101');
-% in the MATLAB REPL.
-%
-% Connect pins
-% run reads
+%% G_MAX 
+% Objective: determine what is the maximum acceleration (g_max) the 
+% actuator is can produce in the system.
+% g_max will later be used to vibrate the system
 
-clear run
-
-
-
-total_t   = 30;
-actuate_t = 5;
+%% Run Duration
+actuate_t = 10;
 T = 0.03;
 
-
 %% Signal
-f = 3.07;          % [Hz]
+f = 2.962;   % [Hz]
 A = 150;    % [V]
 
-
 %% Start loop
+% G_MAX 0.85
+g_max = 0.5;
+[t,acc,u] = Run.sine_wave(a,actuate_t,g_max,T,A,f);
 
-Run.sine_wave(a,actuate_t,0.55,T,A,f)
+%% Plot
+
+ns = Run.expand(t,acc,u);
+[t,acc,u] = ns{1:3};
+% g_max = 0.8;
+figure
+hax = axes;
+hold on
+plot(t,Arduino.n_to_g(3,acc),'k')
+line(get(hax,'XLim'),[g_max g_max])
+hold off
