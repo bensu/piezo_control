@@ -1,19 +1,19 @@
 %% Find Baseline Damping
 
 R = @(run) rms(run.g-mean(run.g));
-D = @(run) DSP.get_damping(run.T,run.t,run.g);
+T = @(run) DSP.fit_exp(run.t,run.g);
 K = @(run) run.control.K(2);
 
-arg_list = {R,D,K};
+arg_list = {R,T,K};
 directory = 'db/Viscous/';
 
 d2 = [directory,'1e2/'];
 d3 = [directory,'1e3/'];
 d4 = [directory,'1e4/'];
 
-out2 = Run.map(d2,D,R,K);
-out3 = Run.map(d3,D,R,K);
-out4 = Run.map(d4,D,R,K);
+out2 = Run.map(d2,T,R,K);
+out3 = Run.map(d3,T,R,K);
+out4 = Run.map(d4,T,R,K);
 
 %%
 
@@ -22,13 +22,14 @@ list = Run.find(d3,K7);
 
 
 
-f   = @(i) [[out2{i,:}] [out3{i,:}]]'; % [out4{i,:}]]';
-d   = f(1);
+% f   = @(i) [[out2{i,:}] [out3{i,:}]]';% [out4{i,:}]]';
+f   = @(i) [out3{i,:}]';
+tau   = f(1);
 RMS = f(2);
 KK  = f(3);
 
 
-x = d;
+x = RMS;
 
 Ku = unique(KK);
 n_points = length(Ku);
@@ -42,4 +43,4 @@ end
 
 %%
 
-plot(-Ku,s,'o')
+plot(-Ku,m,'o')

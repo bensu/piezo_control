@@ -10,16 +10,15 @@ classdef Controller < handle
         n_samples
     end
     methods
-        function obj = Controller(digita_system,cut_off,K)
+        function obj = Controller(digital_system,cut_off)
             % obj = Controller(digita_system,cut_off,K)
-            obj.system = digita_system;
+            obj.system = digital_system;
             obj.cut_off = cut_off;
-            obj.K = K;
             obj.n_samples = 2;
         end
         function uk = loop(con,k,tk,yk)
             con.x(:,k) = con.predict(k,con.x(:,k-1),0,yk);
-            if any(abs([con.x(:,k)' yk]) > con.cut_off) || true
+            if any(abs([con.x(:,k)' yk]) > con.cut_off)
                 uk = -con.K*[con.x(:,k); yk];
             else 
                 uk = 0;
@@ -58,6 +57,12 @@ classdef Controller < handle
             % P = P(:,:,1:i-1);
             M = M(:,1:i-1);
             controller.Mn = M;
+        end
+        function find_Kk(con,Q,R)
+            con.K = [dlqr(con.system.A,con.system.B,Q,R,0) 0];
+        end
+        function viscous_control(con,Kv)
+            con.K = [0 Kv 0];
         end
         function M = Mk(controller,k)
             % M = Mk(controller,k)

@@ -1,5 +1,6 @@
 
-
+directory = 'db/Viscous/';
+d3 = [directory,'1e3/'];
 K7 = @(run) (run.control.K(2) == -7e3);
 list = Run.find(d3,K7);
 D = @(run) DSP.get_damping(run.T,run.t,run.g);

@@ -10,13 +10,13 @@ classdef DSP
         end
         function d = get_damping(T,t,x)
             % d = get_damping(T,t,x)
-            [~,tau] = DSP.fit_exp(t,x);
+            tau = DSP.fit_exp(t,x);
             [X,f]   = DSP.get_fft(T,x);
             f_damped = DSP.damped_f(X,f,1);      %% HARCODED f_min = 1Hz;
             [d,~] = DSP.damping(f_damped,tau);
         end
-        function [k,tau] = fit_exp(t,x)
-            % [k,tau] = fit_exp(t,x)
+        function [tau,k] = fit_exp(t,x)
+            % [tau,k] = fit_exp(t,x)
             % x(t) = k*exp(-t/tau);
             % k [Float]
             % tau [Float]
@@ -70,7 +70,7 @@ classdef DSP
         %% PLOT METHODS
         function plot_exp(T,t,x)
             %% Get Fit
-            [k,tau] = DSP.fit_exp(t,x);
+            [tau,k] = DSP.fit_exp(t,x);
             [X,f]   = DSP.get_fft(T,x);
             f_damped = DSP.damped_f(X,f,1);      %% HARCODED f_min = 1Hz;
             [damping,f_natural] = DSP.damping(f_damped,tau);
