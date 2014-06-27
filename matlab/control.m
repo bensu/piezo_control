@@ -11,13 +11,14 @@ T = 0.03;
 omega = 2*pi*2.962;
 damping = 0.0096;
 bk = 1;
+ds = Controller.second_order_system(T,omega,damping,bk);
 % Gain
 Kx = 0;
 Kv = -9e3;
 Kg = 0;
 K = [Kx Kv Kg];
 cut_off = [2e-4 4e-3 6e-2]; % [x v g]
-con = Controller(T,cut_off,K,omega,damping,bk);
+con = Controller(ds,cut_off,K);
 
 %% Observer
 Q = 1;

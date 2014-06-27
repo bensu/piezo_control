@@ -162,25 +162,26 @@ classdef Run
             s = @(k,t,g) (Arduino.n_to_g(3,g) < g_max);
             [t_vec,a,u] = Run.loop(a,total_t,T,2,s,f);
         end
-        function [t_vec,a,u] = loop(arduino,total_t,T,k_init,f_stop,f_u)
+        function [t_vec,a,u] = loop(ard,total_t,T,k_init,f_stop,f_u)
+            % [t_vec,a,u] = loop(ard,total_t,T,k_init,f_stop,f_u)
             k = k_init;
             [t_vec,a,u] = Run.prepare_run(total_t,T);
             prev = 0;
-            arduino.roundTrip(0,0);
+            ard.roundTrip(0,0);
             tic
             elapsed_time = toc;
             while f_stop(k,elapsed_time,a(k-1)) && (elapsed_time < total_t)
                 elapsed_time = toc;
                 if Run.sample_time(1e-4,T,prev,elapsed_time)
-                    a(k) = arduino.sample;
+                    a(k) = ard.sample;
                     u(k) = f_u(k,elapsed_time,a(k));
-                    arduino.piezo_actuate(u(k));
+                    ard.piezo_actuate(u(k));
                     t_vec(k) = elapsed_time;
                     prev = elapsed_time;
                     k = k + 1;
                 end
             end
-            arduino.roundTrip(0,0);
+            ard.roundTrip(0,0);
         end
         function run = control_run(arduino,total_t,T,g_max,control)
             % Prepare Loop

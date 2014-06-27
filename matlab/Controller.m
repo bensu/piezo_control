@@ -10,15 +10,9 @@ classdef Controller < handle
         n_samples
     end
     methods
-        function obj = Controller(T,cut_off,K,omega,damping,bk)
-            % obj = Controller(T,omega,damping,bk)
-            Ac  = [0 1; -omega^2 -2*damping*omega];
-            Bc  = [0; bk];
-            C   = [-omega^2 -2*damping*omega];
-            D   = 0;
-            cs  = ss(Ac,Bc,C,D);	% Continuous system
-            ds  = c2d(cs,T,'zoh');	% Discrete system
-            obj.system = ds;
+        function obj = Controller(digita_system,cut_off,K)
+            % obj = Controller(digita_system,cut_off,K)
+            obj.system = digita_system;
             obj.cut_off = cut_off;
             obj.K = K;
             obj.n_samples = 2;
@@ -73,6 +67,26 @@ classdef Controller < handle
             else
                 M = controller.Mn(:,end);
             end
+        end
+        function K = Kk(controller,k)
+            % K = Kk(controller,k)
+            % Wrapper
+            if k < size(controller.K,2)
+                K = controller.K(:,k);
+            else
+                K = controller.K(:,end);
+            end
+        end
+    end
+    methods (Static)
+        function ds = second_order_system(T,omega,damping,bk)
+            % ds = second_order_system(omega,damping,bk)
+            Ac  = [0 1; -omega^2 -2*damping*omega];
+            Bc  = [0; bk];
+            C   = [-omega^2 -2*damping*omega];
+            D   = 0;
+            cs  = ss(Ac,Bc,C,D);	% Continuous system
+            ds  = c2d(cs,T,'zoh');	% Discrete system
         end
     end
 end
