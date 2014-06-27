@@ -1,0 +1,21 @@
+%% Find Baseline Damping
+
+R = @(run) rms(run.g);
+D = @(run) DSP.get_damping(run.T,run.t,run.g);
+K = @(run) run.control.K;
+
+arg_list = {R,D,K};
+directory = 'db/Viscous/';
+
+d2 = [directory,'1e2/'];
+d3 = [directory,'1e3/'];
+d4 = [directory,'1e4/'];
+
+out2 = Run.map(d2,D,R,K);
+out3 = Run.map(d3,D,R,K);
+out4 = Run.map(d4,D,R,K);
+
+
+d = [[out2{1,:}]; out3{1,:}; out4{1,:}];
+RMS = [out2{2,:}; out3{2,:}; out4{2,:}];
+
