@@ -115,13 +115,41 @@ classdef Run
         end
     end
     methods (Static)
-        function out = map(directory,varargin)
-            run_list = dir(directory);
+        function file_list = find(directory,f)
+            % file_list = find(directory,f)
+            % Returns a cell containing the file names of the runs that
+            % return true for function f.
+            file_list = [];
+            count = 1;
+            run_list = dir([directory,'*.mat']);
+            N = length(run_list);
+            for i = 1:N
+                file = [directory,'/',run_list(i).name];
+                space = load(file);
+                run = space.run;
+                if f(run)
+                    run_list(i).name = [directory,'/',run_list(i).name];
+                    file_list = [file_list run_list(i)];
+                end
+            end
+            
+        end
+        function out = map(run_list,varargin)
+            % out = map(run_list,varargin)
+            % run_list can be either a directory or a list of files
+            if ischar(run_list)
+                directory = run_list;
+                run_list = dir([directory,'*.mat']);
+                N = length(run_list);
+                for i = 1:N
+                    run_list(i).name = [directory,'/',run_list(i).name];
+                end
+            end
             N = length(run_list);
             NF = length(varargin);
             out = cell(NF,N);
-            for i = 1:(N-2)
-                space = load([directory,'/',run_list(i+2).name]);
+            for i = 1:N
+                space = load(run_list(i).name);
                 run = space.run;
                 for n = 1:NF
                     f = varargin{n};
@@ -162,7 +190,7 @@ classdef Run
             f = @(k,t,a) control.loop(k,t,Arduino.n_to_g(3,a));
             input('Press enter to start loop');
             % Start loop
-%             Run.sine_wave(arduino,8,g_max,T,150,2.962);
+            Run.sine_wave(arduino,8,g_max,T,150,2.962);
             [t_vec,a,u] = Run.loop(arduino,total_t,T, ...
                                 control.n_samples+1,s,f);
             run = Run(T,t_vec,a,control,u);

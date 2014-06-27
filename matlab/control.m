@@ -13,7 +13,7 @@ damping = 0.0096;
 bk = 1;
 % Gain
 Kx = 0;
-Kv = -7e3;
+Kv = -9e3;
 Kg = 0;
 K = [Kx Kv Kg];
 cut_off = [2e-4 4e-3 6e-2]; % [x v g]
@@ -32,7 +32,7 @@ con = con.find_Mn(Q,R,tol);
 
 run = Run.control_run(a,total_t,T,0.5,con)
 
-% run.store('Viscous/1e4/');
+run.store('Viscous/1e3/');
 %%
 
 % run.plot(3,[5 3])
