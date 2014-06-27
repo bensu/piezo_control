@@ -10,22 +10,15 @@ classdef Controller < handle
         n_samples
     end
     methods
-        function obj = Controller(T,cut_off,K,omega,damping,bk)
-            % obj = Controller(T,omega,damping,bk)
-            Ac  = [0 1; -omega^2 -2*damping*omega];
-            Bc  = [0; bk];
-            C   = [-omega^2 -2*damping*omega];
-            D   = 0;
-            cs  = ss(Ac,Bc,C,D);	% Continuous system
-            ds  = c2d(cs,T,'zoh');	% Discrete system
-            obj.system = ds;
+        function obj = Controller(digital_system,cut_off)
+            % obj = Controller(digita_system,cut_off,K)
+            obj.system = digital_system;
             obj.cut_off = cut_off;
-            obj.K = K;
             obj.n_samples = 2;
         end
         function uk = loop(con,k,tk,yk)
             con.x(:,k) = con.predict(k,con.x(:,k-1),0,yk);
-            if any(abs([con.x(:,k)' yk]) > con.cut_off) || true
+            if any(abs([con.x(:,k)' yk]) > con.cut_off)
                 uk = -con.K*[con.x(:,k); yk];
             else 
                 uk = 0;
@@ -65,6 +58,12 @@ classdef Controller < handle
             M = M(:,1:i-1);
             controller.Mn = M;
         end
+        function find_Kk(con,Q,R)
+            con.K = [dlqr(con.system.A,con.system.B,Q,R,0) 0];
+        end
+        function viscous_control(con,Kv)
+            con.K = [0 Kv 0];
+        end
         function M = Mk(controller,k)
             % M = Mk(controller,k)
             % Wrapper
@@ -73,6 +72,26 @@ classdef Controller < handle
             else
                 M = controller.Mn(:,end);
             end
+        end
+        function K = Kk(controller,k)
+            % K = Kk(controller,k)
+            % Wrapper
+            if k < size(controller.K,2)
+                K = controller.K(:,k);
+            else
+                K = controller.K(:,end);
+            end
+        end
+    end
+    methods (Static)
+        function ds = second_order_system(T,omega,damping,bk)
+            % ds = second_order_system(omega,damping,bk)
+            Ac  = [0 1; -omega^2 -2*damping*omega];
+            Bc  = [0; bk];
+            C   = [-omega^2 -2*damping*omega];
+            D   = 0;
+            cs  = ss(Ac,Bc,C,D);	% Continuous system
+            ds  = c2d(cs,T,'zoh');	% Discrete system
         end
     end
 end

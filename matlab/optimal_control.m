@@ -8,37 +8,40 @@ T = 0.03;
 
 %% Controller Object
 % System
-omega = 2*pi*2.962;
+f_natural = 2.962;
+omega = 2*pi*f_natural;
 damping = 0.0096;
-bk = 1;
-ds = Controller.second_order_system(T,omega,damping,bk);
-cut_off = [2e-4 4e-3 6e-2]; % [x v g]
+bk = -1.25e-4;
+ds = Controller.second_order_system(T,omega,damping,1);
+cut_off = [1e-4 2e-3 6e-2]; % [x v g]
 con = Controller(ds,cut_off);
-% Gain
-Kv = -9e3;
-con.viscous_control(Kv);
+
+%% Gain
+p = 1e8;
+Q = p*eye(size(ds.A));
+R = 1;
+con.find_Kk(Q,R);
+con.K = -7e2*con.K;
 
 %% Observer
-Q = 1;
-R = 0.5;
+Qm = 1;
+Rm = 0.5;
 tol = 1e-8;
-con = con.find_Mn(Q,R,tol);
+con = con.find_Mn(Qm,Rm,tol);
 
-%% Profiling
-% read_time    = zeros(N,1);
-% process_time = zeros(N,1);
-% actuate_time = zeros(N,1);
+%% run
 
-run = Run.control_run(a,total_t,T,0.5,con)
+run = Run.control_run(a,total_t,T,0.5,con);
 
-run.store('Viscous/1e3/');
+run.store('OptimalStatic/');
 %%
 
 % run.plot(3,[5 3])
 DSP.plot_exp(run.T,run.t,run.g)
 
 %%
-index = 2;
+index = 1;
+
 % run.plot_cutoff(index,cut_off(index))
 %%
 
@@ -47,7 +50,8 @@ f_damped = DSP.damped_f(X,f,1);
 % DSP.plot_spectrum(T,run.g)
 
 format long
-damping = DSP.get_damping(run.T,run.t,run.g)
+[~,tau] = DSP.fit_exp(run.t,run.g);
+damping = DSP.damping(f_natural,tau)
 rms(run.g)
 %r = DSP.nm_rms(run.g)
 
