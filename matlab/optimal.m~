@@ -1,0 +1,36 @@
+%% Analyze runs with optimal control
+
+R = @(run) rms(run.g-mean(run.g));
+T = @(run) DSP.(run.t,run.g);
+K = @(run) run.control.K(2);
+
+arg_list = {R,T,K};
+directory = 'db/OptimalStatic/';
+
+d2 = [directory,'1e8/'];
+
+out = Run.map(d2,T,R,K);
+
+%%
+f   = @(i) [out{i,:}]';
+tau   = f(1);
+RMS = f(2);
+KK  = f(3);
+
+tol = 1e-3;
+near = @(y,x) abs((x - y)/x) < tol;
+x = RMS;
+
+Ku = unique(KK/30.151858522408720);
+n_points = length(Ku);
+m = zeros(n_points,1);
+s = zeros(n_points,1);
+for i = 1:n_points
+    aux = x(near(KK/30.151858522408720,Ku(i)))
+    m(i) = mean(aux);
+    s(i) = std(aux);
+end
+
+%%
+
+plot(-Ku,m,'o')

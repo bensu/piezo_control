@@ -21,7 +21,7 @@ p = 1e8;
 Q = p*eye(size(ds.A));
 R = 1;
 con.find_Kk(Q,R);
-con.K = -7e2*con.K;
+con.K = -6.25e2*con.K;
 
 %% Observer
 Qm = 1;
@@ -33,7 +33,7 @@ con = con.find_Mn(Qm,Rm,tol);
 
 run = Run.control_run(a,total_t,T,0.5,con);
 
-run.store('OptimalStatic/');
+% run.store('OptimalStatic/');
 %%
 
 % run.plot(3,[5 3])
