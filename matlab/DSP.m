@@ -2,6 +2,13 @@ classdef DSP
     % Class DSP
     % Meant as a library for digital signal processing
     methods (Static)
+        function yk = real_filter(B,A,k,x,y)
+            Na = length(A);
+            Nb = length(B);
+            xx = x(k:-1:(k-Nb+1));
+            yy = y(k:-1:(k-Na+2));
+            yk = (dot(xx,B) - dot(yy,A(2:end)))/A(1);
+        end
         function [t_mean,t_std] = t_dispersion(t)
             d_t = diff(t);
             t_mean = mean(d_t);

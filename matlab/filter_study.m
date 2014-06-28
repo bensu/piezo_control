@@ -1,67 +1,41 @@
-%% 
-% I have g, t and acc
+%% Try DSP.PID
 
-%% Helper Function
-hp  = @(a,x) filter([1-a a-1],[1 a-1], x);
-lp  = @(a,x) filter(a,[1 a-1],x);
-it = @(T,x) filter([0 T],1,x);
-ct  = @(t,x) cumtrapz(t,x);
+total_t = 20;
+T = 0.03;
 
-nm = @(y,x) (rms(y)*x/rms(x));
-phase = @(x,y) ((180/pi)*acos(dot(x,y) ./ (norm(x)*norm(y))));
+%% Controller Object
+% System
+f_natural = 2.962;
+omega = 2*pi*f_natural;
+damping = 0.0096;
+bk = -1.25e-4;
 
-%%
-N = 1000;
-alpha = linspace(0,0.5,N)';
-phi = zeros(N,1);
-error = zeros(N,1);
-T = 0.01;
-for i = 1:N
-    a = alpha(i);
-    g_dc = lp(a,g);
-    gf = g - g_dc;
-    v  = ct(t,gf);
-    v_dc = lp(a,v);
-    vf = v - v_dc;
-    x = ct(t,vf);
-    x_dc = lp(a,x);
-    xf = x - x_dc;
-%     gf = hp(a,g);
-%     v = ct(t,gf);
-%     vf = hp(a,v);
-%     x  = it(T,vf);
-%     xf = hp(a,v);
-    phi(i) = phase(g-mean(g),vf);
-    error(i) = mean(x)/max(x);
+%% Gain
+
+Kp = 10;
+Ti = 1;
+Td = 1;
+Nd = 2;
+[num,den] = tfdata(pidstd(Kp,Ti,Td,Nd,T));
+B = num{1};   % Unpack cells
+A = den{1};
+
+f = @(t) exp(-t*damping*omega).*sin(omega*t);
+
+t = (0:T:20)';
+N = length(t);
+g = f(t);
+
+u = zeros(N,1);
+uu = u;
+
+%% Loop
+n_samples = max(length(A),length(B));
+for k = length(B):N
+    uu(k) = DSP.real_filter(B,A,k,g,uu);
 end
 
-%%
-
-[~,l] = min(error);
-a = alpha(l);
-a = 0.01;
-
-    g_dc = lp(a,g);
-    gf = hp(a,g - g_dc);
-    v  = ct(t,gf);
-    v_dc = lp(a,v);
-    vf = hp(a,v - v_dc);
-    x = ct(t,vf);
-    x_dc = lp(a,x);
-    xf = hp(a,x - x_dc);
-
-%%
-
-
-%%
 hold on
-grid on
-plot(alpha,phi)
-plot(alpha,nm(phi,error),'k')
-% plot(t,gf)
-% plot(t,g)
-% plot(t,gf)
-% plot(t,g-mean(g))
-% plot(t,nm(g,vf),'k')
-
+plot(t,uu)
+plot(t,u,'r')
 hold off

@@ -1,3 +1,0 @@
-K7 = @(run) (run.control.K(2) == -7e3);
-list = Run.find(d3,K7);
-load(str(list(1))
