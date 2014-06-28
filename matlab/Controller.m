@@ -7,6 +7,9 @@ classdef Controller < handle
         Mn      % Kalman filter coefficients
         cut_off
         K
+        PID     % Cell with polinomials
+    end
+    properties (Dependent)
         n_samples
     end
     methods
@@ -14,12 +17,22 @@ classdef Controller < handle
             % obj = Controller(digita_system,cut_off,K)
             obj.system = digital_system;
             obj.cut_off = cut_off;
-            obj.n_samples = 2;
+        end
+        function add_pid(con,T,Kp,Ti,Td,N)
+            [num,den] = tfdata(pidstd(Kp,Ti,Td,N,T));
+            con.PID = {num{1},den{1}};
         end
         function uk = loop(con,k,tk,yk)
             con.x(:,k) = con.predict(k,con.x(:,k-1),0,yk);
             if any(abs([con.x(:,k)' yk]) > con.cut_off)
                 uk = -con.K*[con.x(:,k); yk];
+            else 
+                uk = 0;
+            end
+        end
+        function uk = pid_loop(con,k,u,y)
+            if abs(y(k)) > con.cut_off(3)
+                uk = -DSP.real_filter(con.PID{1},con.PID{2},k,y,u);
             else 
                 uk = 0;
             end
@@ -81,6 +94,17 @@ classdef Controller < handle
             else
                 K = controller.K(:,end);
             end
+        end
+        function n = get.n_samples(con)
+            n1 = 0;
+            if ~isempty(con.Mn)
+                n1 = 2;
+            end
+            n2 = 0;
+            if ~isempty(con.PID)
+                n2 = max([length(con.PID{1}),length(con.PID{2})]);
+            end
+            n = max([n1 n2]);
         end
     end
     methods (Static)

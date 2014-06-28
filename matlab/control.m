@@ -31,7 +31,7 @@ con = con.find_Mn(Q,R,tol);
 
 run = Run.control_run(a,total_t,T,0.5,con)
 
-run.store('Viscous/1e3/');
+% run.store('Viscous/1e3/');
 %%
 
 % run.plot(3,[5 3])

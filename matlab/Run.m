@@ -19,12 +19,15 @@ classdef Run
             obj.t_stamp = Run.TimeStamp();
             obj.T = T;
             % Some of the vectors might not be the same length as t
-            ns = Run.expand(t,acc,control.x(1,:)',control.x(2,:)',V);
+            ns = Run.expand(t,acc,V);
             obj.t   = ns{1};
             obj.acc = ns{2};
-            control.x = [ns{3}' ; ns{4}']; 
+            obj.V = ns{3};
+            if ~isempty(control.x)
+                ns = Run.expand(t,control.x(1,:)',control.x(2,:)');
+                control.x = [ns{2}' ; ns{3}']; 
+            end
             obj.control = control;
-            obj.V = ns{5};
         end
         function [signal, name] = signal_index(run,index)
             % Establishes a numbering convention for the stored signals
@@ -162,6 +165,33 @@ classdef Run
             s = @(k,t,g) (Arduino.n_to_g(3,g) < g_max);
             [t_vec,a,u] = Run.loop(a,total_t,T,2,s,f);
         end
+        function run = pid_run(ard,control,total_t,T,g_max)
+            % [t_vec,a,u] = loop(ard,total_t,T,k_init,f_stop,f_u)
+            k = control.n_samples + 1;
+            [t_vec,a,u] = Run.prepare_run(total_t,T);
+            g = a;
+            input('Press enter to start loop');
+            % Start loop
+            Run.sine_wave(ard,8,g_max,T,150,2.962);
+            prev = 0;
+            ard.roundTrip(0,0);
+            tic
+            elapsed_time = toc;
+            while (elapsed_time < total_t)
+                elapsed_time = toc;
+                if Run.sample_time(1e-4,T,prev,elapsed_time)
+                    a(k) = ard.sample;
+                    g(k) = Arduino.n_to_g(3,a(k));
+                    u(k) = control.pid_loop(k,u,g);
+                    ard.piezo_actuate(u(k));
+                    t_vec(k) = elapsed_time;
+                    prev = elapsed_time;
+                    k = k + 1;
+                end
+            end
+            ard.roundTrip(0,0);
+            run = Run(T,t_vec,a,control,u);
+        end
         function [t_vec,a,u] = loop(ard,total_t,T,k_init,f_stop,f_u)
             % [t_vec,a,u] = loop(ard,total_t,T,k_init,f_stop,f_u)
             k = k_init;
@@ -183,16 +213,16 @@ classdef Run
             end
             ard.roundTrip(0,0);
         end
-        function run = control_run(arduino,total_t,T,g_max,control)
+        function run = control_run(ard,total_t,T,g_max,control)
             % Prepare Loop
-            arduino.roundTrip(0,0);
+            ard.roundTrip(0,0);
             control.init(Run.N_from_time(total_t,T));
             s = @(k,t,a) true;
             f = @(k,t,a) control.loop(k,t,Arduino.n_to_g(3,a));
             input('Press enter to start loop');
             % Start loop
-            Run.sine_wave(arduino,8,g_max,T,150,2.962);
-            [t_vec,a,u] = Run.loop(arduino,total_t,T, ...
+            Run.sine_wave(ard,8,g_max,T,150,2.962);
+            [t_vec,a,u] = Run.loop(ard,total_t,T, ...
                                 control.n_samples+1,s,f);
             run = Run(T,t_vec,a,control,u);
         end
