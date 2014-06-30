@@ -1,5 +1,9 @@
 %% First Attempt to Control
 
+KK = 10:10:100;
+
+% for j = 1:length(KK)
+%     for i = 1:5
 clear run
 clear con
 
@@ -17,11 +21,12 @@ cut_off = [1e-4 2e-3 6e-2]; % [x v g]
 con = Controller(ds,cut_off);
 
 %% Gain
+% p = KK(j);
 p = 1e8;
 Q = p*eye(size(ds.A));
 R = 1;
 con.find_Kk(Q,R);
-con.K = -6.25e2*con.K;
+con.K = (-6e2*con.K);
 
 %% Observer
 Qm = 1;
@@ -33,11 +38,11 @@ con = con.find_Mn(Qm,Rm,tol);
 
 run = Run.control_run(a,total_t,T,0.5,con);
 
-% run.store('OptimalStatic/');
+% run.store('OptimalStatic/SecondSweep/');
 %%
 
 % run.plot(3,[5 3])
-DSP.plot_exp(run.T,run.t,run.g)
+% DSP.plot_exp(run.T,run.t,run.g);
 
 %%
 index = 1;
@@ -45,14 +50,17 @@ index = 1;
 % run.plot_cutoff(index,cut_off(index))
 %%
 
-[X,f] = DSP.get_fft(T,run.g);
-f_damped = DSP.damped_f(X,f,1);
-% DSP.plot_spectrum(T,run.g)
-
-format long
-[~,tau] = DSP.fit_exp(run.t,run.g);
-damping = DSP.damping(f_natural,tau)
-rms(run.g)
+% [X,f] = DSP.get_fft(T,run.g);
+% f_damped = DSP.damped_f(X,f,1);
+% % DSP.plot_spectrum(T,run.g)
+% 
+% format long
+% [~,tau] = DSP.fit_exp(run.t,run.g);
+% damping = DSP.damping(f_natural,tau);
+% rms(run.g);
 %r = DSP.nm_rms(run.g)
 
 % DSP.plot_exp(run.T,run.t,run.g)
+
+%     end
+% end

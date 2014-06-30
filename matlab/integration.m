@@ -1,9 +1,23 @@
-%% Integration
-% gf = custom_filter(g);
-% v  = cumtrapz(t,gf);
-% vf = custom_filter(v);
-% x  = cumtrapz(t,vf);
-% xf = custom_filter(x);
+%% Dumb Integration
+space = load('/home/carlos/sketchbook/piezo/matlab/db/Base/2014-06-29 17h13m22s.mat');
+run = space.run;
+
+v = cumtrapz(run.t,run.g);
+x = cumtrapz(run.t,v);
+
+figure
+plot(run.t,9.8*v)
+grid on
+title('Integration of a(t)')
+xlabel('t [sec]')
+ylabel('v [m/s]');
+
+figure
+plot(run.t,9.8*x)
+grid on
+title('Double Integration of a(t)')
+xlabel('t [sec]')
+ylabel('x [m]');
 
 %% Hand Integration for Real Time
 b_order = 5;

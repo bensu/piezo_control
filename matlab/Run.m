@@ -219,7 +219,7 @@ classdef Run
             control.init(Run.N_from_time(total_t,T));
             s = @(k,t,a) true;
             f = @(k,t,a) control.loop(k,t,Arduino.n_to_g(3,a));
-            input('Press enter to start loop');
+%             input('Press enter to start loop');
             % Start loop
             Run.sine_wave(ard,8,g_max,T,150,2.962);
             [t_vec,a,u] = Run.loop(ard,total_t,T, ...
